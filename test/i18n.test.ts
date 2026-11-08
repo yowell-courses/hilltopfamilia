@@ -54,21 +54,10 @@ drawer-find-app-template-or-command = Znajdź aplikację
   // A message the language lacks is said in English.
   expect(t('shell-menu')).toBe('Menu');
   await setLanguage(null);
-  // With no choice the language is Spanish, Hilltop Familia's default (browserLanguage ignores the browser's).
-  expect(t('drawer-find-app-template-or-command')).toBe('Buscar app, plantilla o comando');
-  await setLanguage('en');
   expect(t('drawer-find-app-template-or-command')).toBe('Find app, template, or command');
 });
 
-test('the browser language is Spanish, whatever the browser asks for', () => {
-  register('pt-br', '');
-  expect(languages()).toContain('pt-br');
-  for (const asked of [['pt-BR', 'en'], ['en'], ['pt-PT'], ['PL-pl'], ['xx'], []]) expect(browserLanguage(asked)).toBe('es');
-});
-
-// browserLanguage ignores the browser's languages (Hilltop Familia opens in Spanish), so the matching these two tests
-// check, a tag to the nearest language present, is not reached; they stand for when it is.
-test.skip('the browser language is matched to what is present', () => {
+test('the browser language is matched to what is present', () => {
   register('pt-br', '');
   expect(languages()).toContain('pt-br');
   expect(browserLanguage(['pt-BR', 'en'])).toBe('pt-br');
@@ -79,7 +68,7 @@ test.skip('the browser language is matched to what is present', () => {
   expect(browserLanguage([])).toBe('en');
 });
 
-test.skip('the browser language of the second nine and Hebrew and Yiddish: each code itself, a Chinese tag by its script', () => {
+test('the browser language of the second nine and Hebrew and Yiddish: each code itself, a Chinese tag by its script', () => {
   for (const code of ['ru', 'uk', 'pl', 'bn', 'hi', 'ur', 'ht', 'ko', 'he', 'yi', 'zh-hant', 'zh-hans']) register(code, '');
   for (const code of ['ru', 'uk', 'pl', 'bn', 'hi', 'ur', 'ht', 'ko', 'he', 'yi']) {
     expect(browserLanguage([code]), code).toBe(code);

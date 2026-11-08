@@ -31,7 +31,7 @@ export default {
     if (new URL(req.url).pathname === '/api/draft') {
       if (env.DRAFT_LIMIT && req.method === 'POST') {
         const { success } = await env.DRAFT_LIMIT.limit({ key: req.headers.get('cf-connecting-ip') ?? 'unknown' });
-        if (!success) return Response.json({ error: 'Demasiadas solicitudes. Espera un minuto e inténtalo de nuevo.' }, { status: 429 });
+        if (!success) return Response.json({ error: 'Too many requests. Please wait a minute and try again.' }, { status: 429 });
       }
       return handleDraft(req, { ai: env.AI, geminiKey: env.GEMINI_API_KEY, model: env.DRAFT_MODEL });
     }

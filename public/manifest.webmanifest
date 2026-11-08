@@ -1,7 +1,7 @@
 {
   "id": "/",
   "name": "Hilltop Familia",
-  "lang": "es",
+  "lang": "en",
   "short_name": "Familia",
   "description": "A tiny office suite where the link is the document.",
   "start_url": "./",

@@ -100,11 +100,8 @@ test('the README says the truth about saving, and the page says it too', () => {
   for (const s of ['By default nothing is kept, on your device or anywhere else', 'on your own device, never on a server', 'encrypted with a key the server never sees'])
     expect(readme, s).toContain(s);
   // The page's description.
-  // The page's description is Spanish in Hilltop Familia: the guide lives in the link, no accounts, no tracking; nothing is uploaded.
-  const page = read('index.html');
-  expect(page).toContain('<meta name="description" content="Guías claras en español para las familias de Austin. Sin cuentas ni rastreo: la guía vive en el enlace." />');
-  expect(page).toContain('el enlace es el documento. Sin cuentas ni rastreo.');
-  expect(page).not.toMatch(/sube|subimos|guardamos en (nuestro )?servidor/i);
+  const tagline = 'A tiny office suite where the link is the document. No accounts. Nothing is saved anywhere unless you choose to keep it on this device.';
+  expect(read('index.html')).toContain(tagline);
 });
 
 test('nothing a reader meets points at the record as if it were current', () => {

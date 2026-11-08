@@ -183,7 +183,7 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
   if (req.method !== 'POST') return json({ error: 'POST only' }, 405);
   const origin = req.headers.get('origin');
   if (origin && origin !== url.origin) return json({ error: 'forbidden' }, 403);
-  if (!ai && !geminiKey) return json({ error: 'El asistente no está configurado.' }, 503);
+  if (!ai && !geminiKey) return json({ error: 'The AI assistant is not configured.' }, 503);
   let body: Partial<DraftRequest>;
   try {
     body = (await req.json()) as Partial<DraftRequest>;
@@ -193,8 +193,8 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
   const article = typeof body.article === 'string' ? body.article.trim() : '';
   const kind = body.kind === 'script' || body.kind === 'resources' ? body.kind : null;
   const format = body.format === 'faq' || body.format === 'evento' || body.format === 'problema' ? body.format : 'auto';
-  if (!kind || article.length < 80) return json({ error: 'Pega el artículo completo (al menos unas frases).' }, 400);
-  if (article.length > MAX_ARTICLE) return json({ error: `El artículo es muy largo (máximo ${MAX_ARTICLE} caracteres).` }, 413);
+  if (!kind || article.length < 80) return json({ error: 'Please paste the full article (at least a few sentences).' }, 400);
+  if (article.length > MAX_ARTICLE) return json({ error: `The article is too long (maximum ${MAX_ARTICLE} characters).` }, 413);
   const request: DraftRequest = { kind, format, article };
   const { system, user } = prompt(request);
   for (let attempt = 0; attempt < 2; attempt++) {
@@ -214,14 +214,14 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
           ).response ?? '');
     } catch (e) {
       console.error('draft model error', String(e));
-      return json({ error: 'El asistente no respondió. Inténtalo de nuevo o escribe a mano.' }, 502);
+      return json({ error: 'The AI assistant did not respond. Please try again or use a blank template.' }, 502);
     }
     const draft = build(request, text);
     if (draft) return json(draft);
   }
   return json(
     {
-      error: 'El borrador no salió bien. Inténtalo de nuevo o escribe a mano.',
+      error: 'Could not format the draft. Please try again or use a blank template.',
     },
     502,
   );
