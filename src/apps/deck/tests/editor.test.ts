@@ -185,10 +185,6 @@ test('presenting shows the slide large, reveals a line a click, and Escape comes
   window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
   await el.updateComplete;
   expect(el.querySelector('.deck-show .pos')!.textContent).toBe('2 / 7');
-  // The agenda has three lines: shown one at a time.
-  expect(el.querySelector('.deck-show .frame svg')!.innerHTML).not.toContain('Why a six-page site');
-  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-  await el.updateComplete;
   expect(el.querySelector('.deck-show .frame svg')!.innerHTML).toContain('Why a six-page site');
   expect(el.querySelector('.deck-show .notes')!.textContent).toContain('Twenty minutes');
   window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));

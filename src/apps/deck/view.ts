@@ -399,8 +399,15 @@ function subSteps(doc: Doc, s: Slide): number {
   return lookup.appOf(b.lang)?.steps?.(b.body) ?? 0;
 }
 
-/** What a slide reveals, a click at a time: its lines of words; a slide that shows a document, that document's steps (given `doc`). */
-export const slideSteps = (s: Slide, doc?: Doc): number => (s.sub >= 0 ? (doc ? subSteps(doc, s) : 0) : s.layout === 't' ? 0 : s.items.length + (s.layout === '2' ? s.right.length : 0));
+/** What a slide reveals, a click at a time: its bullet lines; a prose slide or title slide is shown whole at once; a slide that shows a document, that document's steps (given `doc`). */
+export const slideSteps = (s: Slide, doc?: Doc): number =>
+  s.sub >= 0
+    ? doc
+      ? subSteps(doc, s)
+      : 0
+    : s.layout === 't' || [...s.items, ...(s.layout === '2' ? s.right : [])].every((it) => it.para)
+      ? 0
+      : s.items.length + (s.layout === '2' ? s.right.length : 0);
 
 const iconAt = (name: string, b: Box, color: string) => glyphNamed(name, b.x, b.y, b.w, color);
 

@@ -190,9 +190,10 @@ test('a slide is laid out so everything fits: type shrinks as words grow; footno
   const svg = slidePage({ head: {}, blocks: [] }, noted[1], look).svg;
   expect(svg).toContain('>1</tspan>');
   expect(svg).toContain('third');
-  // Reveals: a line a click; none on a title slide or one given to a document.
+  // Reveals: a line a click for bullets; none on a title slide, a prose slide, or one given to a document.
   expect(slideSteps(long)).toBe(14);
   expect(slideSteps(slidesOf(parse('## T {.title}\n\n- sub\n'))[0])).toBe(0);
+  expect(slideSteps(slidesOf(parse('## 1 · The Problem (0:00–0:15)\n\nProse script block.\n'))[0])).toBe(0);
   // Only the revealed lines are drawn.
   expect(slidePage({ head: {}, blocks: [] }, long, look, 2).svg.match(/line \d+/g)).toHaveLength(2);
   // Wrapping keeps marks, breaks a long address.
