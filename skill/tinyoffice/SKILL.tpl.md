@@ -6,7 +6,7 @@ license: MIT
 
 # Tiny Little Office links
 
-Tiny Little Office (https://tinylittleoffice.com) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
+Tiny Little Office (https://hilltopfamilia.org) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
 
 Every document is one text in one format, TLO: Markdown with a few additions. If you can write Markdown you can write any app below; each app's section says which shapes it reads, with one of its own templates as the example.
 
@@ -15,7 +15,7 @@ Every document is one text in one format, TLO: Markdown with a few additions. If
 ## The URL
 
 ```
-https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
+https://hilltopfamilia.org/<app>/#title=<title>&doc=<document>
 ```
 
 - `<app>` is one of the apps below (the table's first column).
@@ -23,7 +23,7 @@ https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
 - `title` (optional) is the document's name. `by` (optional) is who made it: your name as an agent, say. It is a claim, in your own word (below).
 - `view` (optional) opens the document another way: `pdf`, `png`, `html`, `md` or `tlo` download it as it opens, as do an app's own formats (listed under each app); `embed` is the pages alone, for a frame; on a deck, `show` opens it presenting.
 - `md=` may stand for `doc=`: it is the same text (TLO is Markdown). With no app in the path or the head, `md=` opens a text in the Word Processor.
-- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://tinylittleoffice.com/#doc=...`).
+- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://hilltopfamilia.org/#doc=...`).
 
 Put the parameters after `#`, exactly as shown, never after `?`. On opening, the link is rewritten into its packed form, `#/v1/<app>/<payload>`, which is what the person shares onward. Give them the link you wrote; they need not know its format.
 
@@ -37,7 +37,7 @@ There is no shared document. Whoever opens a link gets their own copy: what they
 
 ## A document inside a document
 
-Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the ten app ids (```` ```sheet ````, ```` ```calc ````, ```` ```anim ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
+Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the five app ids (```` ```sheet ````, ```` ```cal ````, ```` ```outline ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
 
 Two slides, a cover and then the Moon going around the Earth, an animation on its slide: {{embed}}
 
@@ -203,13 +203,13 @@ Every document downloads as a `.pdf` (its pages as pictures; Print in the browse
 
 The API below is this site's. Make a short link at the shortener of the site the link opens on, `tinier.<the site's host>`: the shortener opens only links to its own site. An agent on a development machine running its own copy of the site uses that site's `/tinier/` (the shortener started with `SITE` set to the site's address, `npm run tinier:dev`), and the link it makes opens there; production's shortener accepts only links to production.
 
-A long link can be shortened at tinier.tinylittleoffice.com for an hour, a day, a week or a month. The link is encrypted where it is made (AES-256-GCM, a random key); only the ciphertext goes to the service, and the key travels in the short link's fragment, which browsers never send. A program can do the same:
+A long link can be shortened at tinier.hilltopfamilia.org for an hour, a day, a week or a month. The link is encrypted where it is made (AES-256-GCM, a random key); only the ciphertext goes to the service, and the key travels in the short link's fragment, which browsers never send. A program can do the same:
 
 ```
-POST https://tinier.tinylittleoffice.com/api   {c, iv, ttl}   → 201 {id, exp}
+POST https://tinier.hilltopfamilia.org/api   {c, iv, ttl}   → 201 {id, exp}
 ```
 
-`c` and `iv` are the AES-GCM ciphertext of the long link and its 12-byte IV, base64url; `ttl` is 3600, 86400, 604800 or 2592000 seconds (a month at most). The short link is `https://tinier.tinylittleoffice.com/<id>#<key>` (the key as base64url). A short link cannot be changed or recalled once made; it expires on its own, so make a new one for a new version. The ciphertext may be 16 KiB at most (a link of at most 12,272 characters; `measure` says whether yours fits, `short: {fits, over}`, `over` the characters to cut), and one address may make a hundred links a day (the 101st is 429, with `Retry-After`).
+`c` and `iv` are the AES-GCM ciphertext of the long link and its 12-byte IV, base64url; `ttl` is 3600, 86400, 604800 or 2592000 seconds (a month at most). The short link is `https://tinier.hilltopfamilia.org/<id>#<key>` (the key as base64url). A short link cannot be changed or recalled once made; it expires on its own, so make a new one for a new version. The ciphertext may be 16 KiB at most (a link of at most 12,272 characters; `measure` says whether yours fits, `short: {fits, over}`, `over` the characters to cut), and one address may make a hundred links a day (the 101st is 429, with `Retry-After`).
 
 ## Who made it
 
@@ -220,7 +220,7 @@ The head may carry `created` (when the document was first written, to the minute
 The site serves its own API as a module, for programs and agents; in a browser, Deno or Bun it imports as it is:
 
 ```js
-import { link, plain, read, text, compare, apps, templates } from 'https://tinylittleoffice.com/api.js';
+import { link, plain, read, text, compare, apps, templates } from 'https://hilltopfamilia.org/api.js';
 const url = link('sheet', 'Item | Cost:money\n--- | ---\nRent | 1200\n', { title: 'Budget', by: 'planner-agent' });
 read(url).text;                 // the document's TLO text, its title and by in the head
 await text(url);                // what the document says, as Markdown: what a screen reader reads on its Display Link
@@ -235,11 +235,11 @@ It is the same document, nothing added or renamed, to the JSON Schema at https:/
 
 Node does not import a module from a URL: in Node, use the command line, `npx tinylittleoffice` (the npm package `tinylittleoffice`, one file and no dependencies): `link`, `read` (`read --text` for what it says, as Markdown), `file`, `diff`, `lint`, `measure`, `apps`, `templates`.
 
-To learn a shape by example rather than from these pages: `npx tinylittleoffice shapes deck` lists what a deck reads, a line a shape; `npx tinylittleoffice example deck two` prints the smallest document that shows it, its JSON (the kernel's document), and what `lint` and `measure` say of it (with no shape, every one of the app's); `npx tinylittleoffice try deck draft.tlo` (or `-` for stdin) is the loop in one call: the lint, the measures and the JSON of a draft. The API has the same three: `await shapes(app)`, `await example(app, shape)`, `await tryDraft(app, text)`. An agent that can only fetch reads the examples as files: `https://tinylittleoffice.com/examples/<app>.json` (every shape of the app, its text, its plain link and its JSON), and `https://tinylittleoffice.com/llms/<app>.txt`, a page on one app.
+To learn a shape by example rather than from these pages: `npx tinylittleoffice shapes deck` lists what a deck reads, a line a shape; `npx tinylittleoffice example deck two` prints the smallest document that shows it, its JSON (the kernel's document), and what `lint` and `measure` say of it (with no shape, every one of the app's); `npx tinylittleoffice try deck draft.tlo` (or `-` for stdin) is the loop in one call: the lint, the measures and the JSON of a draft. The API has the same three: `await shapes(app)`, `await example(app, shape)`, `await tryDraft(app, text)`. An agent that can only fetch reads the examples as files: `https://hilltopfamilia.org/examples/<app>.json` (every shape of the app, its text, its plain link and its JSON), and `https://hilltopfamilia.org/llms/<app>.txt`, a page on one app.
 
 The words of a document may be in any language or script, right to left too (the kit sets the direction by the words): write for the reader. A link opens in its reader's browser's language; `link(app, text, { lang: 'ht' })` (or `--lang ht`) makes one that opens in Haitian Creole, or any language the site has (`es`, `pt-br`, `zh-hant`, `he`, `yi`, …), whatever the reader's browser says.
 
-A page of your own can import `https://tinylittleoffice.com/tinyoffice.js` instead: `link({ app, doc, title })` writes the plain link and `embed({ app, doc, title })` the `<iframe>` that shows the document's pages. In the API, `encode`/`decode` are the codec, `parse`/`write` the kernel (the document as a head and blocks, and back), `tlo`/`fromTlo` a `.tlo` file's text, `file(app, text, ext)` a file of the app's own formats that needs no browser.
+A page of your own can import `https://hilltopfamilia.org/tinyoffice.js` instead: `link({ app, doc, title })` writes the plain link and `embed({ app, doc, title })` the `<iframe>` that shows the document's pages. In the API, `encode`/`decode` are the codec, `parse`/`write` the kernel (the document as a head and blocks, and back), `tlo`/`fromTlo` a `.tlo` file's text, `file(app, text, ext)` a file of the app's own formats that needs no browser.
 
 ## The skill
 

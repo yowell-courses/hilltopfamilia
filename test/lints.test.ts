@@ -99,7 +99,11 @@ describe('the kit in its six folders (docs/kernel.md §11): nothing at its root,
   test('src/ and what reads it (test, scripts, packages, e2e, dev) have none, and the kit holds the six folders and nothing beside them', () => {
     const readers = ['test', 'scripts', 'packages', 'e2e', 'dev'].flatMap((d) => modules(ROOT, d)).filter((m) => !m.path.startsWith('test/fixtures/'));
     expect(kitProblems([...tree, ...readers])).toStrictEqual([]);
-    expect(readdirSync(join(ROOT, 'src/kit')).sort()).toStrictEqual([...KIT_FOLDERS].sort());
+    expect(
+      readdirSync(join(ROOT, 'src/kit'))
+        .filter((f) => f !== '.DS_Store')
+        .sort(),
+    ).toStrictEqual([...KIT_FOLDERS].sort());
   });
 });
 
@@ -315,8 +319,17 @@ const STALE_OK: Record<string, string> = {
  * .gitignore keeps out is read, such as dependencies, builds and the Worker's types that `wrangler types` writes.
  */
 const RECORDS = /^(docs\/history|docs\/directives)\/|^CHANGELOG\.md$/;
-const textFiles = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: ROOT, encoding: 'utf8' })
-  .split('\0')
+// With no git here (a copy of the tree without its .git), the tree itself, but for what .gitignore would keep out.
+const listed = (): string[] => {
+  try {
+    return execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\0');
+  } catch {
+    return (readdirSync(ROOT, { recursive: true }) as string[])
+      .map((f) => f.replaceAll('\\', '/'))
+      .filter((f) => !/(^|\/)(node_modules|dist|coverage|test-results|playwright-report)\//.test(f) && !/(^|\/)\.(?!github\/)[^/]+(\/|$)/.test(f));
+  }
+};
+const textFiles = listed()
   .filter((f) => f && !RECORDS.test(f) && existsSync(join(ROOT, f)))
   .filter((f) => /\.(ts|js|mjs|json|jsonc|md|html|css|txt|tlo|ftl|sh|yml|yaml|svg|webmanifest)$|(^|\/)_headers$/.test(f))
   .sort();
@@ -400,8 +413,10 @@ describe('the build’s budgets and shape: the built site within budgets.json, i
   });
   test('the fixture’s shape is wrong in every way the check knows, each said', () => {
     expect(lazyImports('a.import({ ln }); import(`./lang-fr-AAAAAAAA.js`); import(name)')).toStrictEqual(['lang-fr-AAAAAAAA.js', '?']);
-    expect(shapeOf(built, { apps: ['write', 'sheet'], langs: ['fr'] })).toStrictEqual([
+    // The map is the Trip Planner's: wanted of a build that has it among its apps.
+    expect(shapeOf(built, { apps: ['write', 'sheet', 'trip'], langs: ['fr'] })).toStrictEqual([
       'assets/ holds 0 files for sheet’s templates, not one',
+      'assets/ holds 0 files for trip’s templates, not one',
       'assets/ holds 0 files for the map, not one',
       'assets/ holds 0 files for the map’s worker, not one',
       'assets/write-editor-AAAAAAAA.js: a file the design does not have (one app file, one stylesheet, the templates, the languages, the map and its worker)',

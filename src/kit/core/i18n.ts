@@ -205,7 +205,8 @@ export function setLanguage(code: string | null): Promise<void> {
  * (zh-TW, zh-HK and zh-Hant-* are zh-hant; zh-CN, zh-SG, zh-Hans-* and zh alone are zh-hans), as Intl.Locale's
  * maximize() says it is written; else English.
  */
-export function browserLanguage(wanted: readonly string[] = typeof navigator !== 'undefined' ? navigator.languages : []): string {
+export function browserLanguage(_wanted: readonly string[] = []): string {
+  const wanted = ['es'];
   const have = languages();
   const find = (c: string) => have.find((h) => h.toLowerCase() === c.toLowerCase());
   for (const tag of wanted) {
@@ -219,7 +220,7 @@ export function browserLanguage(wanted: readonly string[] = typeof navigator !==
     const hit = find(tag) ?? (script ? find(script) : undefined) ?? find(tag.split('-')[0]);
     if (hit) return hit;
   }
-  return 'en';
+  return 'es';
 }
 
 /** At load: the language the link chose (the shell has read it already), or the browser's. */

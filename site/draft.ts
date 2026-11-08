@@ -1,0 +1,228 @@
+/**
+ * The optional AI drafting assistant behind /studio: POST /api/draft takes a student's own finished article and gives
+ * back a first Spanish draft, never a publication. Two kinds:
+ *
+ *   script     a 4-block script as a Deck (one block a swipeable card), with [VERIFICAR: …] around every date, number
+ *              and phone number, for the student to check and say in their own voice
+ *   resources  the family resource sheet as a Write document: a 3-point summary, links and contacts, a bilingual
+ *              glossary and a checklist
+ *
+ * The article is sent to the model and kept nowhere: nothing is stored or logged (wrangler.jsonc: observability is
+ * off). The model writes only the content of each block, split by a line of "==="; the documents' shape is made
+ * here, so a model's slip cannot break a document.
+ */
+
+export type Kind = 'script' | 'resources';
+export type Format = 'problema' | 'faq' | 'evento';
+
+export interface DraftRequest {
+  kind: Kind;
+  format: Format | 'auto';
+  article: string;
+}
+
+export interface Draft {
+  app: 'deck' | 'write';
+  title: string;
+  doc: string;
+}
+
+export const MAX_ARTICLE = 12000;
+export const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+
+const FORMATS: Record<Format, { name: string; blocks: [string, string][] }> = {
+  problema: {
+    name: 'Problema / Solución',
+    blocks: [
+      ['1 · El problema (0:00–0:15)', 'what is happening, in one clear sentence that a parent would recognize'],
+      ['2 · Por qué importa (0:15–0:30)', 'why it matters to a student and their family (money, time, status)'],
+      ['3 · La solución y sus límites (0:30–0:50)', 'what to do about it, concretely'],
+      ['4 · Siguiente paso (0:50–1:05)', 'the one next step, with the deadline or the office to contact'],
+    ],
+  },
+  faq: {
+    name: 'Preguntas frecuentes',
+    blocks: [
+      ['1 · La pregunta (0:00–0:15)', 'the question families ask, in their own words'],
+      ['2 · La respuesta corta (0:15–0:30)', 'the short, direct answer'],
+      ['3 · Lo que hay que saber y sus límites (0:30–0:50)', 'the key detail: a date, an amount or a rule'],
+      ['4 · Dónde pedir ayuda (0:50–1:05)', 'which office to ask, and how'],
+    ],
+  },
+  evento: {
+    name: 'Evento / Comunidad',
+    blocks: [
+      ['1 · Qué es (0:00–0:15)', 'what the event or community resource is'],
+      ['2 · Cuándo y dónde (0:15–0:30)', 'the date, time and place'],
+      ['3 · Por qué ir y cuánto cuesta (0:30–0:50)', 'why it is worth a family’s time, and what it costs'],
+      ['4 · Cómo participar (0:50–1:05)', 'how to take part or sign up'],
+    ],
+  },
+};
+
+const RULES = `You help a student journalist at a university in Austin, Texas. Write natural, warm, plain Latin American Spanish for Spanish-speaking parents of students. Use only facts in the student's article: never invent a fact, a number, a date, a phone number or a link. Put every date, amount, number, phone number and deadline inside [VERIFICAR: …] so the student confirms it, for example [VERIFICAR: 15 de marzo]. Keep English proper names (office names, program names) as they are, adding a short Spanish explanation where it helps. Always state honest limits or caveats of what the article reports (what is not covered, who is not eligible, what is uncertain). The student will say this on camera in their own voice, so write the way people talk.`;
+
+export function prompt({ kind, format, article }: DraftRequest): {
+  system: string;
+  user: string;
+} {
+  if (kind === 'resources')
+    return {
+      system: RULES,
+      user: `On the first line write TITULO: followed by a short Spanish topic title. Then from the article below, write a family resource sheet in Spanish. Write exactly four sections, in this order, separated by a line holding only ===. No headings, no other text.
+Section 1: exactly three short bullet points ("- ") with the core facts, deadlines or eligibility rules.
+Section 2: bullet points ("- ") of the campus offices and contacts named in the article: name, phone or web link if the article gives one, and whether Spanish-speaking staff are available if the article says. If the article names none, write one bullet: - [VERIFICAR: oficina y contacto].
+Section 3: 3 or 4 bullets ("- ") of English university terms from the article, as "English term — plain Spanish definition".
+Section 4: 3 to 5 short checklist items ("- ") of things a parent can do with their student.
+
+ARTICLE:
+${article}`,
+    };
+  const pick = format === 'auto' ? 'On the first line write FORMATO: followed by problema, faq or evento, whichever fits the article best. Then ' : '';
+  const shape = format === 'auto' ? 'the chosen format' : FORMATS[format].name;
+  const blocks = (format === 'auto' ? FORMATS.problema : FORMATS[format]).blocks.map(([n, hint], i) => `Block ${i + 1} (${n}): ${hint}`).join('\n');
+  return {
+    system: RULES,
+    user: `${pick}On the next line write TITULO: followed by a short Spanish title. Then write a 60-second video script in the ${shape} format: exactly four blocks of about 35 words each (130 to 150 words in all), separated by a line holding only ===. Only the words to speak, no labels or headings.
+${format === 'auto' ? 'Problema: problem, why it matters, solution, next step. FAQ: question, short answer, key detail, where to get help. Evento: what, when and where, why go, how to take part.' : blocks}
+
+ARTICLE:
+${article}`,
+  };
+}
+
+const clean = (s: string) => s.replace(/^\s*[-*•]\s*/gm, (m) => m.replace(/[*•]/, '-')).trim();
+
+/** The model's words as the documents' text; null when it did not give the four blocks asked for. */
+export function build(req: DraftRequest, raw: string): Draft | null {
+  let text = raw.trim();
+  const title =
+    /^\s*TITULO:\s*(.+)$/im
+      .exec(text)?.[1]
+      ?.trim()
+      .replace(/^["“]|["”]$/g, '') ?? '';
+  let format = req.format;
+  if (format === 'auto') {
+    const f = /^\s*FORMATO:\s*(problema|faq|evento)/im.exec(text)?.[1]?.toLowerCase() as Format | undefined;
+    format = f ?? 'problema';
+  }
+  text = text.replace(/^\s*(TITULO|FORMATO):.*$/gim, '').trim();
+  const parts = text
+    .split(/^\s*={3,}\s*$/m)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  if (parts.length !== 4) return null;
+  if (req.kind === 'script') {
+    const { blocks } = FORMATS[format as Format];
+    const slides = parts.map((p, i) => `## ${blocks[i][0]}\n\n${p.replace(/\n{2,}/g, '\n\n')}`);
+    return {
+      app: 'deck',
+      title: title || 'Guion de video',
+      doc: slides.join('\n\n---\n\n') + '\n',
+    };
+  }
+  const [summary, contacts, glossary, checks] = parts.map(clean);
+  const items = checks
+    .split('\n')
+    .map((l) => l.replace(/^-\s*(\[[ x]\]\s*)?/, '').trim())
+    .filter(Boolean)
+    .map((l) => `- [ ] ${l}`)
+    .join('\n');
+  const doc = `> 🔒 **Guía privada para familias:** esta guía vive dentro del enlace. No necesitas crear cuenta y nadie rastrea lo que marcas o escribes aquí.\n\n## 📌 Resumen en 3 puntos\n\n${summary}\n\n## 🔗 Enlaces y contactos directos\n\n${contacts}\n\n## 🗣️ Glosario bilingüe (para hablar con su estudiante)\n\n${glossary}\n\n## ✅ Lista de pasos para conversar hoy en casa\n\n${items}\n`;
+  return {
+    app: 'write',
+    title: title ? `Guía: ${title}` : 'Guía familiar',
+    doc,
+  };
+}
+
+export interface Ai {
+  run(
+    model: string,
+    input: {
+      messages: { role: string; content: string }[];
+      max_tokens: number;
+      temperature: number;
+    },
+  ): Promise<{ response?: string }>;
+}
+
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      'cache-control': 'no-store',
+    },
+  });
+
+export const GEMINI_MODEL = 'gemini-2.5-flash';
+
+export interface Models {
+  /** Workers AI (wrangler.jsonc "ai"): no key to keep. */
+  ai?: Ai;
+  /** A Google AI Studio key (`wrangler secret put GEMINI_API_KEY`): when set, Gemini drafts instead of Workers AI. */
+  geminiKey?: string;
+  model?: string;
+  fetch?: typeof fetch;
+}
+
+async function gemini(key: string, system: string, user: string, call: typeof fetch): Promise<string> {
+  const res = await call(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
+    body: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: [{ role: 'user', parts: [{ text: user }] }], generationConfig: { temperature: 0.4, maxOutputTokens: 2000 } }),
+  });
+  if (!res.ok) throw new Error(`gemini ${res.status} ${(await res.text()).slice(0, 200)}`);
+  const out = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+  return out.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
+}
+
+export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, fetch: call = fetch }: Models): Promise<Response> {
+  const url = new URL(req.url);
+  if (req.method !== 'POST') return json({ error: 'POST only' }, 405);
+  const origin = req.headers.get('origin');
+  if (origin && origin !== url.origin) return json({ error: 'forbidden' }, 403);
+  if (!ai && !geminiKey) return json({ error: 'El asistente no está configurado.' }, 503);
+  let body: Partial<DraftRequest>;
+  try {
+    body = (await req.json()) as Partial<DraftRequest>;
+  } catch {
+    return json({ error: 'bad request' }, 400);
+  }
+  const article = typeof body.article === 'string' ? body.article.trim() : '';
+  const kind = body.kind === 'script' || body.kind === 'resources' ? body.kind : null;
+  const format = body.format === 'faq' || body.format === 'evento' || body.format === 'problema' ? body.format : 'auto';
+  if (!kind || article.length < 80) return json({ error: 'Pega el artículo completo (al menos unas frases).' }, 400);
+  if (article.length > MAX_ARTICLE) return json({ error: `El artículo es muy largo (máximo ${MAX_ARTICLE} caracteres).` }, 413);
+  const request: DraftRequest = { kind, format, article };
+  const { system, user } = prompt(request);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    let text = '';
+    try {
+      text = geminiKey
+        ? await gemini(geminiKey, system, user, call)
+        : ((
+            await ai!.run(model, {
+              messages: [
+                { role: 'system', content: system },
+                { role: 'user', content: user },
+              ],
+              max_tokens: 1400,
+              temperature: 0.4,
+            })
+          ).response ?? '');
+    } catch (e) {
+      console.error('draft model error', String(e));
+      return json({ error: 'El asistente no respondió. Inténtalo de nuevo o escribe a mano.' }, 502);
+    }
+    const draft = build(request, text);
+    if (draft) return json(draft);
+  }
+  return json(
+    {
+      error: 'El borrador no salió bien. Inténtalo de nuevo o escribe a mano.',
+    },
+    502,
+  );
+}

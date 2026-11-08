@@ -11,7 +11,7 @@
 // before, with ?c= on the app's page, opens as built (the shell reads the hash) and previews as the app's card.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "tinylittleoffice",
+  "name": "hilltopfamilia",
   "main": "site/worker.ts",
   "compatibility_date": "2026-10-08",
   "assets": {
@@ -20,14 +20,18 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
     // The cards alone (test/cards.test.ts holds it): an app's page is never the Worker's.
-    "run_worker_first": ["/c/*", "/card", "/card/*"],
+    "run_worker_first": ["/c/*", "/card", "/card/*", "/api/draft"],
   },
+  // The optional drafting assistant of /studio (site/draft.ts): Workers AI, no key to keep. Nothing is stored.
+  "ai": { "binding": "AI" },
+  // /api/draft: ten drafts a minute from one address (counted at the edge, nothing stored).
+  "ratelimits": [{ "name": "DRAFT_LIMIT", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }],
   // The cards are kept in the shortener's database (tinier/wrangler.jsonc, tinier/migrations/), whose sweep forgets them.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "tinier",
-      "database_id": "6ede155f-083c-4ab9-a33e-64eea0704bb5",
+      "database_id": "a41212a0-ba9c-4384-9d17-29b682f28d87",
       "migrations_dir": "tinier/migrations",
     },
   ],
@@ -36,8 +40,8 @@
   // Only on its own domain: no workers.dev copy once this is live.
   "workers_dev": false,
   "routes": [
-    { "pattern": "tinylittleoffice.com", "custom_domain": true },
-    { "pattern": "www.tinylittleoffice.com", "custom_domain": true },
+    { "pattern": "hilltopfamilia.org", "custom_domain": true },
+    { "pattern": "www.hilltopfamilia.org", "custom_domain": true },
   ],
   // The site keeps no record of who asked for what; see "What it is not" in the README.
   "observability": { "enabled": false },

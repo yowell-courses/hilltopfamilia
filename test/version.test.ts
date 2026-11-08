@@ -1,5 +1,6 @@
 // /version.json (docs/threat-model.md, "Checking it yourself"): its shape, written from git and the policy's hashes, never the clock.
 import { test, expect } from 'vitest';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gitFacts, versionJson, versionOf } from '../scripts/version.ts';
 import { commitUrl, isVersion, repoUrl } from '../src/kit/core/version.ts';
@@ -20,7 +21,8 @@ test('anything else is not a version', () => {
   for (const bad of [null, 1, 'x', {}, { commit: 'a', tag: '', built: '' }, { commit: 'a', tag: '', built: '', csp: { scripts: [1] } }]) expect(isVersion(bad)).toBe(false);
 });
 
-test('the facts come from the checkout: the full commit and the commit’s own date in UTC, the same each time', () => {
+// A checkout is what these facts come from: with no .git here there are none to read.
+test.skipIf(!existsSync(join(root, '.git')))('the facts come from the checkout: the full commit and the commit’s own date in UTC, the same each time', () => {
   const f = gitFacts(root);
   expect(f.commit).toMatch(/^[0-9a-f]{40}$/);
   expect(f.built).toMatch(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/);

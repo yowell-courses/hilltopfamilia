@@ -14,7 +14,7 @@ test('the skill names every app, teaches the plain link, and leaves no placehold
   expect(skill).toMatch(/\nlicense: MIT\n---\n/);
   for (const a of apps()) expect(skill).toContain(`| \`${a.id}\` | ${a.name} |`);
   expect(skill).toContain('#title=<title>&doc=<document>');
-  expect(skill).toContain('https://tinylittleoffice.com/sheet/#doc=');
+  expect(skill).toContain('https://hilltopfamilia.org/sheet/#doc=');
   expect(skill).not.toMatch(/\{\{[a-z]/);
   expect(makeLlms(skill).startsWith('# Tiny Little Office links')).toBe(true);
 });
@@ -51,7 +51,7 @@ test('the skill is a folder: a short SKILL.md that names a reference an app, one
     expect(skill).toContain(`[${a.id}](references/${a.id}.md)`);
     const ref = folder[`references/${a.id}.md`];
     expect(ref, a.id).toMatch(new RegExp(`^# ${a.id}: `));
-    expect(ref, a.id).toContain(`https://tinylittleoffice.com/${a.id}/#doc=`);
+    expect(ref, a.id).toContain(`https://hilltopfamilia.org/${a.id}/#doc=`);
     expect(skill).not.toContain(`\n### ${a.id}: `);
   }
   expect(skill).toContain('[references/api.md](references/api.md)');

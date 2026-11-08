@@ -4,6 +4,7 @@
 import { test, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { apps } from '../src/kit/core/apps.ts';
+import anim from '../src/apps/anim/def.ts';
 import { formatsOf, formatsReady, htmlOf } from '../src/kit/file/exports.ts';
 import type { AppDef, Export } from '../src/kit/core/app.ts';
 import { looksLike } from './formats-bytes.ts';
@@ -56,7 +57,7 @@ test("every format that needs no browser builds, for every app's blank document,
       built++;
     }
   }
-  expect(built).toBeGreaterThan(40);
+  expect(built).toBeGreaterThan(25);
 });
 
 test('a web page made of a document begins with its text layer, the pages after it hidden from a screen reader', async () => {
@@ -75,7 +76,8 @@ test('a web page made of a document begins with its text layer, the pages after 
 });
 
 test('the Animator and the Deck have a WebM after the GIF; a format is listed once its check says this browser can make it, and asked once', async () => {
-  const exts = (id: string) => (apps().find((a) => a.id === id)!.exports ?? []).map((f) => [f.ext, f.label(), !!f.available]);
+  // The Animator is out of the registry (Hilltop Familia's five apps); its definition is used directly.
+  const exts = (id: string) => ((id === 'anim' ? anim : apps().find((a) => a.id === id)!).exports ?? []).map((f) => [f.ext, f.label(), !!f.available]);
   expect(exts('anim')).toEqual([
     ['gif', 'Animated GIF', false],
     ['webm', 'Video (WebM)', true],
@@ -96,7 +98,7 @@ test('the Animator and the Deck have a WebM after the GIF; a format is listed on
   expect(listed).toContain('yes');
   expect(listed).not.toContain('no');
   // Under node there is no video encoder: no WebM, however long one waits.
-  const anim = apps().find((a) => a.id === 'anim')!;
-  await formatsReady(anim);
-  expect(formatsOf(anim).map((f) => f.ext)).not.toContain('webm');
+  const animator = anim;
+  await formatsReady(animator);
+  expect(formatsOf(animator).map((f) => f.ext)).not.toContain('webm');
 });

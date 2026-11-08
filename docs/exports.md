@@ -49,18 +49,8 @@ there it is drawn still, at its resting moment (`ViewOpts.still`).
 | Spreadsheet | `.csv` | CSV |
 | Spreadsheet | `.chart.svg` | Chart (SVG) |
 | Spreadsheet | `.chart.png` | Chart (PNG) |
-| Calculator | `.txt` | Tape as text |
-| Drawing Tool | `.svg` | Picture (SVG) |
-| Drawing Tool | `.tile.svg` | Background tile (SVG) |
-| Drawing Tool | `.tile.png` | Background tile (PNG) |
-| Diagram Maker | `.svg` | Picture (SVG) |
-| Animator | `.gif` | Animated GIF |
-| Animator | `.webm` | Video (WebM) |
-| Animator | `.svg` | Animated SVG |
 | Calendar | `.ics` | iCalendar (ICS) |
 | Calendar | `.csv` | CSV |
-| Trip Planner | `.gpx` | GPX route |
-| Trip Planner | `.geojson` | GeoJSON |
 
 A seating chart (Diagram Maker, `kind: seating`) prints its place cards from its bar: a card a guest, eight to a
 letter sheet, with lines to cut along.
@@ -75,14 +65,5 @@ Under Download, "Open in": the document as another app reads it, converted by a 
 | Word Processor | Presentation Builder | Show as slides |
 | Word Processor | Outliner | Open as an outline |
 | Outliner | Presentation Builder | Show as slides |
-| Outliner | Diagram Maker | Draw as a mind map |
-| Outliner | Diagram Maker | Draw as swimlanes |
-| Outliner | Diagram Maker | Draw as an org chart |
-| Outliner | Diagram Maker | Draw as a family tree |
-| Outliner | Diagram Maker | Draw as a network |
 | Outliner | Calendar | Calendar |
 | Spreadsheet | Calendar | Put the dated rows on a calendar |
-| Drawing Tool | Animator | Animate this drawing |
-| Diagram Maker | Outliner | Show as outline |
-| Diagram Maker | Drawing Tool | Open in Drawing Tool |
-| Trip Planner | Calendar | Put the stops on a calendar, a day each |

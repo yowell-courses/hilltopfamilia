@@ -32,6 +32,7 @@ import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { UNFILLED } from './sw-manifest.ts';
+import { apps } from '../src/kit/core/apps.ts';
 
 export interface Sizes {
   app: number;
@@ -80,8 +81,8 @@ export function fetchedAtOnce(html: string): string[] {
   return [...new Set(out)];
 }
 
-/** The pages of a build: the home page, each app's and the embed page (every index.html). */
-export const pagesOf = (dist: string): string[] => filesIn(dist).filter((f) => /(^|\/)index\.html$/.test(f));
+/** The pages of a build: the home page, each app's and the embed page (every index.html), but not public/studio, a hand-made page the build copies and Vite does not build. */
+export const pagesOf = (dist: string): string[] => filesIn(dist).filter((f) => /(^|\/)index\.html$/.test(f) && !f.startsWith('studio/'));
 
 /**
  * The lazy imports in a chunk: the file each `import("./…")` names, and "?" for any other `import(` (a method of that
@@ -116,10 +117,11 @@ export function measure(dist: string): Sizes {
   };
 }
 
-/** The apps with templates and the languages but English, as the source in `root` has them: the files a build must hold. */
+/** The registered apps with templates and the languages but English, as the source in `root` has them: the files a build must hold (an app left out of the registry is not built). */
 function sourceFiles(root = ROOT): { apps: string[]; langs: string[] } {
+  const registered = new Set(apps().map((a) => a.id));
   return {
-    apps: readdirSync(join(root, 'src/apps')).filter((a) => existsSync(join(root, 'src/apps', a, 'templates.ts'))),
+    apps: readdirSync(join(root, 'src/apps')).filter((a) => registered.has(a) && existsSync(join(root, 'src/apps', a, 'templates.ts'))),
     langs: readdirSync(join(root, 'src/i18n'))
       .filter((f) => f.endsWith('.ftl') && f !== 'en.ftl')
       .map((f) => f.replace(/\.ftl$/, '')),
@@ -135,9 +137,13 @@ export function shapeOf(dist: string, { apps, langs } = sourceFiles()): string[]
     [/^app-[\w-]{8}\.css$/, 'the stylesheet'],
     ...apps.map((a): [RegExp, string] => [new RegExp(`^templates-${a}-[\\w-]{8}\\.js$`), `${a}’s templates`]),
     ...langs.map((l): [RegExp, string] => [new RegExp(`^lang-${l}-[\\w-]{8}\\.js$`), `the language ${l}`]),
-    // The Trip Planner's map (MapLibre on OpenFreeMap, vite.config.ts MAP), fetched with the first map, and its worker.
-    [/^map-[\w-]{8}\.js$/, 'the map'],
-    [/^maplibre-gl-worker-[\w-]{8}\.js$/, 'the map’s worker'],
+    // The Trip Planner's map (MapLibre on OpenFreeMap, vite.config.ts MAP), fetched with the first map, and its worker: built only with the Trip Planner in the registry.
+    ...(apps.includes('trip')
+      ? ([
+          [/^map-[\w-]{8}\.js$/, 'the map'],
+          [/^maplibre-gl-worker-[\w-]{8}\.js$/, 'the map’s worker'],
+        ] as [RegExp, string][])
+      : []),
   ];
   for (const [re, what] of wanted) {
     const n = assets.filter((f) => re.test(f)).length;

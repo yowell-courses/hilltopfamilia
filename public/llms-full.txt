@@ -1,6 +1,6 @@
 # Tiny Little Office links
 
-Tiny Little Office (https://tinylittleoffice.com) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
+Tiny Little Office (https://hilltopfamilia.org) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
 
 Every document is one text in one format, TLO: Markdown with a few additions. If you can write Markdown you can write any app below; each app's section says which shapes it reads, with one of its own templates as the example.
 
@@ -9,7 +9,7 @@ Every document is one text in one format, TLO: Markdown with a few additions. If
 ## The URL
 
 ```
-https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
+https://hilltopfamilia.org/<app>/#title=<title>&doc=<document>
 ```
 
 - `<app>` is one of the apps below (the table's first column).
@@ -17,7 +17,7 @@ https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
 - `title` (optional) is the document's name. `by` (optional) is who made it: your name as an agent, say. It is a claim, in your own word (below).
 - `view` (optional) opens the document another way: `pdf`, `png`, `html`, `md` or `tlo` download it as it opens, as do an app's own formats (listed under each app); `embed` is the pages alone, for a frame; on a deck, `show` opens it presenting.
 - `md=` may stand for `doc=`: it is the same text (TLO is Markdown). With no app in the path or the head, `md=` opens a text in the Word Processor.
-- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://tinylittleoffice.com/#doc=...`).
+- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://hilltopfamilia.org/#doc=...`).
 
 Put the parameters after `#`, exactly as shown, never after `?`. On opening, the link is rewritten into its packed form, `#/v1/<app>/<payload>`, which is what the person shares onward. Give them the link you wrote; they need not know its format.
 
@@ -31,9 +31,9 @@ There is no shared document. Whoever opens a link gets their own copy: what they
 
 ## A document inside a document
 
-Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the ten app ids (```` ```sheet ````, ```` ```calc ````, ```` ```anim ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
+Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the five app ids (```` ```sheet ````, ```` ```cal ````, ```` ```outline ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
 
-Two slides, a cover and then the Moon going around the Earth, an animation on its slide: <https://tinylittleoffice.com/deck/#doc=%23%23+%3Amoon%3A+Why+the+Moon+has+phases+%7B.title%7D%0A%0A---%0A%0A%23%23+%3Amoon%3A+The+model%2C+moving%0A%0A%60%60%60anim%0A---%0Aframes%3A+16%0Afps%3A+4%0Aalt%3A+The+Moon+goes+around+the+Earth%2C+lit+from+the+left+by+the+Sun.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0Ai+%7C+2+%7C+21+%7C+8+%7C+8+%7C+0o+%7C+sun%0Ae+%7C+37+%7C+22+%7C+6+%7C+6+%7C+2b+%7C%0Ae+%7C+57+%7C+24+%7C+2+%7C+2+%7C+2+%7C%0A%0AShape+%7C+Keys%0A---+%7C+---%0A2+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+4%2C-144%2C-144%2C0%2C1%2C0%3B+8%2C-288%2C0%2C0%2C1%2C0%3B+12%2C-144%2C144%2C0%2C1%2C0%3B+15%2C-36%2C36%2C0%2C1%2C0%0A%60%60%60>
+Two slides, a cover and then the Moon going around the Earth, an animation on its slide: <https://hilltopfamilia.org/deck/#doc=%23%23+%3Amoon%3A+Why+the+Moon+has+phases+%7B.title%7D%0A%0A---%0A%0A%23%23+%3Amoon%3A+The+model%2C+moving%0A%0A%60%60%60anim%0A---%0Aframes%3A+16%0Afps%3A+4%0Aalt%3A+The+Moon+goes+around+the+Earth%2C+lit+from+the+left+by+the+Sun.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0Ai+%7C+2+%7C+21+%7C+8+%7C+8+%7C+0o+%7C+sun%0Ae+%7C+37+%7C+22+%7C+6+%7C+6+%7C+2b+%7C%0Ae+%7C+57+%7C+24+%7C+2+%7C+2+%7C+2+%7C%0A%0AShape+%7C+Keys%0A---+%7C+---%0A2+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+4%2C-144%2C-144%2C0%2C1%2C0%3B+8%2C-288%2C0%2C0%2C1%2C0%3B+12%2C-144%2C144%2C0%2C1%2C0%3B+15%2C-36%2C36%2C0%2C1%2C0%0A%60%60%60>
 
 ## Three rules agents break first
 
@@ -64,12 +64,7 @@ Write ordinary Markdown: `#` headings, paragraphs, `- ` and `1. ` lists nested b
 | `outline` | Outliner | An outliner: ideas under ideas, folded and unfolded, moved around and joined; the same tree a deck or a mind map reads. |
 | `deck` | Presentation Builder | Slides: titles, bullets, two columns, big icons, other documents on a slide; or a zine, booklet, brochure, comic, poster or name badges to print and fold. |
 | `sheet` | Spreadsheet | A spreadsheet with formulas, named cells and charts; three columns to start, more as you need them. |
-| `calc` | Calculator | A calculator that shows its work: names, units and conversions, and graphs of y = f(x). |
-| `draw` | Drawing Tool | Boxes, arrows, icons and labels on a grid; or pixel art, which can become a background tile. |
-| `diagram` | Diagram Maker | Mind maps, org charts, family trees, swimlanes, timelines, Venns, seating charts and networks, drawn from a few lines. |
-| `anim` | Animator | Anything from the Drawing Tool, moving: position, depth, size, spin and turn over time, with effects for memes. |
 | `cal` | Calendar | Days and times on a month, a year or a schedule, in any time zone. |
-| `trip` | Trip Planner | A route on a map: stops in order, each with a note, and how far between them. |
 
 ## Choosing an app
 
@@ -110,7 +105,7 @@ Meeting notes:
 - [ ] *Who does what, by when*
 ```
 
-As a link: <https://tinylittleoffice.com/write/#doc=%23+Meeting+%7B.title%7D%0A%0A%2AThe+date+%C2%B7+where+%C2%B7+who+came%2A%0A%0A%23%23+Agenda%0A%0A1.+%2AFirst+item%2A%0A2.+%2ASecond+item%2A%0A%0A%23%23+Notes%0A%0A%2AWhat+was+said%2C+briefly.%2A%0A%0A%23%23+Decisions%0A%0A-+%2AWhat+was+decided.%2A%0A%0A%23%23+Actions%0A%0A-+%5B+%5D+%2AWho+does+what%2C+by+when%2A>
+As a link: <https://hilltopfamilia.org/write/#doc=%23+Meeting+%7B.title%7D%0A%0A%2AThe+date+%C2%B7+where+%C2%B7+who+came%2A%0A%0A%23%23+Agenda%0A%0A1.+%2AFirst+item%2A%0A2.+%2ASecond+item%2A%0A%0A%23%23+Notes%0A%0A%2AWhat+was+said%2C+briefly.%2A%0A%0A%23%23+Decisions%0A%0A-+%2AWhat+was+decided.%2A%0A%0A%23%23+Actions%0A%0A-+%5B+%5D+%2AWho+does+what%2C+by+when%2A>
 
 Templates: A letter, Cover letter, Memo, Meeting notes, Minutes, Résumé, One-page CV, Invoice, Contract, Newsletter, Recipe, Questions and answers, Press release, News article, Interview, Book review, Music review, Thesis, Grant proposal, Syllabus, Formal complaint, Letter to a politician, Love letter, Wedding speech, Eulogy, Zine essay, Petition, Terms of service. Its own files: `.docx`, `.md`, `.rtf`, `.html`.
 
@@ -154,7 +149,7 @@ title: Fieldnote 2.0 launch
 ~ Help pages -> Newsletter: linked from
 ````
 
-As a link: <https://tinylittleoffice.com/outline/#doc=---%0Atitle%3A+Fieldnote+2.0+launch%0A---%0A-+Fieldnote+2.0%2C+out+on+Thursday%2C+November+12%0A++-+Product%0A++++-+Pricing+%7B.from+label%3Dsets%7D%0A++++++-+%244+a+month+or+%2436+a+year%3B+free+for+students%5E%5BThree+rivals+checked+in+September%3A+%243+to+%246+a+month.%5D%0A++++-+Onboarding%0A++++++-+Three+screens%2C+then+straight+to+the+first+note%0A++++-+Freeze+the+build+on+Monday%2C+November+2%0A++-+Dates%0A%0A%60%60%60cal+%7Bdepth%3D2%7D%0A-+2026-11-02%3A+Build+frozen%0A-+2026-11-05%3A+Review+copies+out%0A-+2026-11-12%3A+Launch+day%0A%60%60%60%0A%0A++-+Marketing%0A++++-+Press%0A++++++-+Review+copies+to+six+writers+on+November+5%2C+embargoed+to+the+12th%0A++++-+Newsletter%0A++++++-+To+4%2C200+readers+at+8+am+on+launch+day%0A++++-+A+ninety-second+film+of+a+note+being+made%0A++-+Support%0A++++-+Help+pages%0A++++++-+Twelve+of+them%2C+the+five+most+asked+about+first%0A++++-+A+reply+within+a+day%2C+Priya+and+Tom+taking+turns%0A%0A~+Pricing+-%3E+Press%3A+informs%0A~+Help+pages+-%3E+Newsletter%3A+linked+from>
+As a link: <https://hilltopfamilia.org/outline/#doc=---%0Atitle%3A+Fieldnote+2.0+launch%0A---%0A-+Fieldnote+2.0%2C+out+on+Thursday%2C+November+12%0A++-+Product%0A++++-+Pricing+%7B.from+label%3Dsets%7D%0A++++++-+%244+a+month+or+%2436+a+year%3B+free+for+students%5E%5BThree+rivals+checked+in+September%3A+%243+to+%246+a+month.%5D%0A++++-+Onboarding%0A++++++-+Three+screens%2C+then+straight+to+the+first+note%0A++++-+Freeze+the+build+on+Monday%2C+November+2%0A++-+Dates%0A%0A%60%60%60cal+%7Bdepth%3D2%7D%0A-+2026-11-02%3A+Build+frozen%0A-+2026-11-05%3A+Review+copies+out%0A-+2026-11-12%3A+Launch+day%0A%60%60%60%0A%0A++-+Marketing%0A++++-+Press%0A++++++-+Review+copies+to+six+writers+on+November+5%2C+embargoed+to+the+12th%0A++++-+Newsletter%0A++++++-+To+4%2C200+readers+at+8+am+on+launch+day%0A++++-+A+ninety-second+film+of+a+note+being+made%0A++-+Support%0A++++-+Help+pages%0A++++++-+Twelve+of+them%2C+the+five+most+asked+about+first%0A++++-+A+reply+within+a+day%2C+Priya+and+Tom+taking+turns%0A%0A~+Pricing+-%3E+Press%3A+informs%0A~+Help+pages+-%3E+Newsletter%3A+linked+from>
 
 Templates: Packing list, A decision, Launch plan, A talk, A speech, An essay plan, A research plan, A syllabus, A novel, A book, A company, A family, A decision tree, Troubleshooting. Its own files: `.opml`, `.md`, `.pdf`, `.txt`. (the `.pdf` is the outline's words as sections and bullets, selectable and bookmarked)
 
@@ -209,7 +204,7 @@ theme: boardroom
 - Someone from Acme at the Friday read-through, an hour
 ```
 
-As a link: <https://tinylittleoffice.com/deck/#doc=---%0Atheme%3A+boardroom%0A---%0A%23%23+%3Acalendar%3A+Acme+Inc.+site%3A+status+%7B.title%7D%0A%0A-+Week+of+November+2%2C+2026+%C2%B7+Harbor+Studio%0A%0A---%0A%0A%23%23+This+week+and+next+%7B.two%7D%0A%0A-+Done%3A+the+six+pages+sketched+and+agreed%0A-+Done%3A+words+for+home%2C+about+and+contact%0A-+Done%3A+hosting+set+up%2C+the+old+address+kept%0A%0A%7C%0A%0A-+Next%3A+words+for+work%2C+prices+and+news%0A-+Next%3A+photographs+on+Thursday+morning%2C+weather+allowing%0A-+Next%3A+first+build+shown+on+Friday%2C+November+13%0A%0A%3E+Left%2C+what+shipped%3B+right%2C+what+is+planned.+Keep+it+to+the+facts.%0A%0A---%0A%0A%23%23+%3Awarning%3A+Risks%0A%0A-+The+price+list+is+still+being+decided+by+Acme%3A+the+prices+page+waits+on+it%0A-+Thursday+may+rain%3A+Saturday+is+the+fallback+for+photographs%0A%0A---%0A%0A%23%23+%3Ahelp%3A+Asks%0A%0A-+Dee+Okafor+to+send+the+final+prices+by+Wednesday%2C+November+11%0A-+Someone+from+Acme+at+the+Friday+read-through%2C+an+hour>
+As a link: <https://hilltopfamilia.org/deck/#doc=---%0Atheme%3A+boardroom%0A---%0A%23%23+%3Acalendar%3A+Acme+Inc.+site%3A+status+%7B.title%7D%0A%0A-+Week+of+November+2%2C+2026+%C2%B7+Harbor+Studio%0A%0A---%0A%0A%23%23+This+week+and+next+%7B.two%7D%0A%0A-+Done%3A+the+six+pages+sketched+and+agreed%0A-+Done%3A+words+for+home%2C+about+and+contact%0A-+Done%3A+hosting+set+up%2C+the+old+address+kept%0A%0A%7C%0A%0A-+Next%3A+words+for+work%2C+prices+and+news%0A-+Next%3A+photographs+on+Thursday+morning%2C+weather+allowing%0A-+Next%3A+first+build+shown+on+Friday%2C+November+13%0A%0A%3E+Left%2C+what+shipped%3B+right%2C+what+is+planned.+Keep+it+to+the+facts.%0A%0A---%0A%0A%23%23+%3Awarning%3A+Risks%0A%0A-+The+price+list+is+still+being+decided+by+Acme%3A+the+prices+page+waits+on+it%0A-+Thursday+may+rain%3A+Saturday+is+the+fallback+for+photographs%0A%0A---%0A%0A%23%23+%3Ahelp%3A+Asks%0A%0A-+Dee+Okafor+to+send+the+final+prices+by+Wednesday%2C+November+11%0A-+Someone+from+Acme+at+the+Friday+read-through%2C+an+hour>
 
 Poster:
 
@@ -224,7 +219,7 @@ format: poster
 - Free. Bring a song, a poem, or just your ears.
 ```
 
-As a link: <https://tinylittleoffice.com/deck/#doc=---%0Aformat%3A+poster%0A---%0A%23%23+%3Amusic%3A+Open+mic+night+%7B.title%7D%0A%0A-+Friday%2C+November+13%2C+8+pm%0A-+The+Anchor%2C+14+Quay+Street%0A-+Free.+Bring+a+song%2C+a+poem%2C+or+just+your+ears.>
+As a link: <https://hilltopfamilia.org/deck/#doc=---%0Aformat%3A+poster%0A---%0A%23%23+%3Amusic%3A+Open+mic+night+%7B.title%7D%0A%0A-+Friday%2C+November+13%2C+8+pm%0A-+The+Anchor%2C+14+Quay+Street%0A-+Free.+Bring+a+song%2C+a+poem%2C+or+just+your+ears.>
 
 Templates: A talk, Status update, A proposal, A pitch, A lesson, Conference talk, Quarterly review, Workshop agenda, Product launch, Town-hall notice, Trivia night, Wedding slideshow, Zine, Recipe zine, Booklet, Concert program, Brochure, Farm brochure, Comic, Comic: the umbrella, Poster, Lost cat poster, Name badges, Conference badges. Its own files: `.pptx`, `.html`, `.zip`, `.gif`, `.webm`.
 
@@ -253,7 +248,7 @@ Savings | 400 | 400 | =C6-B6
 Total | =SUM(B1:B6) | =SUM(C1:C6) | =SUM(D1:D6)
 ```
 
-As a link: <https://tinylittleoffice.com/sheet/#doc=---%0Atitle%3A+Budget%2C+October+2026%0A---%0AItem+%7C+Planned%3Amoney+%7C+Actual%3Amoney+%7C+Difference%3Amoney%0A---+%7C+---+%7C+---+%7C+---%0ARent+%7C+1200+%7C+1200+%7C+%3DC1-B1%0AGroceries+%7C+500+%7C+540+%7C+%3DC2-B2%0ATransport+%7C+150+%7C+120+%7C+%3DC3-B3%0AUtilities+%7C+180+%7C+175+%7C+%3DC4-B4%0AFun+%7C+200+%7C+260+%7C+%3DC5-B5%0ASavings+%7C+400+%7C+400+%7C+%3DC6-B6%0ATotal+%7C+%3DSUM%28B1%3AB6%29+%7C+%3DSUM%28C1%3AC6%29+%7C+%3DSUM%28D1%3AD6%29>
+As a link: <https://hilltopfamilia.org/sheet/#doc=---%0Atitle%3A+Budget%2C+October+2026%0A---%0AItem+%7C+Planned%3Amoney+%7C+Actual%3Amoney+%7C+Difference%3Amoney%0A---+%7C+---+%7C+---+%7C+---%0ARent+%7C+1200+%7C+1200+%7C+%3DC1-B1%0AGroceries+%7C+500+%7C+540+%7C+%3DC2-B2%0ATransport+%7C+150+%7C+120+%7C+%3DC3-B3%0AUtilities+%7C+180+%7C+175+%7C+%3DC4-B4%0AFun+%7C+200+%7C+260+%7C+%3DC5-B5%0ASavings+%7C+400+%7C+400+%7C+%3DC6-B6%0ATotal+%7C+%3DSUM%28B1%3AB6%29+%7C+%3DSUM%28C1%3AC6%29+%7C+%3DSUM%28D1%3AD6%29>
 
 A subscription business:
 
@@ -277,161 +272,11 @@ Paying | Retained | =paying-churned | Signups | =SUMIF(B1:B20, "Signups", C1:C20
 {big=Retained}
 ```
 
-As a link: <https://tinylittleoffice.com/sheet/#doc=---%0Atitle%3A+A+subscription+business%2C+a+month%0Achart%3A+sankey%0Alock%3A+C1%3AC6%2C+E6%3AE9%0A---%0AFrom+%7C+To+%7C+Amount%3Anumber+%7C+Assumption%3Aname+%7C+Value%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0AVisitors+%7C+Signups+%7C+%3Dvisitors%2Asignup_rate%2F100+%7C+Visitors+%7C+20000%0AVisitors+%7C+Bounced+%7C+%3Dvisitors-signups+%7C+Signup+rate+%7C+6%0ASignups+%7C+Paying+%7C+%3Dsignups%2Apaid_rate%2F100+%7C+Paid+rate+%7C+25%0ASignups+%7C+Free+%7C+%3Dsignups-paying+%7C+Churn+%7C+8%0APaying+%7C+Churned+%7C+%3Dpaying%2Achurn%2F100+%7C++%7C%0APaying+%7C+Retained+%7C+%3Dpaying-churned+%7C+Signups+%7C+%3DSUMIF%28B1%3AB20%2C+%22Signups%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Paying+%7C+%3DSUMIF%28B1%3AB20%2C+%22Paying%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Churned+%7C+%3DSUMIF%28B1%3AB20%2C+%22Churned%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Retained+%7C+%3DSUMIF%28B1%3AB20%2C+%22Retained%22%2C+C1%3AC20%29%0A%7Bbig%3DRetained%7D>
+As a link: <https://hilltopfamilia.org/sheet/#doc=---%0Atitle%3A+A+subscription+business%2C+a+month%0Achart%3A+sankey%0Alock%3A+C1%3AC6%2C+E6%3AE9%0A---%0AFrom+%7C+To+%7C+Amount%3Anumber+%7C+Assumption%3Aname+%7C+Value%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0AVisitors+%7C+Signups+%7C+%3Dvisitors%2Asignup_rate%2F100+%7C+Visitors+%7C+20000%0AVisitors+%7C+Bounced+%7C+%3Dvisitors-signups+%7C+Signup+rate+%7C+6%0ASignups+%7C+Paying+%7C+%3Dsignups%2Apaid_rate%2F100+%7C+Paid+rate+%7C+25%0ASignups+%7C+Free+%7C+%3Dsignups-paying+%7C+Churn+%7C+8%0APaying+%7C+Churned+%7C+%3Dpaying%2Achurn%2F100+%7C++%7C%0APaying+%7C+Retained+%7C+%3Dpaying-churned+%7C+Signups+%7C+%3DSUMIF%28B1%3AB20%2C+%22Signups%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Paying+%7C+%3DSUMIF%28B1%3AB20%2C+%22Paying%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Churned+%7C+%3DSUMIF%28B1%3AB20%2C+%22Churned%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Retained+%7C+%3DSUMIF%28B1%3AB20%2C+%22Retained%22%2C+C1%3AC20%29%0A%7Bbig%3DRetained%7D>
 
 Templates: Budget, Household budget by month, Expense log, Savings goal, Habit tracker, Reading list, Workout log, Training log, Time sheet, Trip costs split, Project tracker, Schedule with dates, Grade book, Membership roll, Seating count, Poll results, Fundraising thermometer, Invoice ledger, Inventory, Petty cash, Rate card, Mortgages compared, Loans compared, Unit converter, Tournament bracket, Month by month, with a chart, A subscription business, A café, A freelancer, A mutual aid fund. Its own files: `.xlsx`, `.csv`, `.chart.svg`, `.chart.png`.
 
-### calc: a calculator that keeps its working
-
-An expression a line (`2+3*4`, `sqrt(16)`, `20!`); `name = expression` keeps its answer under that name for the lines after it, and `ans` is the line before. Units convert (`3 inch to cm`, `60 mph in km/h`). `mode: graph` in the head draws each line as a curve y = f(x), with `x from 0 to 400` setting the range.
-
-Splitting the bill:
-
-```
----
-title: Dinner for six
----
-food = 164.50
-drinks = 58
-tip = (food + drinks) * 18%
-total = food + drinks + tip
-total / 6
-```
-
-As a link: <https://tinylittleoffice.com/calc/#doc=---%0Atitle%3A+Dinner+for+six%0A---%0Afood+%3D+164.50%0Adrinks+%3D+58%0Atip+%3D+%28food+%2B+drinks%29+%2A+18%25%0Atotal+%3D+food+%2B+drinks+%2B+tip%0Atotal+%2F+6>
-
-Templates: Splitting the bill, A shopping total, Tax on a price, Percentage change, Kitchen conversions, Scaling a recipe, Unit conversions, Currency at a rate you type, Fuel for a trip, Paint for a room, Time zones, Running pace, Body mass index, Dose by weight, Electricity for an appliance, Loan payment, Compound interest, Break-even, A curve and its slope, Waves adding up. Its own files: `.txt`.
-
 ## Pictures
-
-### draw: a drawing, or pixel art
-
-A table `Kind | X | Y | W | H | Style | Label`, a row per shape, on a grid of 8px squares. Kinds: `r` rectangle, `o` rounded box, `e` ellipse, `d` diamond, `h` hexagon, `p` parallelogram, `c` cylinder, `n` note, `t` text, `i` icon (its label is the icon's name), `l` line, `a` arrow (X, Y the start; W, H the distance to the end). `k` joins two shapes with an arrow and `j` with a line: their X and Y are the row numbers (from 0) of the shapes joined. Style is a fill (`0` none, `1` tint, `2` solid), then a color letter (`r o g b p`) and a text size (`1` to `4`); a text (`t`) may end it with `=` to center its words or `>` to set them right. `alt:` in the head describes the drawing for people who cannot see it. Prefer a diagram when one fits: it lays itself out.
-
-Request flow:
-
-```
----
-title: How a page loads
-alt: A browser asks a server, which reads the data.
----
-Kind | X | Y | W | H | Style | Label
---- | --- | --- | --- | --- | --- | ---
-o | 4 | 6 | 16 | 8 | 1b | Browser
-o | 32 | 6 | 16 | 8 | 1b | Server
-c | 60 | 5 | 14 | 10 | 1g | Data
-k | 0 | 1 | 0 | 0 | 0 | asks
-k | 1 | 2 | 0 | 0 | 0 | reads
-```
-
-As a link: <https://tinylittleoffice.com/draw/#doc=---%0Atitle%3A+How+a+page+loads%0Aalt%3A+A+browser+asks+a+server%2C+which+reads+the+data.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0Ao+%7C+4+%7C+6+%7C+16+%7C+8+%7C+1b+%7C+Browser%0Ao+%7C+32+%7C+6+%7C+16+%7C+8+%7C+1b+%7C+Server%0Ac+%7C+60+%7C+5+%7C+14+%7C+10+%7C+1g+%7C+Data%0Ak+%7C+0+%7C+1+%7C+0+%7C+0+%7C+0+%7C+asks%0Ak+%7C+1+%7C+2+%7C+0+%7C+0+%7C+0+%7C+reads>
-
-Pixel art: `grid: 16` (or 8, 32, 64) in the head, then a line per row and a letter per square, `.` clear and `a` to `h` the inks.
-
-Pixel heart:
-
-```
----
-title: A heart
-grid: 16
----
-....cc....cc....
-...cccc..cccc...
-..cccccccccccc..
-..chccccccccccc.
-..chccccccccccc.
-..cccccccccccc..
-...cccccccccc...
-....cccccccc....
-.....cccccc.....
-......cccc......
-.......cc.......
-```
-
-As a link: <https://tinylittleoffice.com/draw/#doc=---%0Atitle%3A+A+heart%0Agrid%3A+16%0A---%0A....cc....cc....%0A...cccc..cccc...%0A..cccccccccccc..%0A..chccccccccccc.%0A..chccccccccccc.%0A..cccccccccccc..%0A...cccccccccc...%0A....cccccccc....%0A.....cccccc.....%0A......cccc......%0A.......cc.......>
-
-Templates: Flowchart, Birthday card, Event map, Floor plan, Room plan, Wireframe, Logo sketch, Badge, Order to doorstep, Request flow, Three tiers, Pixel heart, Weather icons, Game sprite, Background tile. Its own files: `.svg`, `.tile.svg`, `.tile.png`.
-
-### diagram: a diagram drawn from a few lines
-
-`kind:` in the head says which, and each is a list:
-
-- `mind`: a nested list, the center then its branches. In `mind`, `org`, `family`, `lanes` and `net` a class gives a thing a shape: `- Ask {.diamond}` (rectangle, rounded, ellipse, diamond, hexagon, parallelogram, cylinder, note).
-- `org`: a nested list of `Name | Role`; a dotted line between two people is `~ Ben -- Eve: advises`.
-- `family`: a nested list, a person or a couple each, `Rose + Albert Hale | m. 1948`.
-- `lanes`: `- Who: what they do`, in order; a step ending in `?` is a decision. Steps indented under one are its branches, rejoining at the next step on the margin; `{label=Yes}` on one words its line; `~ A -> B` joins any two. A step is named by its words, or `Who: words` where two match.
-- `timeline`: `- When: what happened`; dates or years are spaced as they fell, and a span (`- 2027-02-01 – 2027-08-02: Builders on site`) is a band.
-- `venn`: `- Set: thing, thing` for two or three sets, `- A & B: thing` for what they share.
-- `seating`: `- Table: Ann, Bob, Cy`.
-- `net`: `~ A -> B: label` connections; `- name` a thing on its own.
-
-What each is good for: `mind` ideas branching from one, `org` who reports to whom, `family` generations, `lanes` a process passed between people, `timeline` dates spaced as they fell, `venn` what two or three sets share, `seating` who sits where, `net` what talks to what.
-
-The rules, before they are broken: a thing is a name, short (two to four words; a box holds no more), and its other words go in a child, in a connection's label, or in the notes. A connection's ends are names in the list, written exactly as the line writes them (the words before ` | `); in a tree an end naming no thing is not drawn, and a network makes a second thing of it. In a `net` a line is one thing named by the whole line: `- Header: the logo` is a thing called "Header: the logo", so write `- Header` and put "the logo" in a label. In `venn` and `seating` a comma separates things, a comma in a number too: "2,000 cases" is two things, so write 2000 or two thousand. A label is a few words: longer ones lie over each other. `timeline`, `venn` and `seating` draw no connections.
-
-A small company:
-
-```
----
-title: Who reports to whom
-kind: org
----
-- Ada Diaz | Chief executive
-  - Ben Okoro | Engineering
-    - Cy Lund | Platform
-    - Di Shah | Apps
-  - Eve Marsh | Design
-  - Flo Reyes | Sales
-    - Gus Patel | Accounts
-
-~ Cy Lund -- Eve Marsh: design partner
-```
-
-As a link: <https://tinylittleoffice.com/diagram/#doc=---%0Atitle%3A+Who+reports+to+whom%0Akind%3A+org%0A---%0A-+Ada+Diaz+%7C+Chief+executive%0A++-+Ben+Okoro+%7C+Engineering%0A++++-+Cy+Lund+%7C+Platform%0A++++-+Di+Shah+%7C+Apps%0A++-+Eve+Marsh+%7C+Design%0A++-+Flo+Reyes+%7C+Sales%0A++++-+Gus+Patel+%7C+Accounts%0A%0A~+Cy+Lund+--+Eve+Marsh%3A+design+partner>
-
-Cats and dogs:
-
-```
----
-title: Cats and dogs
-kind: venn
----
-- Cats: purr, climb curtains, use a litter box
-- Dogs: fetch, need walks, guard the house
-- Cats & Dogs: shed on the sofa, love a warm spot, wake you at six
-```
-
-As a link: <https://tinylittleoffice.com/diagram/#doc=---%0Atitle%3A+Cats+and+dogs%0Akind%3A+venn%0A---%0A-+Cats%3A+purr%2C+climb+curtains%2C+use+a+litter+box%0A-+Dogs%3A+fetch%2C+need+walks%2C+guard+the+house%0A-+Cats+%26+Dogs%3A+shed+on+the+sofa%2C+love+a+warm+spot%2C+wake+you+at+six>
-
-Templates: Mind map, Launch plan, The garden this year, Moving abroad, Studying for an exam, Org chart, A small company, An elementary school, A restaurant kitchen, Family tree, Three generations, The Brontës, A family with a godmother, Swimlanes, From order to doorstep, Hiring someone, An expense report, Timeline, Computing, briefly, A building project, Apollo 11, Venn, Fast, cheap, good, Cats and dogs, Who can do what, Seating chart, A wedding dinner, Board game night, A classroom, Network, How an app hangs together, The water cycle, The house network. Its own files: `.svg`.
-
-### anim: a drawing that moves
-
-A drawing's table, then a table `Shape | Keys`: for each moving shape (its row number from 0), keys separated by `; `, each `frame,dx,dy,depth,size,spin[,effects]`: where it is at that frame as an offset in pixels from where it was drawn, its depth (nearer when positive), its size as a scale (1 as drawn), its spin in degrees, and effect letters (`i` impact, `3` 3D, `d` shadow, `n` neon, `o` outline, `g` rainbow, `m` mirror, `w` wobble, `b` blur). Between keys it moves in straight lines. The head holds `frames` (2 to 120), `fps` (1 to 30) and `loop` (`once`, a number, or `bounce`; for ever otherwise).
-
-Lift off:
-
-```
----
-title: Lift off
-frames: 24
-fps: 8
-alt: A rocket lifts off and flies up and away to the right, under the words Lift off.
----
-Kind | X | Y | W | H | Style | Label
---- | --- | --- | --- | --- | --- | ---
-t | 4 | 20 | 20 | 4 | 04 | Lift off
-i | 8 | 36 | 8 | 8 | 0b | rocket
-
-Shape | Keys
---- | ---
-0 | 0,0,0,0,1,0; 23,0,-80,0,1,0,i
-1 | 0,0,0,0,1,0; 23,200,-200,80,1,-30,d
-```
-
-As a link: <https://tinylittleoffice.com/anim/#doc=---%0Atitle%3A+Lift+off%0Aframes%3A+24%0Afps%3A+8%0Aalt%3A+A+rocket+lifts+off+and+flies+up+and+away+to+the+right%2C+under+the+words+Lift+off.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0At+%7C+4+%7C+20+%7C+20+%7C+4+%7C+04+%7C+Lift+off%0Ai+%7C+8+%7C+36+%7C+8+%7C+8+%7C+0b+%7C+rocket%0A%0AShape+%7C+Keys%0A---+%7C+---%0A0+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+23%2C0%2C-80%2C0%2C1%2C0%2Ci%0A1+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+23%2C200%2C-200%2C80%2C1%2C-30%2Cd>
-
-Templates: Lift off, Bouncing ball, Loading spinner, Title card, Birthday card, Quick standup, Build is green, Flash card, Weather this week, New Year countdown, Flight path, Neon sign, Sunrise. Its own files: `.gif`, `.webm`, `.svg`.
 
 ## Plans
 
@@ -460,7 +305,7 @@ blue: Everyone
 - 2026-12-23 to 2027-01-01: Winter break {color=green}
 ```
 
-As a link: <https://tinylittleoffice.com/cal/#doc=---%0Atitle%3A+The+Okafor+family%0Agreen%3A+Sam%0Aorange%3A+Ana%0Ablue%3A+Everyone%0A---%0A-+2026-11-03+16%3A30-17%3A15%3A+Swim+lesson%2C+Sam+%7Bcolor%3Dgreen+every%3Dweek+times%3D10%7D%0A-+2026-11-04%3A+Trash+and+recycling+out+tonight+%7Bevery%3Dweek%7D%0A-+2026-11-05+18%3A30-20%3A00%3A+Parent-teacher+night%2C+bring+the+reading+log+%7Bcolor%3Dblue%7D%0A-+2026-11-07+10%3A00-11%3A30%3A+Soccer%2C+under-10s+home+game+%7Bcolor%3Dgreen+every%3Dweek+until%3D2026-12-12%7D%0A-+2026-11-09%3A+Ana%27s+birthday+%7Bcolor%3Dorange+every%3Dyear%7D%0A-+2026-11-12+08%3A40-09%3A20%3A+Dentist%2C+Dr.+Patel%2C+both+kids+%7Bcolor%3Dblue%7D%0A-+2026-11-21+to+2026-11-22%3A+Grandma+visits+from+Philadelphia+%7Bcolor%3Dblue%7D%0A-+2026-11-26%3A+Thanksgiving+at+Aunt+Jo%27s%2C+bring+the+pies+%7Bcolor%3Dblue+every%3Dyear%7D%0A-+2026-12-03+19%3A30-22%3A00%3A+Book+club+at+Jo%27s+%7Bcolor%3Dorange+every%3Dmonth%7D%0A-+2026-12-23+to+2027-01-01%3A+Winter+break+%7Bcolor%3Dgreen%7D>
+As a link: <https://hilltopfamilia.org/cal/#doc=---%0Atitle%3A+The+Okafor+family%0Agreen%3A+Sam%0Aorange%3A+Ana%0Ablue%3A+Everyone%0A---%0A-+2026-11-03+16%3A30-17%3A15%3A+Swim+lesson%2C+Sam+%7Bcolor%3Dgreen+every%3Dweek+times%3D10%7D%0A-+2026-11-04%3A+Trash+and+recycling+out+tonight+%7Bevery%3Dweek%7D%0A-+2026-11-05+18%3A30-20%3A00%3A+Parent-teacher+night%2C+bring+the+reading+log+%7Bcolor%3Dblue%7D%0A-+2026-11-07+10%3A00-11%3A30%3A+Soccer%2C+under-10s+home+game+%7Bcolor%3Dgreen+every%3Dweek+until%3D2026-12-12%7D%0A-+2026-11-09%3A+Ana%27s+birthday+%7Bcolor%3Dorange+every%3Dyear%7D%0A-+2026-11-12+08%3A40-09%3A20%3A+Dentist%2C+Dr.+Patel%2C+both+kids+%7Bcolor%3Dblue%7D%0A-+2026-11-21+to+2026-11-22%3A+Grandma+visits+from+Philadelphia+%7Bcolor%3Dblue%7D%0A-+2026-11-26%3A+Thanksgiving+at+Aunt+Jo%27s%2C+bring+the+pies+%7Bcolor%3Dblue+every%3Dyear%7D%0A-+2026-12-03+19%3A30-22%3A00%3A+Book+club+at+Jo%27s+%7Bcolor%3Dorange+every%3Dmonth%7D%0A-+2026-12-23+to+2027-01-01%3A+Winter+break+%7Bcolor%3Dgreen%7D>
 
 Project plan:
 
@@ -484,32 +329,9 @@ view: gantt
 - 2026-11-24: Launch {color=red}
 ```
 
-As a link: <https://tinylittleoffice.com/cal/#doc=---%0Atitle%3A+A+website+for+Hollow+Pine+Coffee%0Aview%3A+gantt%0A---%0A-+2026-09-28+to+2026-10-09%3A+Discovery%0A++-+%5Bx%5D+2026-09-28+to+2026-09-30%3A+Interviews+with+the+staff+and+six+regulars%0A++-+%5Bx%5D+2026-10-01+to+2026-10-02%3A+Analytics+review%0A++-+2026-10-05+to+2026-10-09%3A+Content+audit+%7Bdone%3D80%25%7D%0A-+2026-10-12+to+2026-10-30%3A+Design%0A++-+2026-10-12+to+2026-10-16%3A+Wireframes%0A++-+2026-10-16%3A+The+logo+chosen+%7Bcolor%3Dred%7D%0A++-+2026-10-19+to+2026-10-30%3A+Visual+design%0A-+2026-11-02+to+2026-11-20%3A+Build%0A++-+2026-11-02+to+2026-11-13%3A+Pages+and+the+menu+%7Bcolor%3Dblue%7D%0A++-+2026-11-09+to+2026-11-13%3A+Ordering+ahead+%7Bcolor%3Dblue%7D%0A++-+2026-11-16+to+2026-11-20%3A+Testing+on+phones+%7Bcolor%3Dblue%7D%0A-+2026-11-24%3A+Launch+%7Bcolor%3Dred%7D>
+As a link: <https://hilltopfamilia.org/cal/#doc=---%0Atitle%3A+A+website+for+Hollow+Pine+Coffee%0Aview%3A+gantt%0A---%0A-+2026-09-28+to+2026-10-09%3A+Discovery%0A++-+%5Bx%5D+2026-09-28+to+2026-09-30%3A+Interviews+with+the+staff+and+six+regulars%0A++-+%5Bx%5D+2026-10-01+to+2026-10-02%3A+Analytics+review%0A++-+2026-10-05+to+2026-10-09%3A+Content+audit+%7Bdone%3D80%25%7D%0A-+2026-10-12+to+2026-10-30%3A+Design%0A++-+2026-10-12+to+2026-10-16%3A+Wireframes%0A++-+2026-10-16%3A+The+logo+chosen+%7Bcolor%3Dred%7D%0A++-+2026-10-19+to+2026-10-30%3A+Visual+design%0A-+2026-11-02+to+2026-11-20%3A+Build%0A++-+2026-11-02+to+2026-11-13%3A+Pages+and+the+menu+%7Bcolor%3Dblue%7D%0A++-+2026-11-09+to+2026-11-13%3A+Ordering+ahead+%7Bcolor%3Dblue%7D%0A++-+2026-11-16+to+2026-11-20%3A+Testing+on+phones+%7Bcolor%3Dblue%7D%0A-+2026-11-24%3A+Launch+%7Bcolor%3Dred%7D>
 
 Templates: Family calendar, School term, Bills and renewals, Volunteer schedule, Vacation planner, League schedule, Garden calendar, Content schedule, Editorial calendar, Training plan, Project plan, Conference agenda, Festival weekend. Its own files: `.ics`, `.csv`.
-
-### trip: a route on a map
-
-A table `Place | Lat:number | Lon:number | Note`, in decimal degrees. `units: km` or `units: miles` in the head (driving hours are estimated otherwise); `route: dots` for places that stand alone, not a route.
-
-A week in Portugal:
-
-```
----
-units: km
----
-Place | Lat:number | Lon:number | Note
---- | --- | --- | ---
-Lisbon | 38.7223 | -9.1393 | Pastéis de nata in Belém, then the 28 tram up to Graça
-Sintra | 38.8029 | -9.3817 | Pena Palace first thing, before the tour buses
-Óbidos | 39.3606 | -9.1571 | Walk the town walls; ginjinha in a chocolate cup
-Coimbra | 40.2033 | -8.4103 | The Joanina Library: book the 10 am slot
-Porto | 41.1579 | -8.6291 | Port cellars across the river in Gaia
-```
-
-As a link: <https://tinylittleoffice.com/trip/#doc=---%0Aunits%3A+km%0A---%0APlace+%7C+Lat%3Anumber+%7C+Lon%3Anumber+%7C+Note%0A---+%7C+---+%7C+---+%7C+---%0ALisbon+%7C+38.7223+%7C+-9.1393+%7C+Past%C3%A9is+de+nata+in+Bel%C3%A9m%2C+then+the+28+tram+up+to+Gra%C3%A7a%0ASintra+%7C+38.8029+%7C+-9.3817+%7C+Pena+Palace+first+thing%2C+before+the+tour+buses%0A%C3%93bidos+%7C+39.3606+%7C+-9.1571+%7C+Walk+the+town+walls%3B+ginjinha+in+a+chocolate+cup%0ACoimbra+%7C+40.2033+%7C+-8.4103+%7C+The+Joanina+Library%3A+book+the+10+am+slot%0APorto+%7C+41.1579+%7C+-8.6291+%7C+Port+cellars+across+the+river+in+Gaia>
-
-Templates: A weekend in Copenhagen, Iceland’s Ring Road, A Dublin food crawl, Yosemite’s Mist Trail loop, The Loire by bike, A college tour, A week in Portugal, Down the Pacific coast, The Scottish Highlands, Rome, the places to see, Japan by rail, The last 100 km of the Camino, New York in the movies, A wedding on Lake Como. Its own files: `.gpx`, `.geojson`.
 
 ## Every app's files
 
@@ -519,13 +341,13 @@ Every document downloads as a `.pdf` (its pages as pictures; Print in the browse
 
 The API below is this site's. Make a short link at the shortener of the site the link opens on, `tinier.<the site's host>`: the shortener opens only links to its own site. An agent on a development machine running its own copy of the site uses that site's `/tinier/` (the shortener started with `SITE` set to the site's address, `npm run tinier:dev`), and the link it makes opens there; production's shortener accepts only links to production.
 
-A long link can be shortened at tinier.tinylittleoffice.com for an hour, a day, a week or a month. The link is encrypted where it is made (AES-256-GCM, a random key); only the ciphertext goes to the service, and the key travels in the short link's fragment, which browsers never send. A program can do the same:
+A long link can be shortened at tinier.hilltopfamilia.org for an hour, a day, a week or a month. The link is encrypted where it is made (AES-256-GCM, a random key); only the ciphertext goes to the service, and the key travels in the short link's fragment, which browsers never send. A program can do the same:
 
 ```
-POST https://tinier.tinylittleoffice.com/api   {c, iv, ttl}   → 201 {id, exp}
+POST https://tinier.hilltopfamilia.org/api   {c, iv, ttl}   → 201 {id, exp}
 ```
 
-`c` and `iv` are the AES-GCM ciphertext of the long link and its 12-byte IV, base64url; `ttl` is 3600, 86400, 604800 or 2592000 seconds (a month at most). The short link is `https://tinier.tinylittleoffice.com/<id>#<key>` (the key as base64url). A short link cannot be changed or recalled once made; it expires on its own, so make a new one for a new version. The ciphertext may be 16 KiB at most (a link of at most 12,272 characters; `measure` says whether yours fits, `short: {fits, over}`, `over` the characters to cut), and one address may make a hundred links a day (the 101st is 429, with `Retry-After`).
+`c` and `iv` are the AES-GCM ciphertext of the long link and its 12-byte IV, base64url; `ttl` is 3600, 86400, 604800 or 2592000 seconds (a month at most). The short link is `https://tinier.hilltopfamilia.org/<id>#<key>` (the key as base64url). A short link cannot be changed or recalled once made; it expires on its own, so make a new one for a new version. The ciphertext may be 16 KiB at most (a link of at most 12,272 characters; `measure` says whether yours fits, `short: {fits, over}`, `over` the characters to cut), and one address may make a hundred links a day (the 101st is 429, with `Retry-After`).
 
 ## Who made it
 
@@ -536,7 +358,7 @@ The head may carry `created` (when the document was first written, to the minute
 The site serves its own API as a module, for programs and agents; in a browser, Deno or Bun it imports as it is:
 
 ```js
-import { link, plain, read, text, compare, apps, templates } from 'https://tinylittleoffice.com/api.js';
+import { link, plain, read, text, compare, apps, templates } from 'https://hilltopfamilia.org/api.js';
 const url = link('sheet', 'Item | Cost:money\n--- | ---\nRent | 1200\n', { title: 'Budget', by: 'planner-agent' });
 read(url).text;                 // the document's TLO text, its title and by in the head
 await text(url);                // what the document says, as Markdown: what a screen reader reads on its Display Link
@@ -551,11 +373,11 @@ It is the same document, nothing added or renamed, to the JSON Schema at https:/
 
 Node does not import a module from a URL: in Node, use the command line, `npx tinylittleoffice` (the npm package `tinylittleoffice`, one file and no dependencies): `link`, `read` (`read --text` for what it says, as Markdown), `file`, `diff`, `lint`, `measure`, `apps`, `templates`.
 
-To learn a shape by example rather than from these pages: `npx tinylittleoffice shapes deck` lists what a deck reads, a line a shape; `npx tinylittleoffice example deck two` prints the smallest document that shows it, its JSON (the kernel's document), and what `lint` and `measure` say of it (with no shape, every one of the app's); `npx tinylittleoffice try deck draft.tlo` (or `-` for stdin) is the loop in one call: the lint, the measures and the JSON of a draft. The API has the same three: `await shapes(app)`, `await example(app, shape)`, `await tryDraft(app, text)`. An agent that can only fetch reads the examples as files: `https://tinylittleoffice.com/examples/<app>.json` (every shape of the app, its text, its plain link and its JSON), and `https://tinylittleoffice.com/llms/<app>.txt`, a page on one app.
+To learn a shape by example rather than from these pages: `npx tinylittleoffice shapes deck` lists what a deck reads, a line a shape; `npx tinylittleoffice example deck two` prints the smallest document that shows it, its JSON (the kernel's document), and what `lint` and `measure` say of it (with no shape, every one of the app's); `npx tinylittleoffice try deck draft.tlo` (or `-` for stdin) is the loop in one call: the lint, the measures and the JSON of a draft. The API has the same three: `await shapes(app)`, `await example(app, shape)`, `await tryDraft(app, text)`. An agent that can only fetch reads the examples as files: `https://hilltopfamilia.org/examples/<app>.json` (every shape of the app, its text, its plain link and its JSON), and `https://hilltopfamilia.org/llms/<app>.txt`, a page on one app.
 
 The words of a document may be in any language or script, right to left too (the kit sets the direction by the words): write for the reader. A link opens in its reader's browser's language; `link(app, text, { lang: 'ht' })` (or `--lang ht`) makes one that opens in Haitian Creole, or any language the site has (`es`, `pt-br`, `zh-hant`, `he`, `yi`, …), whatever the reader's browser says.
 
-A page of your own can import `https://tinylittleoffice.com/tinyoffice.js` instead: `link({ app, doc, title })` writes the plain link and `embed({ app, doc, title })` the `<iframe>` that shows the document's pages. In the API, `encode`/`decode` are the codec, `parse`/`write` the kernel (the document as a head and blocks, and back), `tlo`/`fromTlo` a `.tlo` file's text, `file(app, text, ext)` a file of the app's own formats that needs no browser.
+A page of your own can import `https://hilltopfamilia.org/tinyoffice.js` instead: `link({ app, doc, title })` writes the plain link and `embed({ app, doc, title })` the `<iframe>` that shows the document's pages. In the API, `encode`/`decode` are the codec, `parse`/`write` the kernel (the document as a head and blocks, and back), `tlo`/`fromTlo` a `.tlo` file's text, `file(app, text, ext)` a file of the app's own formats that needs no browser.
 
 ## The skill
 
@@ -597,9 +419,4 @@ For an agent working in the editors in a browser: the keys each app answers, wri
 - **Outliner**: `Tab` Indent; `Shift+Tab` Outdent; `Alt+ArrowUp` Move up; `Alt+ArrowDown` Move down; `Mod+Shift+,` Zoom out; `Mod+Shift+.` Zoom in; `Mod+Enter` Check or uncheck a task; `Mod+Alt+ArrowUp`/`Mod+Alt+ArrowDown` Collapse or expand; `Mod+D` Duplicate; `Delete`/`Backspace` Delete; `ArrowUp`/`ArrowDown`/`ArrowLeft`/`ArrowRight` Next or previous.
 - **Presentation Builder**: `Mod+Alt+Enter` Present; `Alt+ArrowUp` Move slide up; `Alt+ArrowDown` Move slide down; `Mod+Shift+Enter` A new slide; `Mod+Enter` Done; `Mod+D` Duplicate; `PageUp`/`PageDown` Previous or next slide; `ArrowRight`/`Space`/`PageDown`/`Enter` Next line or slide (presenting); `ArrowLeft`/`PageUp`/`Backspace` Back (presenting); `End` Whole slide (presenting); `N`/`Shift+N` Notes; `Escape` Stop presenting.
 - **Spreadsheet**: `Mod+Alt+=` Row above; `Mod+D` Fill down from the top row; `Mod+C` Copy; `Mod+X` Cut; `Mod+V` Paste; `Delete`/`Backspace` Clear cells; `Alt+ArrowUp` Move up; `Alt+ArrowDown` Move down; `Mod+Alt+-` Delete ; `Mod+A` Select all (this field first, then the whole document); `Mod+Enter` Done; `Tab`/`Shift+Tab` Indent or outdent a list item; next cell in a table; `F2` Edit cell with cursor at end; `Shift+ArrowUp`/`Shift+ArrowDown`/`Shift+ArrowLeft`/`Shift+ArrowRight` Extend selection; `Space` Check or uncheck a task; `Escape` Close or deselect; `Escape` Restore cell value; `Enter`/`Shift+Enter`/`ArrowDown`/`ArrowUp`/`ArrowLeft`/`ArrowRight` Next or previous.
-- **Calculator**: `Enter` Done; `ArrowUp`/`ArrowDown` Next or previous; `Escape` Clear the line; `Mod+A` Select all (this field first, then the whole document); `Enter` Done; `Escape` Close or deselect; `Alt+ArrowUp`/`Alt+ArrowDown` Move the selected items up or down; `Shift+ArrowUp`/`Shift+ArrowDown` Extend selection; `ArrowUp`/`ArrowDown` Next or previous; `Mod+D` Duplicate; `Mod+A` Select all (this field first, then the whole document); `Backspace` Delete.
-- **Drawing Tool**: `V` Select; `R` Rectangle; `E` Ellipse; `D` Diamond; `L` Line; `A` Arrow; `T` Text; `K`/`Shift+K` Join two shapes; `P` Pen; `F` Freehand; `[` Rotate left; `]` Rotate right; `Enter` Edit text; `Mod+D` Duplicate; `Mod+C` Copy; `Mod+X` Cut; `Mod+V` Paste; `Delete`/`Backspace` Delete; `Enter` Done; `Escape` Close or deselect; `Backspace` Delete; `Escape` Close or deselect; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`/`Enter` Join two shapes; `Mod+A` Select all (this field first, then the whole document); `Mod+Shift+L` Align: left; `Mod+Shift+E` Align: center; `Mod+Shift+R` Align: right; `Alt+ArrowUp`/`Alt+ArrowDown` Move the selected items up or down; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`/`Shift+ArrowLeft`/`Shift+ArrowRight`/`Shift+ArrowUp`/`Shift+ArrowDown`/`Mod+ArrowLeft`/`Mod+ArrowRight`/`Mod+ArrowUp`/`Mod+ArrowDown` Nudge selected shapes; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown` Tap or drag to paint; the arrow keys move, Enter paints.; `Enter`/`Space` Tap or drag to paint; the arrow keys move, Enter paints..
-- **Diagram Maker**: `Alt+ArrowUp` Move up; `Alt+ArrowDown` Move down; `Tab` Indent; `Shift+Tab` Outdent; `Mod+D` Duplicate; `Mod+C` Copy; `Mod+X` Cut; `Mod+V` Paste; `Delete`/`Backspace` Delete; `Enter`/`Space` Edit; `Mod+Alt+ArrowLeft` Move left; `Mod+Alt+ArrowRight` Move right; `ArrowUp`/`ArrowDown`/`ArrowLeft`/`ArrowRight` Next or previous; `ArrowDown`/`ArrowRight` Next or previous; `Escape` Close or deselect; `Mod+Enter` Done.
-- **Animator**: `Space` Play; `K` Add keyframe; `Enter` Edit text; `Mod+D` Duplicate; `Mod+C` Copy; `Mod+X` Cut; `Mod+V` Paste; `Delete`/`Backspace` Delete; `,`/`.` Previous or next frame; `Home`/`End` First or last frame; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`/`Shift+ArrowLeft`/`Shift+ArrowRight`/`Shift+ArrowUp`/`Shift+ArrowDown`/`Mod+ArrowLeft`/`Mod+ArrowRight`/`Mod+ArrowUp`/`Mod+ArrowDown` Nudge selected shapes, or step one frame; `Mod+A` Select all (this field first, then the whole document); `Escape` Close or deselect.
 - **Calendar**: `Mod+Alt+ArrowLeft` A day earlier; `Mod+Alt+ArrowRight` A day later; `Alt+Enter` Edit dates; `Tab`/`Shift+Tab` Indent or outdent a list item; next cell in a table; `Alt+ArrowUp`/`Alt+ArrowDown` Move the selected items up or down; `ArrowUp`/`ArrowDown` Next or previous; `Mod+D` Duplicate; `Mod+Enter` Check or uncheck a task; `Mod+Alt+ArrowLeft` A day earlier; `Mod+Alt+ArrowRight` A day later; `Alt+Enter` Edit dates; `Enter` Event; `Escape` Close or deselect; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`/`Shift+ArrowLeft`/`Shift+ArrowRight`/`Shift+ArrowUp`/`Shift+ArrowDown`/`Home`/`End`/`PageUp`/`PageDown` Next or previous; `Delete`/`Backspace` Delete; `Mod+D` Duplicate.
-- **Trip Planner**: `Mod+Alt+Enter` Present; `Alt+ArrowUp`/`Alt+ArrowDown` Move the selected items up or down; `Mod+D` Duplicate; `ArrowUp`/`ArrowDown` Next or previous; `ArrowRight`/`Space`/`PageDown`/`Enter` Next stop (presenting); `ArrowLeft`/`PageUp`/`Backspace` Previous stop (presenting); `Home`/`End` First or last; `Escape` Stop presenting; `ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`/`Shift+ArrowLeft`/`Shift+ArrowRight`/`Shift+ArrowUp`/`Shift+ArrowDown` Nudge selected shapes; `Delete`/`Backspace` Delete; `Escape` Close or deselect.

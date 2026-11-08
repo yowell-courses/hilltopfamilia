@@ -8,7 +8,7 @@
       "for": "a text in sections: # and ## lines",
       "from": "template syllabus",
       "text": "## Policies\n\n*Late work.*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%23%23+Policies%0A%0A%2ALate+work.%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=%23%23+Policies%0A%0A%2ALate+work.%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -39,7 +39,7 @@
       "for": "the first line set large: # Words {.title}",
       "from": "template memo",
       "text": "# Memo {.title}\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%23+Memo+%7B.title%7D",
+      "link": "https://hilltopfamilia.org/write/#doc=%23+Memo+%7B.title%7D",
       "json": {
         "head": {},
         "blocks": [
@@ -66,7 +66,7 @@
       "for": "things to do and done: - [ ] and - [x]",
       "from": "template meeting",
       "text": "- [ ] *Who does what, by when*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=-+%5B+%5D+%2AWho+does+what%2C+by+when%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=-+%5B+%5D+%2AWho+does+what%2C+by+when%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -90,7 +90,7 @@
       "for": "steps in order: 1. 2. 3.",
       "from": "template music-review",
       "text": "1. *Another*\n2. *A third*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=1.+%2AAnother%2A%0A2.+%2AA+third%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=1.+%2AAnother%2A%0A2.+%2AA+third%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -125,7 +125,7 @@
       "for": "points in no order: - lines",
       "from": "template resume",
       "text": "- *What you did, with a number if you can*\n- *What you are good at*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=-+%2AWhat+you+did%2C+with+a+number+if+you+can%2A%0A-+%2AWhat+you+are+good+at%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=-+%2AWhat+you+did%2C+with+a+number+if+you+can%2A%0A-+%2AWhat+you+are+good+at%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -158,7 +158,7 @@
       "for": "a line set right or centered: {.right} {.center}",
       "from": "template book-review",
       "text": "★★★★★ {.center}\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85+%7B.center%7D",
+      "link": "https://hilltopfamilia.org/write/#doc=%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85+%7B.center%7D",
       "json": {
         "head": {},
         "blocks": [
@@ -184,7 +184,7 @@
       "for": "words set apart: > lines",
       "from": "template recipe",
       "text": "> *A note for next time.*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%3E+%2AA+note+for+next+time.%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=%3E+%2AA+note+for+next+time.%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -206,7 +206,7 @@
       "for": "a note where its sentence is: ^[the note]",
       "from": "template petition",
       "text": "*The facts, and where they come from.*^[*The source.*]\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%2AThe+facts%2C+and+where+they+come+from.%2A%5E%5B%2AThe+source.%2A%5D",
+      "link": "https://hilltopfamilia.org/write/#doc=%2AThe+facts%2C+and+where+they+come+from.%2A%5E%5B%2AThe+source.%2A%5D",
       "json": {
         "head": {},
         "blocks": [
@@ -232,7 +232,7 @@
       "for": "words marked: **bold**, ==highlight==",
       "from": "template wedding",
       "text": "**To the couple.**\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%2A%2ATo+the+couple.%2A%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=%2A%2ATo+the+couple.%2A%2A",
       "json": {
         "head": {},
         "blocks": [
@@ -254,7 +254,7 @@
       "for": "a picture among words: :icon-name:",
       "from": "template newsletter",
       "text": "## :coffee: Thank you\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%23%23+%3Acoffee%3A+Thank+you",
+      "link": "https://hilltopfamilia.org/write/#doc=%23%23+%3Acoffee%3A+Thank+you",
       "json": {
         "head": {},
         "blocks": [
@@ -280,7 +280,7 @@
       "for": "an invoice’s lines, a price list: a money column and a total",
       "from": "template invoice",
       "text": "What | Qty:number | Units | Price:money | Amount:money\n--- | --- | --- | --- | ---\nDesign | 12 | hours | 150 | =B1*D1\nBuild | 20 | hours | 140 | =B2*D2\n",
-      "link": "https://tinylittleoffice.com/write/#doc=What+%7C+Qty%3Anumber+%7C+Units+%7C+Price%3Amoney+%7C+Amount%3Amoney%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0ADesign+%7C+12+%7C+hours+%7C+150+%7C+%3DB1%2AD1%0ABuild+%7C+20+%7C+hours+%7C+140+%7C+%3DB2%2AD2",
+      "link": "https://hilltopfamilia.org/write/#doc=What+%7C+Qty%3Anumber+%7C+Units+%7C+Price%3Amoney+%7C+Amount%3Amoney%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0ADesign+%7C+12+%7C+hours+%7C+150+%7C+%3DB1%2AD1%0ABuild+%7C+20+%7C+hours+%7C+140+%7C+%3DB2%2AD2",
       "json": {
         "head": {},
         "blocks": [
@@ -334,7 +334,7 @@
       "for": "the page’s type and colors: look: in the head",
       "from": "template cover",
       "text": "---\nlook: mixed\n---\n*Your name*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=---%0Alook%3A+mixed%0A---%0A%2AYour+name%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=---%0Alook%3A+mixed%0A---%0A%2AYour+name%2A",
       "json": {
         "head": {
           "look": "mixed"
@@ -358,7 +358,7 @@
       "for": "another document inside this one: a ```sheet fence",
       "from": "template news",
       "text": "```sheet\n---\ntitle: The figures\nchart: bar\n---\nMonth | On time:percent\n--- | ---\nMay | 71\nJun | 63\nJul | 52\nAug | 47\nSep | 55\n```\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%60%60%60sheet%0A---%0Atitle%3A+The+figures%0Achart%3A+bar%0A---%0AMonth+%7C+On+time%3Apercent%0A---+%7C+---%0AMay+%7C+71%0AJun+%7C+63%0AJul+%7C+52%0AAug+%7C+47%0ASep+%7C+55%0A%60%60%60",
+      "link": "https://hilltopfamilia.org/write/#doc=%60%60%60sheet%0A---%0Atitle%3A+The+figures%0Achart%3A+bar%0A---%0AMonth+%7C+On+time%3Apercent%0A---+%7C+---%0AMay+%7C+71%0AJun+%7C+63%0AJul+%7C+52%0AAug+%7C+47%0ASep+%7C+55%0A%60%60%60",
       "json": {
         "head": {},
         "blocks": [
@@ -376,7 +376,7 @@
       "for": "a drawing, a diagram, a chart or a map in a fence named by its app",
       "from": "template memo",
       "text": "```diagram\n---\ntitle: Who does what\nkind: lanes\n---\n- You: Write the change down\n- Readers: Do their part by the date\n- You: Check that it was done\n```\n\n*What each reader does, and by when.*\n",
-      "link": "https://tinylittleoffice.com/write/#doc=%60%60%60diagram%0A---%0Atitle%3A+Who+does+what%0Akind%3A+lanes%0A---%0A-+You%3A+Write+the+change+down%0A-+Readers%3A+Do+their+part+by+the+date%0A-+You%3A+Check+that+it+was+done%0A%60%60%60%0A%0A%2AWhat+each+reader+does%2C+and+by+when.%2A",
+      "link": "https://hilltopfamilia.org/write/#doc=%60%60%60diagram%0A---%0Atitle%3A+Who+does+what%0Akind%3A+lanes%0A---%0A-+You%3A+Write+the+change+down%0A-+Readers%3A+Do+their+part+by+the+date%0A-+You%3A+Check+that+it+was+done%0A%60%60%60%0A%0A%2AWhat+each+reader+does%2C+and+by+when.%2A",
       "json": {
         "head": {},
         "blocks": [

@@ -8,7 +8,7 @@
       "for": "a calendar: - 2027-03-01: Launch",
       "from": "template school",
       "text": "- 2026-12-23 to 2027-01-01: Winter break\n- 2027-01-04: Classes start again\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=-+2026-12-23+to+2027-01-01%3A+Winter+break%0A-+2027-01-04%3A+Classes+start+again",
+      "link": "https://hilltopfamilia.org/cal/#doc=-+2026-12-23+to+2027-01-01%3A+Winter+break%0A-+2027-01-04%3A+Classes+start+again",
       "json": {
         "head": {},
         "blocks": [
@@ -39,7 +39,7 @@
       "for": "when in the day: - 2027-03-10 09:00-10:30: Retro",
       "from": "template festival",
       "text": "- 2027-06-20 11:00-12:30: Bread workshop\n- 2027-06-20 17:00: Close and thanks\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=-+2027-06-20+11%3A00-12%3A30%3A+Bread+workshop%0A-+2027-06-20+17%3A00%3A+Close+and+thanks",
+      "link": "https://hilltopfamilia.org/cal/#doc=-+2027-06-20+11%3A00-12%3A30%3A+Bread+workshop%0A-+2027-06-20+17%3A00%3A+Close+and+thanks",
       "json": {
         "head": {},
         "blocks": [
@@ -70,7 +70,7 @@
       "for": "a trip, a break: - 2027-03-01 to 2027-03-03: Offsite",
       "from": "template school",
       "text": "- 2026-12-23 to 2027-01-01: Winter break\n- 2027-01-04: Classes start again\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=-+2026-12-23+to+2027-01-01%3A+Winter+break%0A-+2027-01-04%3A+Classes+start+again",
+      "link": "https://hilltopfamilia.org/cal/#doc=-+2026-12-23+to+2027-01-01%3A+Winter+break%0A-+2027-01-04%3A+Classes+start+again",
       "json": {
         "head": {},
         "blocks": [
@@ -101,7 +101,7 @@
       "for": "every week or year: {every=week times=6}",
       "from": "template family",
       "text": "- 2026-12-03 19:30-22:00: Book club at Jo's {color=orange every=month}\n- 2026-12-23 to 2027-01-01: Winter break\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=-+2026-12-03+19%3A30-22%3A00%3A+Book+club+at+Jo%27s+%7Bcolor%3Dorange+every%3Dmonth%7D%0A-+2026-12-23+to+2027-01-01%3A+Winter+break",
+      "link": "https://hilltopfamilia.org/cal/#doc=-+2026-12-03+19%3A30-22%3A00%3A+Book+club+at+Jo%27s+%7Bcolor%3Dorange+every%3Dmonth%7D%0A-+2026-12-23+to+2027-01-01%3A+Winter+break",
       "json": {
         "head": {},
         "blocks": [
@@ -138,7 +138,7 @@
       "for": "whose it is: green: Sam in the head, {color=green} on the line",
       "from": "template school",
       "text": "---\ngreen: Clubs\n---\n- 2026-12-23 to 2027-01-01: Winter break {color=red}\n- 2027-01-04: Classes start again\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=---%0Agreen%3A+Clubs%0A---%0A-+2026-12-23+to+2027-01-01%3A+Winter+break+%7Bcolor%3Dred%7D%0A-+2027-01-04%3A+Classes+start+again",
+      "link": "https://hilltopfamilia.org/cal/#doc=---%0Agreen%3A+Clubs%0A---%0A-+2026-12-23+to+2027-01-01%3A+Winter+break+%7Bcolor%3Dred%7D%0A-+2027-01-04%3A+Classes+start+again",
       "json": {
         "head": {
           "green": "Clubs"
@@ -176,7 +176,7 @@
       "for": "tasks over weeks: view: gantt, parts nested, {done=40%}",
       "from": "template project",
       "text": "---\nview: gantt\n---\n- 2026-11-02 to 2026-11-20: Build\n  - 2026-11-16 to 2026-11-20: Testing on phones\n",
-      "link": "https://tinylittleoffice.com/cal/#doc=---%0Aview%3A+gantt%0A---%0A-+2026-11-02+to+2026-11-20%3A+Build%0A++-+2026-11-16+to+2026-11-20%3A+Testing+on+phones",
+      "link": "https://hilltopfamilia.org/cal/#doc=---%0Aview%3A+gantt%0A---%0A-+2026-11-02+to+2026-11-20%3A+Build%0A++-+2026-11-16+to+2026-11-20%3A+Testing+on+phones",
       "json": {
         "head": {
           "view": "gantt"

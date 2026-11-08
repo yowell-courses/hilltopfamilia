@@ -27,7 +27,14 @@ export interface Site {
   now: number;
 }
 
-const none = () => new Response('No such card, or it has expired.', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' } });
+const none = () =>
+  new Response('No such card, or it has expired.', {
+    status: 404,
+    headers: {
+      'content-type': 'text/plain; charset=utf-8',
+      'cache-control': 'no-store',
+    },
+  });
 
 export async function handleSite(req: Request, { assets, store, key, edge, now }: Site): Promise<Response> {
   const url = new URL(req.url);

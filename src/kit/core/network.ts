@@ -40,7 +40,7 @@ const compose = (host: string, what: string): Reach => ({
 
 export const NETWORK = {
   site: {
-    host: 'tinylittleoffice.com',
+    host: 'hilltopfamilia.org',
     what: 'The site’s own files: the page, the app file (every app, the English words, the icons, the emoji and the math), its stylesheet, an app’s templates when its list opens, a language when a page is in it, and the type (IBM Plex, a face when a page’s words need it), each fetched once and kept a year',
     when: 'while shown',
     carries: 'Which file; never the document, which is after the "#" and stays in the browser',
@@ -48,7 +48,7 @@ export const NETWORK = {
     by: 'the whole site',
   },
   worker: {
-    host: 'tinylittleoffice.com',
+    host: 'hilltopfamilia.org',
     what: 'The service worker, /sw.js, with Save in browser on: it keeps the pages, the app file, its stylesheet, the Latin faces and each file a page fetches after, so the site opens offline',
     when: 'after a tap',
     carries: 'Which file, as the pages ask; never the document, which is after the "#" and never reaches the worker, and never a shared link’s "/c/<id>" page with its card',
@@ -56,7 +56,7 @@ export const NETWORK = {
     by: 'kit/share/offline.ts, sw.ts',
   },
   card: {
-    host: 'tinylittleoffice.com',
+    host: 'hilltopfamilia.org',
     what: 'A preview card, at the site’s own /card: posted when you share with a network (Bluesky, Mastodon, X, LinkedIn or the share sheet) with “Show a preview of the first page” on; fetched later by that network',
     when: 'on share',
     carries: 'A picture of the first page, the title and the first words, kept readable for a month so the network can fetch them; never the document, never its link',
@@ -100,7 +100,7 @@ export const NETWORK = {
     by: 'apps/trip/editor.ts, apps/trip/view.ts',
   },
   tinier: {
-    host: 'tinier.tinylittleoffice.com',
+    host: 'tinier.hilltopfamilia.org',
     what: 'Short links: made or opened',
     when: 'after a tap',
     carries: 'The long link encrypted here, which the service cannot read, and how long to keep it',
@@ -120,7 +120,7 @@ export const NETWORK = {
     host: 'aboard.com',
     what: 'Aboard, who made the site, named at the home page’s foot and in About, a link',
     when: 'after a tap',
-    carries: 'That the visit came from Tiny Little Office (utm_source=tlo in the address); it opens in a new tab, and nothing of the document goes with it',
+    carries: 'That the visit came from Hilltop Familia (utm_source=tlo in the address); it opens in a new tab, and nothing of the document goes with it',
     stops: 'Not following the link',
     by: 'kit/ui/home.ts, kit/ui/drawer.ts',
   },

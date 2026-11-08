@@ -35,7 +35,7 @@ test('packed and installed elsewhere, `tinylittleoffice` lints an example, gives
     writeFileSync(join(app, 'money.tlo'), `---\napp: sheet\n---\n${sheet.shapes[0].text}`);
     expect(execFileSync(bin, ['lint', join(app, 'money.tlo')], { encoding: 'utf8' })).toBe('');
     expect(execFileSync(bin, ['example', 'sheet', 'money'], { encoding: 'utf8' })).toContain('The lint: clean');
-    expect(execFileSync(join(app, 'node_modules/.bin/tinyoffice'), ['shapes', 'diagram'], { encoding: 'utf8' })).toContain('venn');
+    expect(execFileSync(join(app, 'node_modules/.bin/tinyoffice'), ['shapes', 'deck'], { encoding: 'utf8' })).toContain('bullets');
     // The skill's folder rides in the package, as `npm run skill` wrote it, and installs from there, whole.
     const files = [
       'SKILL.md',

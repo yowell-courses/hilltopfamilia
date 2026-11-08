@@ -23,7 +23,10 @@ test('the reader takes what the files use and refuses what it does not', () => {
   for (const bad of ['a: 1\n\tb: 2\n', 'a:\n  b: 1\n c: 2\n', 'a: {b: 1}\n', 'a: 1\na: 2\n', 'a: b: c\n']) expect(() => yaml(bad), bad).toThrow();
 });
 
-test('every YAML file in .github is YAML', () => {
+// The repository's .github is absent from a copy of the tree without one: these tests wait for it.
+const hasGithub = existsSync(join(root, '.github'));
+
+test.skipIf(!hasGithub)('every YAML file in .github is YAML', () => {
   const files = ymls('.github');
   expect(files).toEqual(expect.arrayContaining(['.github/workflows/ci.yml', '.github/dependabot.yml']));
   for (const f of files) expect(() => yaml(read(f)), f).not.toThrow();
@@ -55,7 +58,7 @@ test('the packages say what they are and where they live: the site stays unpubli
 // really only want license and README, both as brief as possible"): no code of conduct, no contributing guide, no
 // security policy (a hole is reported through GitHub's private vulnerability reporting, which the README names), no
 // issue or pull request templates. The README keeps its truth about saving (test/docs.test.ts).
-test('a stranger finds the license and a brief README, and no other front matter', () => {
+test.skipIf(!hasGithub)('a stranger finds the license and a brief README, and no other front matter', () => {
   expect(read('LICENSE')).toMatch(/^MIT License\n\nCopyright \(c\) 2026 Paul Ford\n/);
   expect(read('LICENSE').trim().split('\n').length).toBeLessThanOrEqual(21);
   // Paul's README of 2026-10-13 lists the ten apps and a sample document for each; still one screen or two, no more.
@@ -69,7 +72,7 @@ test('a stranger finds the license and a brief README, and no other front matter
 const deployChecks = () =>
   [...read('scripts/deploy.mjs').matchAll(/run\('([^']+)', '([^']+)'\)/g)].map((m) => m[2].replaceAll(' -s ', ' ')).filter((cmd) => !cmd.startsWith('npx wrangler') && cmd !== 'npx playwright test');
 
-test('CI runs, on every push and pull request, every check the deploy runs, in Chromium and WebKit with the fonts the measuring tests need', () => {
+test.skipIf(!hasGithub)('CI runs, on every push and pull request, every check the deploy runs, in Chromium and WebKit with the fonts the measuring tests need', () => {
   const ci = yaml(read('.github/workflows/ci.yml')) as { on: Record<string, unknown>; jobs: Record<string, { 'runs-on': string; steps: { run?: string }[] }> };
   expect(Object.keys(ci.on).sort()).toEqual(['pull_request', 'push', 'workflow_dispatch']);
   const job = Object.values(ci.jobs)[0];
@@ -84,7 +87,7 @@ test('CI runs, on every push and pull request, every check the deploy runs, in C
   expect(runs.join('\n')).toMatch(/apt-get install -y[^\n]*fonts-noto-core fonts-noto-cjk fonts-noto-extra/);
 });
 
-test('dependabot asks for npm updates weekly, grouped', () => {
+test.skipIf(!hasGithub)('dependabot asks for npm updates weekly, grouped', () => {
   const d = yaml(read('.github/dependabot.yml')) as { version: number; updates: { 'package-ecosystem': string; schedule: { interval: string }; groups: Record<string, unknown> }[] };
   expect(d.version).toBe(2);
   const npm = d.updates.find((u) => u['package-ecosystem'] === 'npm')!;

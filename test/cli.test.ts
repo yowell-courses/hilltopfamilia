@@ -13,7 +13,7 @@ test('a link from a file, and the file back from the link', () => {
   const dir = mkdtempSync(join(tmpdir(), 'tlo-'));
   writeFileSync(join(dir, 'chores.tlo'), '---\ntitle: Chores\napp: outline\n---\n- [ ] Sweep\n- [x] Shop\n');
   const url = run(['link', join(dir, 'chores.tlo')]).trim();
-  expect(url).toMatch(/^https:\/\/tinylittleoffice\.com\/outline\/#\/v1\/outline\/[yzr]/);
+  expect(url).toMatch(/^https:\/\/hilltopfamilia\.org\/outline\/#\/v1\/outline\/[yzr]/);
   expect(run(['read', url])).toBe('---\ntitle: Chores\n---\n- [ ] Sweep\n- [x] Shop\n');
   const out = join(dir, 'back.tlo');
   expect(run(['file', url, '--out', out]).trim()).toBe(out);
@@ -25,8 +25,8 @@ test('a link from a file, and the file back from the link', () => {
 test('stdin, the plain form, a show link, and JSON', () => {
   expect(run(['link', 'deck', '--title', 'Talk', '--view', 'show'], '## One\n').trim()).toMatch(/\?show$/);
   expect(run(['link', 'write', '--lang', 'ht'], 'Bonjou\n').trim()).toMatch(/\?lang=ht$/);
-  expect(run(['link', 'outline', '--plain', '--title', 'Shop'], '- [ ] Milk\n').trim()).toBe('https://tinylittleoffice.com/outline/#title=Shop&doc=-+%5B+%5D+Milk');
-  expect(JSON.parse(run(['read', 'https://tinylittleoffice.com/outline/#title=Shop&doc=-+%5B+%5D+Milk', '--json']))).toMatchObject({ app: 'outline', title: 'Shop' });
+  expect(run(['link', 'outline', '--plain', '--title', 'Shop'], '- [ ] Milk\n').trim()).toBe('https://hilltopfamilia.org/outline/#title=Shop&doc=-+%5B+%5D+Milk');
+  expect(JSON.parse(run(['read', 'https://hilltopfamilia.org/outline/#title=Shop&doc=-+%5B+%5D+Milk', '--json']))).toMatchObject({ app: 'outline', title: 'Shop' });
 });
 
 test('json gives the document as JSON; read --json carries it; a link and a file come back from it; file --as json is the download', () => {
@@ -112,8 +112,8 @@ test('lint works out a table’s formulas: a total that takes in its own cell is
 
 test('read --text gives the document as what it says, in Markdown: a link, a .tlo file, or an app and stdin', () => {
   const dir = mkdtempSync(join(tmpdir(), 'tlo-'));
-  writeFileSync(join(dir, 'net.tlo'), '---\ntitle: Supply\napp: diagram\nkind: net\n---\n- Shop\n- Warehouse\n~ Shop -> Warehouse: orders\n');
-  const md = '# Supply\n\n## Shop\n\n## Warehouse\n\n## Connections\n\n- Shop → Warehouse: orders\n';
+  writeFileSync(join(dir, 'net.tlo'), '---\ntitle: Supply\napp: outline\n---\n- Shop\n- Warehouse\n~ Shop -> Warehouse: orders\n');
+  const md = '# Supply\n\n- Shop\n- Warehouse\n- Shop → Warehouse: orders\n';
   expect(run(['read', '--text', join(dir, 'net.tlo')])).toBe(md);
   expect(run(['read', '--text', run(['link', join(dir, 'net.tlo')]).trim()])).toBe(md);
   expect(run(['read', '--text', 'sheet'], 'Item | Cost:money\n--- | ---\nRent | 1200\n')).toBe('Item | Cost\n--- | ---\nRent | $1,200.00\n');
@@ -130,7 +130,7 @@ test('link --seal prints the link and, on a second line, the password the app ma
   const { parseHash } = await import('../src/kit/core/route.ts');
   const [url, password, ...more] = run(['link', 'write', '--seal', '--title', 'Pay'], 'Salaries are up.\n').trimEnd().split('\n');
   expect(more).toEqual([]);
-  expect(url).toMatch(/^https:\/\/tinylittleoffice\.com\/write\/#\/v1\/write\/E/);
+  expect(url).toMatch(/^https:\/\/hilltopfamilia\.org\/write\/#\/v1\/write\/E/);
   expect(password).toMatch(/^[^-]{5}-[^-]{5}-[^-]{5}-[^-]{5}$/);
   const opened = await unseal(password, parseHash(new URL(url).hash).payload);
   expect(unpackDoc(opened!.flag, opened!.bytes)).toBe('---\ntitle: Pay\n---\nSalaries are up.\n');
@@ -142,22 +142,19 @@ test('link --seal prints the link and, on a second line, the password the app ma
 
 test('shapes, example and try: what an app reads, the smallest document of each shape, and a draft in one call', () => {
   expect(run(['shapes', 'sheet']).split('\n')[0]).toMatch(/^money +a money column, /);
-  const venn = run(['example', 'diagram', 'venn']);
-  expect(venn).toMatch(/^## venn: a Venn diagram\n/);
-  for (const part of [
-    '```\n---\nkind: venn\n---\n',
-    'As a link: https://tinylittleoffice.com/diagram/#doc=',
-    'The JSON:\n\n{\n  "head": {',
-    'The lint: clean',
-    'The measures:\n\n{\n  "app": "diagram"',
-  ])
+  const venn = run(['example', 'deck', 'bullets']);
+  expect(venn).toMatch(/^## bullets: a slide of bullets\n/);
+  for (const part of ['```\n## Prices\n', 'As a link: https://hilltopfamilia.org/deck/#doc=', 'The JSON:\n\n{\n  "head": {', 'The lint: clean', 'The measures:\n\n{\n  "app": "deck"'])
     expect(venn).toContain(part);
   const bad = spawnSync(process.execPath, [CLI, 'example', 'sheet', 'nope'], { encoding: 'utf8' });
   expect([bad.status, bad.stderr]).toStrictEqual([2, 'tinyoffice: sheet has no shape "nope"; its shapes: money, formula, bar, line, pie, sankey, model, lock, date, check, percent, option\n']);
-  const draft = spawnSync(process.execPath, [CLI, 'try', 'diagram', '-', '--json'], { input: '---\nkind: venn\n---\n- Cats: 2,000 cases\n- Dogs: walks\n', encoding: 'utf8' });
+  const draft = spawnSync(process.execPath, [CLI, 'try', 'deck', '-', '--json'], {
+    input: '---\ntheme: boardroom\n---\n## Weight\n\n```sheet\n---\nchart: bar\n---\nChunk | Kilobytes:number\n--- | ---\nMain | 40\n```\n\n- Measured at the end\n',
+    encoding: 'utf8',
+  });
   expect(draft.status).toBe(1);
   const t = JSON.parse(draft.stdout);
-  expect([t.lint[0].kind, t.measure.app, t.json.head.kind]).toStrictEqual(['comma-number', 'diagram', 'venn']);
+  expect([t.lint[0].kind, t.measure.app, t.json.head.theme]).toStrictEqual(['fence-bullets', 'deck', 'boardroom']);
   expect(spawnSync(process.execPath, [CLI, 'try', 'write', '-'], { input: '# Hello\n', encoding: 'utf8' }).stdout).toMatch(/^The lint: clean\n\nThe measures:/);
 });
 
@@ -166,7 +163,7 @@ test('example, run for every app and every shape, is clean every time', { timeou
     .trim()
     .split('\n')
     .map((l) => l.split(' ')[0]);
-  expect(ids).toContain('diagram');
+  expect(ids).toContain('outline');
   for (const a of ids) {
     const all = JSON.parse(run(['example', a, '--json'])) as { id: string; lint: unknown[]; text: string }[];
     expect(all.length, a).toBeGreaterThan(0);
@@ -175,10 +172,7 @@ test('example, run for every app and every shape, is clean every time', { timeou
 });
 
 test('file --as webm says the video is made in the browser and exits 2, and the help says so beside the format', () => {
-  for (const [app, text] of [
-    ['anim', ''],
-    ['deck', '## One\n'],
-  ]) {
+  for (const [app, text] of [['deck', '## One\n']]) {
     const url = run(['link', app], text).trim();
     const r = spawnSync(process.execPath, [CLI, 'file', url, '--as', 'webm', '--out', '-'], { encoding: 'utf8' });
     expect(r.status, app).toBe(2);
@@ -200,7 +194,7 @@ test('skill prints SKILL.md; --into writes the folder, refuses a second time, an
       .sort()
       .map((f) => `references/${f}`),
   ];
-  expect(files.length).toBeGreaterThan(10);
+  expect(files.length).toBeGreaterThan(5);
   const skill = readFileSync(join(root, 'SKILL.md'), 'utf8');
   expect(run(['skill'])).toBe(skill);
   const dir = join(mkdtempSync(join(tmpdir(), 'tlo-skill-')), 'skills');

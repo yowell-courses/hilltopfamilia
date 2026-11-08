@@ -19,7 +19,7 @@ const allowedBy = (r: Reach) => (r.csp ? r.csp.map((d) => `\`${CSP[d]}\``).join(
 
 const PROSE = `# What leaves your browser
 
-Tiny Little Office keeps a document in its link. Opening one asks the site for its own files and nothing
+Hilltop Familia keeps a document in its link. Opening one asks the site for its own files and nothing
 else. This page lists every other request the site can make: when it happens, what it carries, and what
 stops it. The Content-Security-Policy in \`public/_headers\` allows these places and no others, so a request
 not on this list is refused by the browser itself.
@@ -186,8 +186,8 @@ export function networkPage(): string {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>What leaves your browser · Tiny Little Office</title>
-<meta name="description" content="Every request Tiny Little Office can make: when, what it carries, and what stops it." />
+<title>What leaves your browser · Hilltop Familia</title>
+<meta name="description" content="Every request Hilltop Familia can make: when, what it carries, and what stops it." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
 ${STYLE}
@@ -195,7 +195,7 @@ ${STYLE}
 </head>
 <body>
 <main>
-<p class="home"><a href="./">Tiny Little Office</a></p>
+<p class="home"><a href="./">Hilltop Familia</a></p>
 ${proseHtml()}
 <p class="note">Written from <code>src/kit/core/network.ts</code>; the same page is <code>docs/network.md</code> in the repository.</p>
 </main>

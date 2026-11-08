@@ -1,6 +1,6 @@
 # Spreadsheet (`sheet`), Tiny Little Office
 
-A spreadsheet with formulas, named cells and charts; three columns to start, more as you need them. A document is a link: https://tinylittleoffice.com/sheet/#doc=<percent-encoded TLO>
+A spreadsheet with formulas, named cells and charts; three columns to start, more as you need them. A document is a link: https://hilltopfamilia.org/sheet/#doc=<percent-encoded TLO>
 
 One table. Its header row names the columns, each optionally typed (`Sales:money`); the rows under it are rows 1, 2, 3, so `=SUM(B1:B3)` adds the first three. Up to 26 columns (A to Z). A cell starting with `=` is a formula: `+ - * / ^`, comparisons, references (`B2`), ranges (`A1:A5`), and these functions: `SUM`, `AVG`, `MIN`, `MAX`, `COUNT`, `SUMIF`, `COUNTIF`, `MEDIAN`, `PRODUCT`, `IF`, `AND`, `OR`, `NOT`, `ROUND`, `ROUNDUP`, `ROUNDDOWN`, `INT`, `ABS`, `SQRT`, `MOD`, `NPV`, `IRR`, `PMT`, `FV`, `PV`, `TODAY`, `DATE`, `DAYS`, `EDATE`, `WORKDAYS`, `YEAR`, `MONTH`, `DAY`, `WEEKDAY`. Dates are written `2027-03-01` in a `date` column. `chart: bar` (or `line`, `pie`) in the head draws the first column's labels against the numbers beside them; `chart: sankey` draws rows of `From | To | Amount` as flows.
 
@@ -32,6 +32,6 @@ Aug | 39700 | 38900
 Sep | 33600 | 30250
 ```
 
-As a link: <https://tinylittleoffice.com/sheet/#doc=Month+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250>
+As a link: <https://hilltopfamilia.org/sheet/#doc=Month+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250>
 
-Every shape as a document, a link and JSON: https://tinylittleoffice.com/examples/sheet.json. The whole description: https://tinylittleoffice.com/llms-full.txt
+Every shape as a document, a link and JSON: https://hilltopfamilia.org/examples/sheet.json. The whole description: https://hilltopfamilia.org/llms-full.txt

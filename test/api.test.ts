@@ -12,7 +12,7 @@ test('encode and decode are the codec; parse and write the kernel', () => {
 
 test('link makes the packed link, with a title and by in the head; read takes it back', () => {
   const url = link('sheet', 'Item | Cost:money\n--- | ---\nRent | 1200\n', { title: 'Budget', by: 'planner' });
-  expect(url).toMatch(/^https:\/\/tinylittleoffice\.com\/sheet\/#\/v1\/sheet\/[yzr][A-Za-z0-9_~]+$/);
+  expect(url).toMatch(/^https:\/\/hilltopfamilia\.org\/sheet\/#\/v1\/sheet\/[yzr][A-Za-z0-9_~]+$/);
   const r = read(url);
   const said = '---\ntitle: Budget\nby: planner\n---\nItem | Cost:money\n--- | ---\nRent | 1200\n';
   expect(r).toEqual({ app: 'sheet', view: '', text: said, json: toJson(said), title: 'Budget', by: 'planner', display: false });
@@ -29,7 +29,7 @@ test('link makes the packed link, with a title and by in the head; read takes it
 
 test('a link can open in a language: lang, beside the Display Link and the show link, read back', () => {
   const url = link('write', '# Bonjou\n', { lang: 'ht' });
-  expect(url).toMatch(/^https:\/\/tinylittleoffice\.com\/write\/#\/v1\/write\/[yzr][A-Za-z0-9_~]+\?lang=ht$/);
+  expect(url).toMatch(/^https:\/\/hilltopfamilia\.org\/write\/#\/v1\/write\/[yzr][A-Za-z0-9_~]+\?lang=ht$/);
   expect(read(url)).toMatchObject({ app: 'write', text: '# Bonjou\n', lang: 'ht' });
   expect(read(link('write', 'x'))).not.toHaveProperty('lang');
   expect(link('deck', '## A', { show: true, display: true, lang: 'pt-br' })).toMatch(/\?d&lang=pt-br&show$/);
@@ -39,7 +39,7 @@ test('a link can open in a language: lang, beside the Display Link and the show 
 
 test('a plain link is read as the document it stands for', () => {
   const url = plain('outline', '- [ ] Milk\n', { title: 'Shop', by: 'agent' });
-  expect(url).toBe('https://tinylittleoffice.com/outline/#title=Shop&by=agent&doc=-+%5B+%5D+Milk');
+  expect(url).toBe('https://hilltopfamilia.org/outline/#title=Shop&by=agent&doc=-+%5B+%5D+Milk');
   const said = '---\nby: agent\ntitle: Shop\n---\n- [ ] Milk\n';
   expect(read(url)).toEqual({ app: 'outline', view: '', text: said, json: toJson(said), title: 'Shop', by: 'agent', display: false });
 });
@@ -58,7 +58,7 @@ test('compare: what the second link changed', () => {
 
 test('the apps, their templates and the files they make without a browser', async () => {
   const all = await apps();
-  expect(all.map((a) => a.id)).toEqual(['write', 'outline', 'deck', 'sheet', 'calc', 'draw', 'diagram', 'anim', 'cal', 'trip']);
+  expect(all.map((a) => a.id)).toEqual(['write', 'outline', 'deck', 'sheet', 'cal']);
   expect(all.find((a) => a.id === 'sheet')).toMatchObject({ name: 'Spreadsheet', noun: 'spreadsheet' });
   const tpl = await templates('sheet');
   expect(tpl[0]).toMatchObject({ id: 'budget', name: 'Budget' });
@@ -78,7 +78,7 @@ test('text(link): the document as what it says, in Markdown, its title first; ma
   // The title is the document's first heading already: said once.
   expect(await text(url)).toBe('# Minutes\n\nWe met.[^1]\n\n[^1]: On Tuesday.\n');
   expect(await text(link('todo', '- [x] Milk\n- [ ] Eggs\n', { title: 'Shop' }))).toBe('# Shop\n\n- [x] Milk\n- [ ] Eggs\n');
-  expect(await markdown('calc', 'a = 2\na * 3\n')).toBe('a = 2\na * 3\n');
+  expect(await markdown('sheet', 'A | B\n--- | ---\n1 | 2\n')).toBe('A | B\n--- | ---\n1 | 2\n');
 });
 
 test('seal: the app makes the password (Paul, 2026-10-11); the link holds ciphertext and the password it returns opens it', async () => {
@@ -87,7 +87,7 @@ test('seal: the app makes the password (Paul, 2026-10-11); the link holds cipher
   const { parseHash } = await import('../src/kit/core/route.ts');
   const sealed = await link('write', 'Salaries are up.\n', { title: 'Pay', seal: true });
   expect(sealed.password).toMatch(/^[^-]{5}-[^-]{5}-[^-]{5}-[^-]{5}$/);
-  expect(sealed.url).toMatch(/^https:\/\/tinylittleoffice\.com\/write\/#\/v1\/write\/E[A-Za-z0-9_~]+$/);
+  expect(sealed.url).toMatch(/^https:\/\/hilltopfamilia\.org\/write\/#\/v1\/write\/E[A-Za-z0-9_~]+$/);
   expect(sealed.url).not.toContain('Salaries');
   const payload = parseHash(new URL(sealed.url).hash).payload;
   const opened = await unseal(sealed.password, payload);

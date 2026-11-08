@@ -8,7 +8,7 @@
       "for": "notes in a tree: - items, two spaces a level",
       "from": "template novel",
       "text": "- The Lighthouse Keeper\n  - Act three: Spring\n    - The first ferry\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+The+Lighthouse+Keeper%0A++-+Act+three%3A+Spring%0A++++-+The+first+ferry",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+The+Lighthouse+Keeper%0A++-+Act+three%3A+Spring%0A++++-+The+first+ferry",
       "json": {
         "head": {},
         "blocks": [
@@ -48,7 +48,7 @@
       "for": "an order to follow: 1. items",
       "from": "template syllabus",
       "text": "- Urban Ecology (ENV 214), fall semester 2026\n  - Week by week\n    1. Light at night\n    2. Designing for wildlife; what the survey found\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+Urban+Ecology+%28ENV+214%29%2C+fall+semester+2026%0A++-+Week+by+week%0A++++1.+Light+at+night%0A++++2.+Designing+for+wildlife%3B+what+the+survey+found",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+Urban+Ecology+%28ENV+214%29%2C+fall+semester+2026%0A++-+Week+by+week%0A++++1.+Light+at+night%0A++++2.+Designing+for+wildlife%3B+what+the+survey+found",
       "json": {
         "head": {},
         "blocks": [
@@ -99,7 +99,7 @@
       "for": "how an item feeds its parent: {.to label=\"…\"}",
       "from": "template decision",
       "text": "- Should we move the office?\n  - Decide by Friday, October 30 {.to label=then}\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+Should+we+move+the+office%3F%0A++-+Decide+by+Friday%2C+October+30+%7B.to+label%3Dthen%7D",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+Should+we+move+the+office%3F%0A++-+Decide+by+Friday%2C+October+30+%7B.to+label%3Dthen%7D",
       "json": {
         "head": {},
         "blocks": [
@@ -138,7 +138,7 @@
       "for": "two items joined across the tree: ~ A -> B: label",
       "from": "template essay",
       "text": "- Is a four-day week good for a small business?\n  - The objection\n  - The answer\n\n~ The answer -> The objection: meets\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+Is+a+four-day+week+good+for+a+small+business%3F%0A++-+The+objection%0A++-+The+answer%0A%0A~+The+answer+-%3E+The+objection%3A+meets",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+Is+a+four-day+week+good+for+a+small+business%3F%0A++-+The+objection%0A++-+The+answer%0A%0A~+The+answer+-%3E+The+objection%3A+meets",
       "json": {
         "head": {},
         "blocks": [
@@ -185,7 +185,7 @@
       "for": "a note on an item: ^[the note]",
       "from": "template decision",
       "text": "- Should we move the office?\n  - Take the floor above\n    - Against: the rent goes up by a third^[From $2,400 a month to $3,200, on a five-year lease from January 1, 2027.]\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+Should+we+move+the+office%3F%0A++-+Take+the+floor+above%0A++++-+Against%3A+the+rent+goes+up+by+a+third%5E%5BFrom+%242%2C400+a+month+to+%243%2C200%2C+on+a+five-year+lease+from+January+1%2C+2027.%5D",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+Should+we+move+the+office%3F%0A++-+Take+the+floor+above%0A++++-+Against%3A+the+rent+goes+up+by+a+third%5E%5BFrom+%242%2C400+a+month+to+%243%2C200%2C+on+a+five-year+lease+from+January+1%2C+2027.%5D",
       "json": {
         "head": {},
         "blocks": [
@@ -229,7 +229,7 @@
       "for": "a fence named by its app, {depth=n} for its place",
       "from": "template launch",
       "text": "- Fieldnote 2.0, out on Thursday, November 12\n  - Product\n\n```cal {depth=2}\n- 2026-11-02: Build frozen\n- 2026-11-05: Review copies out\n- 2026-11-12: Launch day\n```\n",
-      "link": "https://tinylittleoffice.com/outline/#doc=-+Fieldnote+2.0%2C+out+on+Thursday%2C+November+12%0A++-+Product%0A%0A%60%60%60cal+%7Bdepth%3D2%7D%0A-+2026-11-02%3A+Build+frozen%0A-+2026-11-05%3A+Review+copies+out%0A-+2026-11-12%3A+Launch+day%0A%60%60%60",
+      "link": "https://hilltopfamilia.org/outline/#doc=-+Fieldnote+2.0%2C+out+on+Thursday%2C+November+12%0A++-+Product%0A%0A%60%60%60cal+%7Bdepth%3D2%7D%0A-+2026-11-02%3A+Build+frozen%0A-+2026-11-05%3A+Review+copies+out%0A-+2026-11-12%3A+Launch+day%0A%60%60%60",
       "json": {
         "head": {},
         "blocks": [

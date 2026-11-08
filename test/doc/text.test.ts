@@ -3,14 +3,11 @@
 import { expect, test } from 'vitest';
 import { parse, textMarkdown, textOf, textCounts, type TextNode } from '../../src/doc/index.ts';
 import { apps } from '../../src/kit/core/apps.ts';
+import calc from '../../src/apps/calc/def.ts';
 import { textLayer } from '../../src/kit/text/text-layer.ts';
 
-const tpl = async (app: string, id: string) =>
-  (
-    await apps()
-      .find((a) => a.id === app)!
-      .templates()
-  ).find((t) => t.id === id)!.doc;
+// The Calculator is out of the registry (Hilltop Familia's five apps); its source is kept, so its definition is used directly.
+const tpl = async (app: string, id: string) => (await (app === 'calc' ? calc : apps().find((a) => a.id === app)!).templates()).find((t) => t.id === id)!.doc;
 
 test('headings, paragraphs with their marks and links', () => {
   const nodes = textOf(parse('# Title\n\n###### Small\n\nSome **bold** and *italic* words with a [link](https://example.com/).\n'));
@@ -90,9 +87,7 @@ test("every text app's templates: the nodes they hold, and their Markdown writte
     }
   };
   for (const id of ['write', 'outline', 'deck', 'sheet', 'calc']) {
-    for (const t of await apps()
-      .find((a) => a.id === id)!
-      .templates()) {
+    for (const t of await (id === 'calc' ? calc : apps().find((a) => a.id === id)!).templates()) {
       const nodes = textOf(parse(t.doc));
       walk(nodes);
       const md = textMarkdown(nodes);

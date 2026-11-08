@@ -35,7 +35,6 @@ import { animFrames, animPage, animToSvg, drawOrder, frameSvg, transformOf } fro
 import { templates } from '../templates.ts';
 import def from '../def.ts';
 import draw from '../../draw/def.ts';
-import { appOf } from '../../../kit/core/apps.ts';
 import { readDrawing } from '../../draw/model.ts';
 import { iconNamed } from '../../../kit/draw/icons.ts';
 
@@ -218,7 +217,7 @@ test('view: a frame drawn with its effects and the nearest last; the playing SVG
 });
 
 test('the definition: Draw hands its drawing over, and the hand-off is live now Motion is registered; the templates read as motions', () => {
-  expect(appOf('anim')).toBe(def);
+  // Motion is out of the registry in Hilltop Familia: its hand-off from Draw is a function of the two documents all the same.
   const handoff = draw.handoffs!.find((h) => h.to === 'anim')!;
   expect(handoff.convert(DRAWING)).toBe(DRAWING);
   expect(readAnim(parse(handoff.convert(DRAWING))).shapes).toHaveLength(3);

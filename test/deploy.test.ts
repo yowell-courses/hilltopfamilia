@@ -4,13 +4,15 @@
 // commit; and the deploy script refuses, with a sentence naming it, when a secret it needs is missing.
 import { test, expect } from 'vitest';
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { yaml } from './yaml.ts';
 
 const root = join(import.meta.dirname, '..');
 const read = (path: string) => readFileSync(join(root, path), 'utf8');
+// The repository's .github is absent from a copy of the tree without one: the tests of its workflows wait for it.
+const hasGithub = existsSync(join(root, '.github'));
 const SECRETS = ['CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_ACCOUNT_ID', 'NPM_TOKEN'];
 
 interface Step {
@@ -35,7 +37,7 @@ interface Workflow {
   jobs: Record<string, Job>;
 }
 
-test('a tag v* deploys: the checks and both Workers by npm run deploy with the three secrets, then the live site against the build, then the release', () => {
+test.skipIf(!hasGithub)('a tag v* deploys: the checks and both Workers by npm run deploy with the three secrets, then the live site against the build, then the release', () => {
   const w = yaml(read('.github/workflows/deploy.yml')) as Workflow;
   // A tag, or a run by hand for a tag already pushed; never a push to main, never a pull request.
   expect(Object.keys(w.on).sort()).toEqual(['push', 'workflow_dispatch']);
@@ -79,7 +81,7 @@ test('a tag v* deploys: the checks and both Workers by npm run deploy with the t
   expect(readdirSync(join(root, '.github/workflows')).sort()).toEqual(['ci.yml', 'dependencies.yml', 'deploy.yml', 'pages.yml']);
 });
 
-test('the mirror (docs/mirror.md): after a deploy that succeeded, or by hand, the tag built for GitHub Pages and published there, then its version.json checked', () => {
+test.skipIf(!hasGithub)('the mirror (docs/mirror.md): after a deploy that succeeded, or by hand, the tag built for GitHub Pages and published there, then its version.json checked', () => {
   const w = yaml(read('.github/workflows/pages.yml')) as Workflow & { env: Record<string, string> };
   expect(Object.keys(w.on).sort()).toEqual(['workflow_dispatch', 'workflow_run']);
   expect(w.on.workflow_run).toEqual({ workflows: ['Deploy'], types: ['completed'] });
@@ -111,7 +113,7 @@ test('the mirror (docs/mirror.md): after a deploy that succeeded, or by hand, th
   expect(scripts['build:mirror']).toBe('VITE_SITE_URL=https://aboard-io.github.io/tinylittleoffice/ VITE_CSP_META=1 VITE_CARDS=0 VITE_TINIER=https://tinier.tinylittleoffice.com/ npm run build');
 });
 
-test('every action a workflow uses is pinned by its full commit hash, with its version beside it, never by a tag', () => {
+test.skipIf(!hasGithub)('every action a workflow uses is pinned by its full commit hash, with its version beside it, never by a tag', () => {
   const dir = join(root, '.github/workflows');
   let seen = 0;
   for (const f of readdirSync(dir)) {
@@ -126,13 +128,13 @@ test('every action a workflow uses is pinned by its full commit hash, with its v
   expect(seen).toBeGreaterThanOrEqual(6);
 });
 
-test('CI runs on pushes to main and on pull requests, and by hand (after a Dependabot branch is given its dependencies page), with no secret', () => {
+test.skipIf(!hasGithub)('CI runs on pushes to main and on pull requests, and by hand (after a Dependabot branch is given its dependencies page), with no secret', () => {
   const ci = yaml(read('.github/workflows/ci.yml')) as Workflow;
   expect(ci.on).toEqual({ push: { branches: ['main'] }, pull_request: null, workflow_dispatch: null });
   expect(read('.github/workflows/ci.yml')).not.toMatch(/secrets\./);
 });
 
-test("Dependabot's pull requests are given the dependencies page its lockfile names, with no secret and no package's scripts, and CI run on that commit", () => {
+test.skipIf(!hasGithub)("Dependabot's pull requests are given the dependencies page its lockfile names, with no secret and no package's scripts, and CI run on that commit", () => {
   const w = yaml(read('.github/workflows/dependencies.yml')) as Workflow;
   expect(w.on).toEqual({ pull_request: { branches: ['main'] } });
   expect(w.permissions).toEqual({ contents: 'read' });

@@ -8,7 +8,7 @@
       "for": "amounts set as $1,200.00: Cost:money in the header",
       "from": "template months",
       "text": "Month | This year:money | Last year:money\n--- | --- | ---\nAug | 39700 | 38900\nSep | 33600 | 30250\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Month+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Month+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250",
       "json": {
         "head": {},
         "blocks": [
@@ -50,7 +50,7 @@
       "for": "a cell worked out: =SUM(B1:B3), rows counted from the first data row",
       "from": "template budget",
       "text": "Item | Planned:money | Actual:money | Difference:money\n--- | --- | --- | ---\nRent | 1200 | 1200 | =C1-B1\nGroceries | 500 | 540 | =C2-B2\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Item+%7C+Planned%3Amoney+%7C+Actual%3Amoney+%7C+Difference%3Amoney%0A---+%7C+---+%7C+---+%7C+---%0ARent+%7C+1200+%7C+1200+%7C+%3DC1-B1%0AGroceries+%7C+500+%7C+540+%7C+%3DC2-B2",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Item+%7C+Planned%3Amoney+%7C+Actual%3Amoney+%7C+Difference%3Amoney%0A---+%7C+---+%7C+---+%7C+---%0ARent+%7C+1200+%7C+1200+%7C+%3DC1-B1%0AGroceries+%7C+500+%7C+540+%7C+%3DC2-B2",
       "json": {
         "head": {},
         "blocks": [
@@ -98,7 +98,7 @@
       "for": "labels against numbers: chart: bar in the head",
       "from": "template fundraising",
       "text": "---\nchart: bar\n---\nWeek | Raised so far:money | Goal:money\n--- | --- | ---\nOct 19 | 19905 | 25000\nOct 26 | 21730 | 25000\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=---%0Achart%3A+bar%0A---%0AWeek+%7C+Raised+so+far%3Amoney+%7C+Goal%3Amoney%0A---+%7C+---+%7C+---%0AOct+19+%7C+19905+%7C+25000%0AOct+26+%7C+21730+%7C+25000",
+      "link": "https://hilltopfamilia.org/sheet/#doc=---%0Achart%3A+bar%0A---%0AWeek+%7C+Raised+so+far%3Amoney+%7C+Goal%3Amoney%0A---+%7C+---+%7C+---%0AOct+19+%7C+19905+%7C+25000%0AOct+26+%7C+21730+%7C+25000",
       "json": {
         "head": {
           "chart": "bar"
@@ -142,7 +142,7 @@
       "for": "a trend: chart: line",
       "from": "template months",
       "text": "---\nchart: line\n---\nMonth | This year:money | Last year:money\n--- | --- | ---\nAug | 39700 | 38900\nSep | 33600 | 30250\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=---%0Achart%3A+line%0A---%0AMonth+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250",
+      "link": "https://hilltopfamilia.org/sheet/#doc=---%0Achart%3A+line%0A---%0AMonth+%7C+This+year%3Amoney+%7C+Last+year%3Amoney%0A---+%7C+---+%7C+---%0AAug+%7C+39700+%7C+38900%0ASep+%7C+33600+%7C+30250",
       "json": {
         "head": {
           "chart": "line"
@@ -186,7 +186,7 @@
       "for": "parts of a whole: chart: pie",
       "from": "template poll",
       "text": "---\nchart: pie\n---\nEvening | Votes:number\n--- | ---\nThursday, December 17 | 6\nFriday, December 18 | 19\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=---%0Achart%3A+pie%0A---%0AEvening+%7C+Votes%3Anumber%0A---+%7C+---%0AThursday%2C+December+17+%7C+6%0AFriday%2C+December+18+%7C+19",
+      "link": "https://hilltopfamilia.org/sheet/#doc=---%0Achart%3A+pie%0A---%0AEvening+%7C+Votes%3Anumber%0A---+%7C+---%0AThursday%2C+December+17+%7C+6%0AFriday%2C+December+18+%7C+19",
       "json": {
         "head": {
           "chart": "pie"
@@ -224,7 +224,7 @@
       "for": "where money goes: chart: sankey, rows of From | To | Amount",
       "from": "template freelancer",
       "text": "---\ntitle: A freelancer, a year\nchart: sankey\nlock: C1:C4, E7:E9\n---\nFrom | To | Amount:number | Assumption:name | Value:number\n--- | --- | --- | --- | ---\nClients | Invoiced | =hours_a_week*rate*weeks_a_year | Hours a week | 25\nInvoiced | Expenses | =expenses | Rate | 85\nInvoiced | Tax | =(invoiced-expenses)*tax_rate/100 | Weeks a year | 46\nInvoiced | Take-home | =invoiced-expenses-tax | Expenses | 6000\n| |  |  | Tax rate | 28\n| |  |  |  |\n| |  |  | Invoiced | =SUMIF(B1:B20, \"Invoiced\", C1:C20)\n| |  |  | Tax | =SUMIF(B1:B20, \"Tax\", C1:C20)\n| |  |  | Take-home | =SUMIF(B1:B20, \"Take-home\", C1:C20)\n{big=Take-home}\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=---%0Atitle%3A+A+freelancer%2C+a+year%0Achart%3A+sankey%0Alock%3A+C1%3AC4%2C+E7%3AE9%0A---%0AFrom+%7C+To+%7C+Amount%3Anumber+%7C+Assumption%3Aname+%7C+Value%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0AClients+%7C+Invoiced+%7C+%3Dhours_a_week%2Arate%2Aweeks_a_year+%7C+Hours+a+week+%7C+25%0AInvoiced+%7C+Expenses+%7C+%3Dexpenses+%7C+Rate+%7C+85%0AInvoiced+%7C+Tax+%7C+%3D%28invoiced-expenses%29%2Atax_rate%2F100+%7C+Weeks+a+year+%7C+46%0AInvoiced+%7C+Take-home+%7C+%3Dinvoiced-expenses-tax+%7C+Expenses+%7C+6000%0A%7C+%7C++%7C++%7C+Tax+rate+%7C+28%0A%7C+%7C++%7C++%7C++%7C%0A%7C+%7C++%7C++%7C+Invoiced+%7C+%3DSUMIF%28B1%3AB20%2C+%22Invoiced%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Tax+%7C+%3DSUMIF%28B1%3AB20%2C+%22Tax%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Take-home+%7C+%3DSUMIF%28B1%3AB20%2C+%22Take-home%22%2C+C1%3AC20%29%0A%7Bbig%3DTake-home%7D",
+      "link": "https://hilltopfamilia.org/sheet/#doc=---%0Atitle%3A+A+freelancer%2C+a+year%0Achart%3A+sankey%0Alock%3A+C1%3AC4%2C+E7%3AE9%0A---%0AFrom+%7C+To+%7C+Amount%3Anumber+%7C+Assumption%3Aname+%7C+Value%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---%0AClients+%7C+Invoiced+%7C+%3Dhours_a_week%2Arate%2Aweeks_a_year+%7C+Hours+a+week+%7C+25%0AInvoiced+%7C+Expenses+%7C+%3Dexpenses+%7C+Rate+%7C+85%0AInvoiced+%7C+Tax+%7C+%3D%28invoiced-expenses%29%2Atax_rate%2F100+%7C+Weeks+a+year+%7C+46%0AInvoiced+%7C+Take-home+%7C+%3Dinvoiced-expenses-tax+%7C+Expenses+%7C+6000%0A%7C+%7C++%7C++%7C+Tax+rate+%7C+28%0A%7C+%7C++%7C++%7C++%7C%0A%7C+%7C++%7C++%7C+Invoiced+%7C+%3DSUMIF%28B1%3AB20%2C+%22Invoiced%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Tax+%7C+%3DSUMIF%28B1%3AB20%2C+%22Tax%22%2C+C1%3AC20%29%0A%7C+%7C++%7C++%7C+Take-home+%7C+%3DSUMIF%28B1%3AB20%2C+%22Take-home%22%2C+C1%3AC20%29%0A%7Bbig%3DTake-home%7D",
       "json": {
         "head": {
           "title": "A freelancer, a year",
@@ -336,7 +336,7 @@
       "for": "assumptions with names: a name column, formulas that use the names",
       "from": "template converter",
       "text": "Unit:name | Amount:number | Comes to:number | In\n--- | --- | --- | ---\nMiles | 26.2 | =ROUND(miles*1.609344, 2) | kilometers\nKilometers | 10 | =ROUND(kilometers/1.609344, 2) | miles\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Unit%3Aname+%7C+Amount%3Anumber+%7C+Comes+to%3Anumber+%7C+In%0A---+%7C+---+%7C+---+%7C+---%0AMiles+%7C+26.2+%7C+%3DROUND%28miles%2A1.609344%2C+2%29+%7C+kilometers%0AKilometers+%7C+10+%7C+%3DROUND%28kilometers%2F1.609344%2C+2%29+%7C+miles",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Unit%3Aname+%7C+Amount%3Anumber+%7C+Comes+to%3Anumber+%7C+In%0A---+%7C+---+%7C+---+%7C+---%0AMiles+%7C+26.2+%7C+%3DROUND%28miles%2A1.609344%2C+2%29+%7C+kilometers%0AKilometers+%7C+10+%7C+%3DROUND%28kilometers%2F1.609344%2C+2%29+%7C+miles",
       "json": {
         "head": {},
         "blocks": [
@@ -384,7 +384,7 @@
       "for": "a model a reader cannot break: lock: C1:C6 in the head",
       "from": "template converter",
       "text": "---\nlock: C1:D12\n---\nUnit:name | Amount:number | Comes to:number | In\n--- | --- | --- | ---\nMiles | 26.2 | =ROUND(miles*1.609344, 2) | kilometers\nKilometers | 10 | =ROUND(kilometers/1.609344, 2) | miles\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=---%0Alock%3A+C1%3AD12%0A---%0AUnit%3Aname+%7C+Amount%3Anumber+%7C+Comes+to%3Anumber+%7C+In%0A---+%7C+---+%7C+---+%7C+---%0AMiles+%7C+26.2+%7C+%3DROUND%28miles%2A1.609344%2C+2%29+%7C+kilometers%0AKilometers+%7C+10+%7C+%3DROUND%28kilometers%2F1.609344%2C+2%29+%7C+miles",
+      "link": "https://hilltopfamilia.org/sheet/#doc=---%0Alock%3A+C1%3AD12%0A---%0AUnit%3Aname+%7C+Amount%3Anumber+%7C+Comes+to%3Anumber+%7C+In%0A---+%7C+---+%7C+---+%7C+---%0AMiles+%7C+26.2+%7C+%3DROUND%28miles%2A1.609344%2C+2%29+%7C+kilometers%0AKilometers+%7C+10+%7C+%3DROUND%28kilometers%2F1.609344%2C+2%29+%7C+miles",
       "json": {
         "head": {
           "lock": "C1:D12"
@@ -434,7 +434,7 @@
       "for": "days: 2027-03-01 in a :date column",
       "from": "template expenses",
       "text": "Date:date | What | Amount:money | Category:option\n--- | --- | --- | ---\n2026-10-08 | Taxi from the station | 17.40 | Travel\n2026-10-09 | Printer ink | 31.99 | Supplies\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Date%3Adate+%7C+What+%7C+Amount%3Amoney+%7C+Category%3Aoption%0A---+%7C+---+%7C+---+%7C+---%0A2026-10-08+%7C+Taxi+from+the+station+%7C+17.40+%7C+Travel%0A2026-10-09+%7C+Printer+ink+%7C+31.99+%7C+Supplies",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Date%3Adate+%7C+What+%7C+Amount%3Amoney+%7C+Category%3Aoption%0A---+%7C+---+%7C+---+%7C+---%0A2026-10-08+%7C+Taxi+from+the+station+%7C+17.40+%7C+Travel%0A2026-10-09+%7C+Printer+ink+%7C+31.99+%7C+Supplies",
       "json": {
         "head": {},
         "blocks": [
@@ -482,7 +482,7 @@
       "for": "yes or no: a :check column",
       "from": "template tracker",
       "text": "Task | Owner | Start:date | Due:date | Days:number | Status:option | Done:check\n--- | --- | --- | --- | --- | --- | ---\nWrite the brief | Ana Ruiz | =TODAY() | =C1+4 | =D1-C1+1 | Done | x\nDesign the pages | Ben Carter | =D1+1 | =C2+13 | =D2-C2+1 | Going well |\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Task+%7C+Owner+%7C+Start%3Adate+%7C+Due%3Adate+%7C+Days%3Anumber+%7C+Status%3Aoption+%7C+Done%3Acheck%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0AWrite+the+brief+%7C+Ana+Ruiz+%7C+%3DTODAY%28%29+%7C+%3DC1%2B4+%7C+%3DD1-C1%2B1+%7C+Done+%7C+x%0ADesign+the+pages+%7C+Ben+Carter+%7C+%3DD1%2B1+%7C+%3DC2%2B13+%7C+%3DD2-C2%2B1+%7C+Going+well+%7C",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Task+%7C+Owner+%7C+Start%3Adate+%7C+Due%3Adate+%7C+Days%3Anumber+%7C+Status%3Aoption+%7C+Done%3Acheck%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0AWrite+the+brief+%7C+Ana+Ruiz+%7C+%3DTODAY%28%29+%7C+%3DC1%2B4+%7C+%3DD1-C1%2B1+%7C+Done+%7C+x%0ADesign+the+pages+%7C+Ben+Carter+%7C+%3DD1%2B1+%7C+%3DC2%2B13+%7C+%3DD2-C2%2B1+%7C+Going+well+%7C",
       "json": {
         "head": {},
         "blocks": [
@@ -548,7 +548,7 @@
       "for": "rates: a :percent column",
       "from": "template habits",
       "text": "Day:date | Walk 30 minutes:check | Read 20 pages:check | Stretch:check | In bed by 11:check | Kept:percent | Habit:name | Days kept:number\n--- | --- | --- | --- | --- | --- | --- | ---\n2026-09-21 | x | x |  | x | =SUM(B1:E1)/4 | Walk | =SUM(B1:B14)\n2026-09-22 | x |  | x | x | =SUM(B2:E2)/4 | Read | =SUM(C1:C14)\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Day%3Adate+%7C+Walk+30+minutes%3Acheck+%7C+Read+20+pages%3Acheck+%7C+Stretch%3Acheck+%7C+In+bed+by+11%3Acheck+%7C+Kept%3Apercent+%7C+Habit%3Aname+%7C+Days+kept%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0A2026-09-21+%7C+x+%7C+x+%7C++%7C+x+%7C+%3DSUM%28B1%3AE1%29%2F4+%7C+Walk+%7C+%3DSUM%28B1%3AB14%29%0A2026-09-22+%7C+x+%7C++%7C+x+%7C+x+%7C+%3DSUM%28B2%3AE2%29%2F4+%7C+Read+%7C+%3DSUM%28C1%3AC14%29",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Day%3Adate+%7C+Walk+30+minutes%3Acheck+%7C+Read+20+pages%3Acheck+%7C+Stretch%3Acheck+%7C+In+bed+by+11%3Acheck+%7C+Kept%3Apercent+%7C+Habit%3Aname+%7C+Days+kept%3Anumber%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0A2026-09-21+%7C+x+%7C+x+%7C++%7C+x+%7C+%3DSUM%28B1%3AE1%29%2F4+%7C+Walk+%7C+%3DSUM%28B1%3AB14%29%0A2026-09-22+%7C+x+%7C++%7C+x+%7C+x+%7C+%3DSUM%28B2%3AE2%29%2F4+%7C+Read+%7C+%3DSUM%28C1%3AC14%29",
       "json": {
         "head": {},
         "blocks": [
@@ -620,7 +620,7 @@
       "for": "one of a few words: an :option column",
       "from": "template expenses",
       "text": "Date:date | What | Amount:money | Category:option\n--- | --- | --- | ---\n2026-10-08 | Taxi from the station | 17.40 | Travel\n2026-10-09 | Printer ink | 31.99 | Supplies\n",
-      "link": "https://tinylittleoffice.com/sheet/#doc=Date%3Adate+%7C+What+%7C+Amount%3Amoney+%7C+Category%3Aoption%0A---+%7C+---+%7C+---+%7C+---%0A2026-10-08+%7C+Taxi+from+the+station+%7C+17.40+%7C+Travel%0A2026-10-09+%7C+Printer+ink+%7C+31.99+%7C+Supplies",
+      "link": "https://hilltopfamilia.org/sheet/#doc=Date%3Adate+%7C+What+%7C+Amount%3Amoney+%7C+Category%3Aoption%0A---+%7C+---+%7C+---+%7C+---%0A2026-10-08+%7C+Taxi+from+the+station+%7C+17.40+%7C+Travel%0A2026-10-09+%7C+Printer+ink+%7C+31.99+%7C+Supplies",
       "json": {
         "head": {},
         "blocks": [

@@ -3,8 +3,12 @@
 // is drawn changes them on purpose, in its own commit.
 import { test, expect } from 'vitest';
 import { createHash } from 'node:crypto';
-import { appOf } from '../src/kit/core/apps.ts';
+import { appOf as registered } from '../src/kit/core/apps.ts';
+import draw from '../src/apps/draw/def.ts';
 import { pageSvg } from '../src/kit/draw/draw.ts';
+
+// The Drawing Tool is out of the registry (Hilltop Familia's five apps); its source is kept, so its definition is used directly.
+const appOf = (id: string) => (id === 'draw' ? draw : registered(id));
 
 const DOCS: [string, string][] = [
   ['write', '# The quay\n\nThe ferry leaves the quay at **nine** and the café closes at five.\n\n- a list\n- of two\n'],

@@ -2,11 +2,14 @@
 // the page the whole makes; a slide that shows a document builds as that document does.
 import { test, expect } from 'vitest';
 import { appOf } from '../src/kit/core/apps.ts';
+import trip from '../src/apps/trip/def.ts';
+import draw from '../src/apps/draw/def.ts';
 import { parse } from '../src/doc/index.ts';
 import { slidesOf } from '../src/apps/deck/model.ts';
 import { deckFrames, slideSteps } from '../src/apps/deck/view.ts';
 
-const def = (id: string) => appOf(id)!;
+// Trip and Draw are out of the registry (Hilltop Familia's five apps); their sources are kept, so their definitions are used directly.
+const def = (id: string) => (id === 'trip' ? trip : id === 'draw' ? draw : appOf(id)!);
 const texts = (svg: string) => [...svg.matchAll(/<text[^>]*>([^<]*)<\/text>/g)].map((m) => m[1]);
 
 test('an outline builds an item a step, from the top', () => {

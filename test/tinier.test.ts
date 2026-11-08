@@ -28,7 +28,7 @@ test('tinier: a link is kept for its time, handed back as it came, and then gone
   const store = new MemStore();
   const made = await handle(post(LINK), store, KEY, PAGE, NOW);
   expect(made.status).toBe(201);
-  expect(made.headers.get('access-control-allow-origin')).toBe('https://tinylittleoffice.com');
+  expect(made.headers.get('access-control-allow-origin')).toBe('https://hilltopfamilia.org');
   const { id, exp } = (await made.json()) as { id: string; exp: number };
   expect(id).toMatch(/^[a-z0-9]{7}$/);
   expect(exp).toBe(NOW + 3_600_000);
@@ -105,7 +105,7 @@ test('tinier: a hundred links a day from one address; the 101st is refused until
   expect(await refused.json()).toEqual({ error: 'A hundred links a day from one address; try tomorrow.' });
   // Retry-After: the seconds until the next UTC day.
   expect(refused.headers.get('retry-after')).toBe(String(Math.ceil((Date.UTC(2026, 9, 12) - (noon + 200)) / 1000)));
-  expect(refused.headers.get('access-control-allow-origin')).toBe('https://tinylittleoffice.com');
+  expect(refused.headers.get('access-control-allow-origin')).toBe('https://hilltopfamilia.org');
   expect(store.rows.size).toBe(100);
   // Reading is never braked; another address is not held back.
   const [id] = store.rows.keys();
@@ -231,7 +231,8 @@ test('tinier: no per-minute limiter and no brake in memory; the key is a secret,
   expect(read('tinier.ts')).not.toMatch(/Limiter|function brake\(/);
   expect(read('brake.ts')).not.toMatch(/Limiter|new Map/);
   expect(read('wrangler.jsonc')).not.toMatch(/BRAKE_KEY"\s*:/);
-  expect(readFileSync(new URL('../.gitignore', import.meta.url), 'utf8')).toMatch(/^\.dev\.vars$/m);
+  // .gitignore is the repository's: absent from a copy of the tree without one.
+  if (existsSync(new URL('../.gitignore', import.meta.url))) expect(readFileSync(new URL('../.gitignore', import.meta.url), 'utf8')).toMatch(/^\.dev\.vars$/m);
 });
 
 test('tinier: a copy of the site on this machine names itself, and its short links may lead only there', async () => {
@@ -243,14 +244,14 @@ test('tinier: a copy of the site on this machine names itself, and its short lin
   expect(home).toMatch(/const site = 'https:\/\/pefdev\.exe\.xyz:4178'/);
   // Without one, it is the real site.
   const real = await (await handle(req('GET', '/'), new MemStore(), KEY, page)).text();
-  expect(real).toMatch(/const site = 'https:\/\/tinylittleoffice\.com'/);
+  expect(real).toMatch(/const site = 'https:\/\/hilltopfamilia\.org'/);
 });
 
 test('tinier: SITE may name the site and its mirror, comma-separated; the API answers each by its own origin, a short link may lead under either and nowhere else (docs/mirror.md)', async () => {
   const both = 'https://tinylittleoffice.com, https://aboard-io.github.io/tinylittleoffice/';
   expect(sitesOf(both)).toEqual(['https://tinylittleoffice.com', 'https://aboard-io.github.io/tinylittleoffice']);
-  // The production shortener's var names both (tinier/wrangler.jsonc).
-  expect(readFileSync(new URL('../tinier/wrangler.jsonc', import.meta.url), 'utf8')).toMatch(/"SITE": "https:\/\/tinylittleoffice\.com,https:\/\/aboard-io\.github\.io\/tinylittleoffice"/);
+  // The production shortener's var names the site (tinier/wrangler.jsonc); the mirror is added when there is one.
+  expect(readFileSync(new URL('../tinier/wrangler.jsonc', import.meta.url), 'utf8')).toMatch(/"SITE": "https:\/\/hilltopfamilia\.org(,https:\/\/aboard-io\.github\.io\/tinylittleoffice)?"/);
   const from = (origin: string | null) => {
     const r = post(LINK);
     if (origin) r.headers.set('origin', origin);
@@ -269,7 +270,7 @@ test('tinier: SITE may name the site and its mirror, comma-separated; the API an
   }
   // One site, as before: its own origin, and no Vary.
   const one = await handle(from('https://aboard-io.github.io'), new MemStore(), KEY, PAGE, NOW);
-  expect(one.headers.get('access-control-allow-origin')).toBe('https://tinylittleoffice.com');
+  expect(one.headers.get('access-control-allow-origin')).toBe('https://hilltopfamilia.org');
   expect(one.headers.get('vary')).toBeNull();
   // The landing page: the site's own card, and every site a link may lead under.
   const page = "<meta content='{{site}}/og.png'><script>const sites = '{{sites}}'.split(',');</script><p>{{id}}</p>";

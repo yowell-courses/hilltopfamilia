@@ -6,7 +6,7 @@ license: MIT
 
 # Tiny Little Office links
 
-Tiny Little Office (https://tinylittleoffice.com) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
+Tiny Little Office (https://hilltopfamilia.org) is an office suite whose documents live entirely in their links. You make a document by writing a URL. Nothing is uploaded: opening the link shows the document in an editor, whoever opens it can change it, and the address follows every edit once the typing stops, so the new link is the new document. The document sits after the `#`, which browsers never send to a server. Save in browser is off by default, and then nothing is kept on the device; a person may turn it on, which keeps their documents in their own browser and never on a server; a short link (below) is the one thing a server holds, encrypted with a key the server never sees, until it expires.
 
 Every document is one text in one format, TLO: Markdown with a few additions. If you can write Markdown you can write any app below; each app's section says which shapes it reads, with one of its own templates as the example.
 
@@ -15,7 +15,7 @@ Every document is one text in one format, TLO: Markdown with a few additions. If
 ## The URL
 
 ```
-https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
+https://hilltopfamilia.org/<app>/#title=<title>&doc=<document>
 ```
 
 - `<app>` is one of the apps below (the table's first column).
@@ -23,7 +23,7 @@ https://tinylittleoffice.com/<app>/#title=<title>&doc=<document>
 - `title` (optional) is the document's name. `by` (optional) is who made it: your name as an agent, say. It is a claim, in your own word (below).
 - `view` (optional) opens the document another way: `pdf`, `png`, `html`, `md` or `tlo` download it as it opens, as do an app's own formats (listed under each app); `embed` is the pages alone, for a frame; on a deck, `show` opens it presenting.
 - `md=` may stand for `doc=`: it is the same text (TLO is Markdown). With no app in the path or the head, `md=` opens a text in the Word Processor.
-- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://tinylittleoffice.com/#doc=...`).
+- The document's own head may name the app instead: a `doc` that begins `---%0Aapp: sheet%0A---` needs no app in the path (`https://hilltopfamilia.org/#doc=...`).
 
 Put the parameters after `#`, exactly as shown, never after `?`. On opening, the link is rewritten into its packed form, `#/v1/<app>/<payload>`, which is what the person shares onward. Give them the link you wrote; they need not know its format.
 
@@ -37,9 +37,9 @@ There is no shared document. Whoever opens a link gets their own copy: what they
 
 ## A document inside a document
 
-Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the ten app ids (```` ```sheet ````, ```` ```calc ````, ```` ```anim ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
+Any app's document goes inside a Word Processor page, a slide or an outline item: a fence named by any of the five app ids (```` ```sheet ````, ```` ```cal ````, ```` ```outline ````…) holding that document's own TLO. Its own app draws it there, and it is edited in place. A slide with one shows it alone under the headline; an animation moves on its slide and plays when presented. A page's or a deck's PDF, and a deck's PowerPoint, carry it drawn. Put a document inside rather than link to it.
 
-Two slides, a cover and then the Moon going around the Earth, an animation on its slide: <https://tinylittleoffice.com/deck/#doc=%23%23+%3Amoon%3A+Why+the+Moon+has+phases+%7B.title%7D%0A%0A---%0A%0A%23%23+%3Amoon%3A+The+model%2C+moving%0A%0A%60%60%60anim%0A---%0Aframes%3A+16%0Afps%3A+4%0Aalt%3A+The+Moon+goes+around+the+Earth%2C+lit+from+the+left+by+the+Sun.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0Ai+%7C+2+%7C+21+%7C+8+%7C+8+%7C+0o+%7C+sun%0Ae+%7C+37+%7C+22+%7C+6+%7C+6+%7C+2b+%7C%0Ae+%7C+57+%7C+24+%7C+2+%7C+2+%7C+2+%7C%0A%0AShape+%7C+Keys%0A---+%7C+---%0A2+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+4%2C-144%2C-144%2C0%2C1%2C0%3B+8%2C-288%2C0%2C0%2C1%2C0%3B+12%2C-144%2C144%2C0%2C1%2C0%3B+15%2C-36%2C36%2C0%2C1%2C0%0A%60%60%60>
+Two slides, a cover and then the Moon going around the Earth, an animation on its slide: <https://hilltopfamilia.org/deck/#doc=%23%23+%3Amoon%3A+Why+the+Moon+has+phases+%7B.title%7D%0A%0A---%0A%0A%23%23+%3Amoon%3A+The+model%2C+moving%0A%0A%60%60%60anim%0A---%0Aframes%3A+16%0Afps%3A+4%0Aalt%3A+The+Moon+goes+around+the+Earth%2C+lit+from+the+left+by+the+Sun.%0A---%0AKind+%7C+X+%7C+Y+%7C+W+%7C+H+%7C+Style+%7C+Label%0A---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---+%7C+---%0Ai+%7C+2+%7C+21+%7C+8+%7C+8+%7C+0o+%7C+sun%0Ae+%7C+37+%7C+22+%7C+6+%7C+6+%7C+2b+%7C%0Ae+%7C+57+%7C+24+%7C+2+%7C+2+%7C+2+%7C%0A%0AShape+%7C+Keys%0A---+%7C+---%0A2+%7C+0%2C0%2C0%2C0%2C1%2C0%3B+4%2C-144%2C-144%2C0%2C1%2C0%3B+8%2C-288%2C0%2C0%2C1%2C0%3B+12%2C-144%2C144%2C0%2C1%2C0%3B+15%2C-36%2C36%2C0%2C1%2C0%0A%60%60%60>
 
 ## Three rules agents break first
 
@@ -70,14 +70,9 @@ Write ordinary Markdown: `#` headings, paragraphs, `- ` and `1. ` lists nested b
 | `outline` | Outliner | An outliner: ideas under ideas, folded and unfolded, moved around and joined; the same tree a deck or a mind map reads. |
 | `deck` | Presentation Builder | Slides: titles, bullets, two columns, big icons, other documents on a slide; or a zine, booklet, brochure, comic, poster or name badges to print and fold. |
 | `sheet` | Spreadsheet | A spreadsheet with formulas, named cells and charts; three columns to start, more as you need them. |
-| `calc` | Calculator | A calculator that shows its work: names, units and conversions, and graphs of y = f(x). |
-| `draw` | Drawing Tool | Boxes, arrows, icons and labels on a grid; or pixel art, which can become a background tile. |
-| `diagram` | Diagram Maker | Mind maps, org charts, family trees, swimlanes, timelines, Venns, seating charts and networks, drawn from a few lines. |
-| `anim` | Animator | Anything from the Drawing Tool, moving: position, depth, size, spin and turn over time, with effects for memes. |
 | `cal` | Calendar | Days and times on a month, a year or a schedule, in any time zone. |
-| `trip` | Trip Planner | A route on a map: stops in order, each with a note, and how far between them. |
 
-Before writing for an app, read its reference, which says what it reads and gives one of its own templates as the example: [write](references/write.md), [outline](references/outline.md), [deck](references/deck.md), [sheet](references/sheet.md), [calc](references/calc.md), [draw](references/draw.md), [diagram](references/diagram.md), [anim](references/anim.md), [cal](references/cal.md), [trip](references/trip.md). The files every document downloads, short links, the API and the command line are in [references/api.md](references/api.md); the keys that drive the editors in a browser are in [references/editors.md](references/editors.md).
+Before writing for an app, read its reference, which says what it reads and gives one of its own templates as the example: [write](references/write.md), [outline](references/outline.md), [deck](references/deck.md), [sheet](references/sheet.md), [cal](references/cal.md). The files every document downloads, short links, the API and the command line are in [references/api.md](references/api.md); the keys that drive the editors in a browser are in [references/editors.md](references/editors.md).
 
 ## Choosing an app
 
@@ -86,6 +81,8 @@ Before writing for an app, read its reference, which says what it reads and give
 - Ideas branching from one topic: `diagram` `mind`. People and reporting lines: `org`. A process with handoffs: `lanes`. Dates along a line: `timeline`. Overlaps: `venn`. Who sits where: `seating`. What talks to what: `net`.
 - Days and times: `cal`; tasks over weeks: `cal` with `view: gantt`. Places in order: `trip`. Things to tick off: `- [ ]` tasks in `write` or `outline`.
 - Anything else visual: `draw`; moving: `anim`.
+
+## Pictures
 
 ## The skill
 

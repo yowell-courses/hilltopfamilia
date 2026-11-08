@@ -51,6 +51,8 @@ import {
   type Hit,
 } from '../model.ts';
 import { templates } from '../templates.ts';
+// The default language is Spanish in Hilltop Familia; these tests read the words in English, as written.
+await setLanguage('en');
 import { diagramPage, era, lanesOf, layout, moment, places, regionAt, toDrawing, vennOf, type DShape } from '../view.ts';
 
 const doc = (kind: string, body: string): Doc => parse(`---\nkind: ${kind}\n---\n${body}`);
@@ -251,7 +253,7 @@ describe('commands as ops', () => {
       expect(newLaneName(['Kasse', 'bahn 2'])).toBe('Bahn 3');
       expect(charsOf(newThing(doc('seating', '- Ehrentisch: Jo\n')).block.runs)).toBe('Tisch 2: ');
     } finally {
-      await setLanguage(null);
+      await setLanguage('en');
     }
   });
   test('a thing more in a list is the line with a comma on the end, replacing it once typed', () => {

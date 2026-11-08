@@ -163,7 +163,7 @@ test("a new span goes in date order; a time written into a calendar with no zone
   const utc = '- 2027-03-01 12:00: a\n';
   expect(writeZone(readCal(parse(utc), 'UTC'), 'Asia/Tokyo')).toEqual({ zone: 'UTC', ops: [] });
   expect(writeZone(readCal(parse(utc), 'America/New_York'), 'Asia/Tokyo')).toEqual({ zone: 'America/New_York', ops: [] });
-  expect(run(utc, (doc) => putItem(doc, readCal(doc), null, timed, 'Asia/Tokyo'))).toBe('- 2027-03-01 00:00-01:00: Call\n' + utc);
+  expect(run(utc, (doc) => putItem(doc, readCal(doc, 'UTC'), null, timed, 'Asia/Tokyo'))).toBe('- 2027-03-01 00:00-01:00: Call\n' + utc);
 });
 
 test('edit, move, resize, remove, legend and view, each as operations that undo exactly', () => {

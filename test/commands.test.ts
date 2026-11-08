@@ -59,8 +59,11 @@ describe('the graph lints', () => {
       .filter((c) => !(c.id in SHADOWS))
       .map((c) => `${c.key} binds ${c.id}`);
     expect(unlisted, 'a key bound twice: give one of them its place (`at`), or list the pair in test/commands-shadows.ts with why').toStrictEqual([]);
+    // An allowance may name an app out of the registry (Hilltop Familia's five): it is kept for when the app is added back.
+    const live = new Set(['kit', 'text', 'rows', ...apps().map((a) => a.id)]);
+    const ofLiveScopes = (id: string) => id.split(' ~ ').every((c) => live.has(c.split('.')[0]));
     expect(
-      Object.keys(SHADOWS).filter((id) => !found.includes(id)),
+      Object.keys(SHADOWS).filter((id) => ofLiveScopes(id) && !found.includes(id)),
       'an allowance for a pair that no longer meets',
     ).toStrictEqual([]);
     for (const [id, why] of Object.entries(SHADOWS)) expect(why.length, `${id} needs a reason`).toBeGreaterThan(20);

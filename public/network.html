@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>What leaves your browser · Tiny Little Office</title>
-<meta name="description" content="Every request Tiny Little Office can make: when, what it carries, and what stops it." />
+<title>What leaves your browser · Hilltop Familia</title>
+<meta name="description" content="Every request Hilltop Familia can make: when, what it carries, and what stops it." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
 @font-face{font-family:'IBM Plex Sans';src:url(./fonts/IBMPlexSans-Regular.woff2) format('woff2');font-weight:400;font-display:swap}
@@ -35,12 +35,12 @@ dd{margin:0}
 </head>
 <body>
 <main>
-<p class="home"><a href="./">Tiny Little Office</a></p>
+<p class="home"><a href="./">Hilltop Familia</a></p>
 <h1>What leaves your browser</h1>
-<p>Tiny Little Office keeps a document in its link. Opening one asks the site for its own files and nothing else. This page lists every other request the site can make: when it happens, what it carries, and what stops it. The Content-Security-Policy in <code>public/_headers</code> allows these places and no others, so a request not on this list is refused by the browser itself.</p>
+<p>Hilltop Familia keeps a document in its link. Opening one asks the site for its own files and nothing else. This page lists every other request the site can make: when it happens, what it carries, and what stops it. The Content-Security-Policy in <code>public/_headers</code> allows these places and no others, so a request not on this list is refused by the browser itself.</p>
 <h2>Every request the site can make</h2>
 <section class="reach">
-<h3><code>tinylittleoffice.com</code></h3>
+<h3><code>hilltopfamilia.org</code></h3>
 <p>The site’s own files: the page, the app file (every app, the English words, the icons, the emoji and the math), its stylesheet, an app’s templates when its list opens, a language when a page is in it, and the type (IBM Plex, a face when a page’s words need it), each fetched once and kept a year.</p>
 <dl>
 <dt>When</dt><dd>while shown</dd>
@@ -51,7 +51,7 @@ dd{margin:0}
 </dl>
 </section>
 <section class="reach">
-<h3><code>tinylittleoffice.com</code></h3>
+<h3><code>hilltopfamilia.org</code></h3>
 <p>The service worker, /sw.js, with Save in browser on: it keeps the pages, the app file, its stylesheet, the Latin faces and each file a page fetches after, so the site opens offline.</p>
 <dl>
 <dt>When</dt><dd>after a tap</dd>
@@ -62,7 +62,7 @@ dd{margin:0}
 </dl>
 </section>
 <section class="reach">
-<h3><code>tinylittleoffice.com</code></h3>
+<h3><code>hilltopfamilia.org</code></h3>
 <p>A preview card, at the site’s own /card: posted when you share with a network (Bluesky, Mastodon, X, LinkedIn or the share sheet) with “Show a preview of the first page” on; fetched later by that network.</p>
 <dl>
 <dt>When</dt><dd>on share</dd>
@@ -117,7 +117,7 @@ dd{margin:0}
 </dl>
 </section>
 <section class="reach">
-<h3><code>tinier.tinylittleoffice.com</code></h3>
+<h3><code>tinier.hilltopfamilia.org</code></h3>
 <p>Short links: made or opened.</p>
 <dl>
 <dt>When</dt><dd>after a tap</dd>
@@ -143,7 +143,7 @@ dd{margin:0}
 <p>Aboard, who made the site, named at the home page’s foot and in About, a link.</p>
 <dl>
 <dt>When</dt><dd>after a tap</dd>
-<dt>Carries</dt><dd>That the visit came from Tiny Little Office (utm_source=tlo in the address); it opens in a new tab, and nothing of the document goes with it</dd>
+<dt>Carries</dt><dd>That the visit came from Hilltop Familia (utm_source=tlo in the address); it opens in a new tab, and nothing of the document goes with it</dd>
 <dt>Stopped by</dt><dd>Not following the link</dd>
 <dt>Made by</dt><dd><code>kit/ui/home.ts, kit/ui/drawer.ts</code></dd>
 <dt>Allowed by</dt><dd>none: it opens in a new tab</dd>

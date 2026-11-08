@@ -52,10 +52,10 @@ export interface Store extends Counter, CardStore {
  * The site that may call the API, and the only place a short link may lead (a local copy of the site, under `wrangler dev`,
  * names itself). The Worker's var SITE may name more than one, comma-separated, the first the site's own: each an
  * origin, or an origin and a path for a copy that is not at its host's root, as the mirror on GitHub Pages
- * ("https://tinylittleoffice.com,https://aboard-io.github.io/tinylittleoffice": docs/mirror.md). Each may call the API,
+ * ("https://hilltopfamilia.org,https://aboard-io.github.io/tinylittleoffice": docs/mirror.md). Each may call the API,
  * and a short link may lead only under one of them.
  */
-export const SITE = 'https://tinylittleoffice.com';
+export const SITE = 'https://hilltopfamilia.org';
 
 /** The sites a SITE names, each without a trailing "/". */
 export const sitesOf = (site: string): string[] =>

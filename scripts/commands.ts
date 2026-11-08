@@ -18,12 +18,7 @@ import '../src/apps/write/commands.ts';
 import '../src/apps/outline/commands.ts';
 import '../src/apps/deck/commands.ts';
 import '../src/apps/sheet/commands.ts';
-import '../src/apps/calc/commands.ts';
-import '../src/apps/draw/commands.ts';
-import '../src/apps/diagram/commands.ts';
-import '../src/apps/anim/commands.ts';
 import '../src/apps/cal/commands.ts';
-import '../src/apps/trip/commands.ts';
 import { generate } from './generated.ts';
 import { makeSkill, skillOutputs } from './make-skill.ts';
 

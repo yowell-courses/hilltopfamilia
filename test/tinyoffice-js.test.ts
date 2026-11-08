@@ -9,6 +9,8 @@ test('link() writes the plain link the shell reads', () => {
   const url = link({ app: 'sheet', title: 'Sales & costs', doc: 'Q | Sales\n--- | ---\nQ1 | 120\n', base: 'https://tinylittleoffice.com' });
   expect(url.startsWith('https://tinylittleoffice.com/sheet/#title=Sales+%26+costs&doc=')).toBe(true);
   expect(readPlain(url.slice(url.indexOf('#')), 'sheet', known)).toEqual({ app: 'sheet', text: 'Q | Sales\n--- | ---\nQ1 | 120\n', view: '', title: 'Sales & costs' });
+  const withLang = link({ app: 'deck', title: 'Guion', doc: '## 1\n', lang: 'en', base: 'https://tinylittleoffice.com' });
+  expect(withLang).toContain('lang=en');
 });
 
 test('embed() frames the embed page, which names the app and asks for the embed view', () => {

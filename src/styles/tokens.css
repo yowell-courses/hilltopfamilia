@@ -12,19 +12,19 @@
     /* The home page's wordmark (kit.css .to-header .to-brand) and the Serif look. */
     --to-font-serif: 'IBM Plex Serif', Charter, 'Bitstream Charter', 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Noto Serif', serif;
 
-    --to-bg: hsl(0 0% 97.5%);
+    --to-bg: #f8f9fa;
     --to-surface: hsl(0 0% 100%);
     --to-surface-2: hsl(240 4.8% 95.9%);
     --to-border: hsl(240 4.9% 83.9%);
     --to-border-strong: hsl(240 5% 64.9%);
-    --to-ink: hsl(240 5.9% 10%);
+    --to-ink: #333333;
     --to-ink-2: hsl(240 5.3% 26.1%);
     /* The quietest text still has to read on the greyest surface: 6.9:1 on --to-surface-2. */
     --to-ink-3: hsl(240 5.2% 33.9%);
-    --to-accent: hsl(243.4 75.4% 58.6%);
-    --to-accent-soft: hsl(226.5 100% 93.9%);
+    --to-accent: #2a4479;
+    --to-accent-soft: #e3e9f5;
     --to-on-accent: hsl(0 0% 100%);
-    --to-danger: hsl(0 72.2% 50.6%);
+    --to-danger: #a8493f;
     --to-success: hsl(142.1 76.2% 36.3%);
     /* Go, under words: the green deep enough for white words (the link guard's button). */
     --to-go: hsl(142.1 76.2% 27%);
@@ -42,7 +42,7 @@
     --to-paper-muted: hsl(240 5.2% 33.9%);
     --to-paper-line: hsl(240 4.9% 83.9%);
     --to-paper-shade: hsl(240 4.8% 95.9%);
-    --to-paper-accent: hsl(243.4 75.4% 58.6%);
+    --to-paper-accent: #2a4479;
     --to-placeholder: var(--to-ink-3);
     --to-input-bg: var(--to-surface);
     --to-input-border: var(--to-border);

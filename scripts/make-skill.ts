@@ -35,7 +35,7 @@ import { cut, examplesOf, type Example } from './shapes.ts';
 import { lint } from '../src/lint.ts';
 import { generate } from './generated.ts';
 
-const SITE = 'https://tinylittleoffice.com/';
+const SITE = 'https://hilltopfamilia.org/';
 /** The API's line, as the short guide gives it. */
 const API_LINE = `import { link, read, lint } from '${SITE}api.js'`;
 const at = (p: string) => fileURLToPath(new URL(`../${p}`, import.meta.url));
@@ -83,23 +83,25 @@ function fill(text: string, all: Templates): string {
     .replace('{{functions}}', FUNCTIONS.map(([name]) => `\`${name}\``).join(', '))
     .replace('{{commands}}', () => skillCommands())
     .replace('{{embed}}', () => embedLink(all))
-    .replace(/\{\{tpl:([a-z]+):([a-z0-9-]+)\}\}/g, (_, id: string, tpl: string) => example(all, id, tpl))
-    .replace(
-      /\{\{templates:([a-z]+)\}\}/g,
-      (_, id: string) =>
-        `Templates: ${all
-          .get(app(id).id)!
-          .map((t) => t.name)
-          .join(', ')}.`,
+    .replace(/\{\{tpl:([a-z]+):([a-z0-9-]+)\}\}/g, (_, id: string, tpl: string) => (appOf(id) ? example(all, id, tpl) : ''))
+    .replace(/\{\{templates:([a-z]+)\}\}/g, (_, id: string) =>
+      !appOf(id)
+        ? ''
+        : `Templates: ${all
+            .get(app(id).id)!
+            .map((t) => t.name)
+            .join(', ')}.`,
     )
     .replace(/\{\{exports:([a-z]+)\}\}/g, (_, id: string) => {
+      if (!appOf(id)) return '';
       const own = (app(id).exports ?? []).map((x) => `\`.${x.ext}\``);
       return own.length ? `Its own files: ${own.join(', ')}.` : '';
     })
     .replace(/ +\n/g, '\n');
 }
 
-const TEMPLATE = () => readFileSync(at('skill/tinyoffice/SKILL.tpl.md'), 'utf8');
+/** The template without the sections (`### <id>: …`) of apps that are not in the registry. */
+const TEMPLATE = () => readFileSync(at('skill/tinyoffice/SKILL.tpl.md'), 'utf8').replace(/^### ([a-z]+): [\s\S]*?(?=^##)/gm, (section, id: string) => (appOf(id) ? section : ''));
 const templatesOf = async (): Promise<Templates> => new Map(await Promise.all(apps().map(async (a) => [a.id, await a.templates()] as const)));
 
 export async function makeSkill(): Promise<string> {

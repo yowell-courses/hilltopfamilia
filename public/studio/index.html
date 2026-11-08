@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reporter Studio · Hilltop Familia</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="studio.css" />
+    <script type="module" src="studio.js"></script>
+  </head>
+  <body>
+    <div class="banner">Hilltop Familia · Internal Reporter Studio — The link is the document (no accounts or tracking)</div>
+    <main>
+      <img class="logo" src="../logo.jpg" width="190" height="143" alt="Hilltop Views" />
+      <h1>Reporter Studio</h1>
+      <p class="lede">One bookmark for every story. Write a 60-second Spanish script in 4 blocks (Deck teleprompter) and an optional Spanish Family Resource Sheet (Write).</p>
+
+      <section aria-labelledby="manual">
+        <h2 id="manual">A. Write Manually (Recommended · Zero AI)</h2>
+        <p>Open a blank 4-block Spanish template in the editor (English toolbar for you; Spanish content inside the document):</p>
+        <div class="row">
+          <a class="btn primary" data-template="problema" href="#">🛠️ Script: Problema / Solución</a>
+          <a class="btn primary" data-template="faq" href="#">❓ Script: Explainer / FAQ</a>
+          <a class="btn primary" data-template="evento" href="#">🎉 Script: Event / Community</a>
+          <a class="btn" data-template="recursos" href="#">📄 Optional: Family Resource Sheet</a>
+        </div>
+      </section>
+
+      <section aria-labelledby="ia">
+        <details>
+          <summary id="ia">✨ B. Optional: AI First-Draft Assistant (From your English or Spanish reporting)</summary>
+          <div class="details-body">
+            <p>
+              Paste your finished article or verified reporting notes. AI only proposes a starting Spanish draft with <strong>[VERIFICAR]</strong> fact-check tags—you verify every fact, rewrite in
+              your own voice, and record on camera yourself.
+            </p>
+            <label for="reporter">Your name (Student Reporter)</label>
+            <input id="reporter" type="text" autocomplete="off" placeholder="e.g. Sofía Ramírez" />
+            <label for="article">Your article or reporting notes (English or Spanish)</label>
+            <textarea id="article" rows="10" maxlength="12000" placeholder="Paste your full article or verified notes here…"></textarea>
+            <label for="format">60-Second Video Script Format</label>
+            <select id="format">
+              <option value="auto">🤖 Auto-detect (AI picks best fit)</option>
+              <option value="problema">🛠️ Problema / Solución (Includes limits of the solution)</option>
+              <option value="faq">❓ Explainer / FAQ (Preguntas frecuentes)</option>
+              <option value="evento">🎉 Event / Community (Evento / Comunidad)</option>
+            </select>
+            <div class="row">
+              <button class="btn primary" type="button" data-draft="script">✨ Generate Spanish Script Draft (Deck)</button>
+              <button class="btn" type="button" data-draft="resources">✨ Generate Spanish Family Resource Sheet (Write)</button>
+            </div>
+            <p id="status" role="status" aria-live="polite"></p>
+            <div id="result" hidden>
+              <p><strong id="result-title">Draft ready!</strong> Replace every <code>[VERIFICAR]</code> tag with confirmed facts before filming or sharing.</p>
+              <div class="row">
+                <a class="btn primary" id="open" href="#">Open Draft</a>
+                <button class="btn" type="button" id="copy">🔗 Copy Link for Editor</button>
+              </div>
+            </div>
+            <p class="note">Your text is sent once to the AI model to generate the Spanish draft and is never stored or logged on any server. Do not paste private student records.</p>
+          </div>
+        </details>
+      </section>
+
+      <section aria-labelledby="flujo">
+        <h2 id="flujo">Next Steps</h2>
+        <ol>
+          <li>Replace every <code>[VERIFICAR: …]</code> tag with confirmed facts from your reporting and read out loud to confirm a 60-second pace (~130–150 words).</li>
+          <li>Copy the URL from your browser address bar and drop it into <code>#espanol-edicion</code> for peer editing.</li>
+          <li>To film, open the approved script link on your phone in <strong>Deck</strong> teleprompter mode and record the 4 blocks on campus.</li>
+          <li>If including an optional Family Resource Sheet, use <strong>Share → Short link</strong> before posting to WhatsApp (it opens in Spanish for families automatically).</li>
+        </ol>
+      </section>
+    </main>
+  </body>
+</html>

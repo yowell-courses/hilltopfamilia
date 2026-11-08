@@ -9,6 +9,7 @@ import { slidesOf } from '../src/apps/deck/model.ts';
 import { readOutline } from '../src/apps/outline/model.ts';
 import { dayOf } from '../src/apps/cal/model.ts';
 import { apps } from '../src/kit/core/apps.ts';
+import { readdirSync } from 'node:fs';
 
 const stable = (s: string) => expect(write(parse(s))).toBe(s);
 
@@ -59,9 +60,10 @@ test('a text as an outline: the headings a tree, what follows each under it', ()
 });
 
 test('every app’s hand-offs go to apps that exist, each with a name', () => {
-  const ids = new Set(apps().map((a) => a.id));
+  // A hand-off to an app out of the registry (Hilltop Familia's five) is left out of the menu (kit/file/exports.ts): its target need only exist in the tree.
+  const ids = new Set(readdirSync(new URL('../src/apps/', import.meta.url)));
   const offered = apps().flatMap((a) => (a.handoffs ?? []).map((h) => `${a.id}→${h.to}`));
   for (const pair of offered) expect(ids.has(pair.split('→')[1])).toBe(true);
-  expect(offered).toEqual(expect.arrayContaining(['write→deck', 'write→outline', 'trip→cal', 'sheet→cal', 'outline→deck', 'draw→anim', 'diagram→draw']));
+  expect(offered).toEqual(expect.arrayContaining(['write→deck', 'write→outline', 'sheet→cal', 'outline→deck']));
   for (const a of apps()) for (const h of a.handoffs ?? []) expect(h.label().length).toBeGreaterThan(3);
 });

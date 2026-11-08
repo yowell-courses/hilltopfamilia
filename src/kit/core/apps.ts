@@ -7,18 +7,14 @@ import { lookup, type AppDef, type Doc, type Handoff } from './app.ts';
 import { siteOf } from './route.ts';
 import write from '../../apps/write/def.ts';
 import sheet from '../../apps/sheet/def.ts';
-import draw from '../../apps/draw/def.ts';
 import outline from '../../apps/outline/def.ts';
 import deck from '../../apps/deck/def.ts';
 import cal from '../../apps/cal/def.ts';
-import diagram from '../../apps/diagram/def.ts';
-import anim from '../../apps/anim/def.ts';
-import trip from '../../apps/trip/def.ts';
-import calc from '../../apps/calc/def.ts';
 import { QR_LANG, qrPicture } from '../draw/qr-picture.ts';
 import { LOCKED_LANG, lockedDoc } from '../share/locked.ts';
 
-const ALL: AppDef[] = [write, outline, deck, sheet, calc, draw, diagram, anim, cal, trip];
+// The MVP's apps only (Hilltop Familia): the rest stay in the tree, so restoring one is adding it back here.
+const ALL: AppDef[] = [write, outline, deck, sheet, cal];
 
 export const apps = (): AppDef[] => ALL;
 export const appOf = (id: string): AppDef | undefined => ALL.find((a) => a.id === id);

@@ -19,7 +19,7 @@ import { t } from '../core/i18n.ts';
 import { icon, UI } from '../draw/icons.ts';
 import { readFile, readPlain, readZip, type InZip, type Plain } from '../core/plain.ts';
 import { keepDocuments, keeping, setPrivate } from '../share/privacy.ts';
-import { go, routeHash } from '../core/route.ts';
+import { go, isLang, routeHash } from '../core/route.ts';
 import { toast } from '../core/say.ts';
 import { unzip } from './zip.ts';
 import type { ToDialog } from '../ui/dialog.ts';
@@ -97,7 +97,9 @@ export function unplain(pageApp: string) {
   const def = appOf(plain.app)!;
   const doc = plain.title ? def.retitle(plain.text, plain.title) : plain.text;
   const view = plain.view === 'show' ? '' : plain.view;
-  history.replaceState(null, '', routeHash(def.id, encodeDoc(doc), view) + (plain.view === 'show' ? '?show' : ''));
+  const lang = new URLSearchParams(location.hash.replace(/^#/, '')).get('lang') ?? '';
+  const hash = routeHash(def.id, encodeDoc(doc), view, false, null, isLang(lang) ? lang : null);
+  history.replaceState(null, '', hash + (plain.view === 'show' ? (hash.includes('?') ? '&show' : '?show') : ''));
 }
 
 /** A zip's document as it opens: a locked one is its link; one with words is called by its file's name if it names nothing. */
@@ -159,13 +161,16 @@ async function offer(docs: InZip[]) {
   d.heading = t('common-n-documents', { n: docs.length });
   d.body = html`<p class="to-hint">${t('open-nothing-is-saved-on-this')}</p>
     ${byApp.map(
-      ({ def, docs }) => html`<h3 class="to-zip-app">${def.name}</h3>
-        <ul class="to-zip-docs">
-          ${docs.map((x) => {
-            const href = opens(x);
-            return html`<li><a href=${href} @click=${(e: Event) => (e.preventDefault(), open(href))}>${icon(def.icon, 16)}<span>${appOf(x.app)!.title(x.text) || x.title || t('common-untitled')}</span></a></li>`;
-          })}
-        </ul>`,
+      ({ def, docs }) =>
+        html`<h3 class="to-zip-app">${def.name}</h3>
+          <ul class="to-zip-docs">
+            ${docs.map((x) => {
+              const href = opens(x);
+              return html`<li>
+                <a href=${href} @click=${(e: Event) => (e.preventDefault(), open(href))}>${icon(def.icon, 16)}<span>${appOf(x.app)!.title(x.text) || x.title || t('common-untitled')}</span></a>
+              </li>`;
+            })}
+          </ul>`,
     )}
     <div class="to-zip-acts">
       <button type="button" class="to-btn primary to-zip-keep" @click=${() => void keepThem()}>${icon(UI.device, 16)}<span>${t('open-keep-them-on-this-device')}</span></button>

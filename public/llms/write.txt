@@ -1,6 +1,6 @@
 # Word Processor (`write`), Tiny Little Office
 
-Words on a page: headings, lists, links and notes, a table that adds up, printed on letter or A4. A document is a link: https://tinylittleoffice.com/write/#doc=<percent-encoded TLO>
+Words on a page: headings, lists, links and notes, a table that adds up, printed on letter or A4. A document is a link: https://hilltopfamilia.org/write/#doc=<percent-encoded TLO>
 
 Markdown as it stands. `# Words {.title}` is the title, set large; `#` and `##` are headings; `{.center}`, `{.right}` or `{.justify}` at the end of a paragraph aligns it. A table works out its formulas. A fence named by any app's id (```` ```anim ````, `draw`, `diagram`, `sheet`, `trip`, `cal`, the lot) puts that document in the page as a figure, drawn by its app. `paper: a4` or `letter` in the head sets the paper (a reader in North America gets letter otherwise). Notes are listed at the end, in the editor, on paper, in the web page and in Word. an invoice is a text with its lines as a table.
 
@@ -31,6 +31,6 @@ Templates: A letter, Cover letter, Memo, Meeting notes, Minutes, Résumé, One-p
 *Late work.*
 ```
 
-As a link: <https://tinylittleoffice.com/write/#doc=%23%23+Policies%0A%0A%2ALate+work.%2A>
+As a link: <https://hilltopfamilia.org/write/#doc=%23%23+Policies%0A%0A%2ALate+work.%2A>
 
-Every shape as a document, a link and JSON: https://tinylittleoffice.com/examples/write.json. The whole description: https://tinylittleoffice.com/llms-full.txt
+Every shape as a document, a link and JSON: https://hilltopfamilia.org/examples/write.json. The whole description: https://hilltopfamilia.org/llms-full.txt

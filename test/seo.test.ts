@@ -107,13 +107,13 @@ test('the static HTML says what the rendered page shows: the apps’ names on th
 
 test('what the check finds wrong: a page left out of the sitemap, structured data that does not say the page, a template not named', () => {
   build(SITE);
-  writeFileSync(join(dist, 'sitemap.xml'), read('sitemap.xml').replace(`<url><loc>${SITE}trip/</loc>`, '<url><loc>x</loc>'));
+  writeFileSync(join(dist, 'sitemap.xml'), read('sitemap.xml').replace(`<url><loc>${SITE}outline/</loc>`, '<url><loc>x</loc>'));
   writeFileSync(join(dist, 'cal/index.html'), read('cal/index.html').replace('"BusinessApplication"', '"GameApplication"'));
   writeFileSync(join(dist, 'deck/index.html'), read('deck/index.html').replace('<li>Zine</li>', ''));
   writeFileSync(join(dist, 'robots.txt'), 'User-agent: *\nAllow: /\n');
   expect(checkSeo(dist, list)).toEqual([
     'robots.txt does not name the sitemap (Sitemap: https://office.example.org/sitemap.xml)',
-    `sitemap.xml lists x, not ${SITE}trip/`,
+    `sitemap.xml lists x, not ${SITE}outline/`,
     'deck/index.html: the first text does not name the template "Zine"',
     'cal/index.html: the JSON-LD is not the page’s WebApplication (applicationCategory)',
   ]);

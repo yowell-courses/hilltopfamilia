@@ -2,13 +2,18 @@
 // can (ViewOpts.still: print, a PDF, a PNG, a thumbnail). Under node: the Animator's view, and each placer
 // passing `still` through to the animation it places.
 import { expect, test } from 'vitest';
-import { appOf } from '../src/kit/core/apps.ts';
-import { isStill } from '../src/kit/core/app.ts';
+import { appOf as registered } from '../src/kit/core/apps.ts';
+import { isStill, lookup } from '../src/kit/core/app.ts';
+import anim from '../src/apps/anim/def.ts';
 import { parse } from '../src/doc/index.ts';
 import { frameSvg } from '../src/apps/anim/view.ts';
 import { readAnim } from '../src/apps/anim/model.ts';
 import { docToHtml } from '../src/apps/write/view.ts';
 import { deckToHtml } from '../src/apps/deck/view.ts';
+
+// The Animator is out of the registry (Hilltop Familia's five apps); its source is kept, so it is put back here, for this file only.
+const appOf = (id: string) => (id === 'anim' ? anim : registered(id));
+lookup.appOf = (id) => appOf(id);
 
 const LIFT =
   '---\nframes: 24\nfps: 8\n---\nKind | X | Y | W | H | Style | Label\n--- | --- | --- | --- | --- | --- | ---\nt | 4 | 20 | 20 | 4 | 04 | Lift off\ni | 8 | 36 | 8 | 8 | 0b | rocket\n\nShape | Keys\n--- | ---\n0 | 0,0,0,0,1,0; 23,0,-80,0,1,0,i\n1 | 0,0,0,0,1,0; 23,200,-200,80,1,-30,d\n';

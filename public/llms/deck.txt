@@ -1,6 +1,6 @@
 # Presentation Builder (`deck`), Tiny Little Office
 
-Slides: titles, bullets, two columns, big icons, other documents on a slide; or a zine, booklet, brochure, comic, poster or name badges to print and fold. A document is a link: https://tinylittleoffice.com/deck/#doc=<percent-encoded TLO>
+Slides: titles, bullets, two columns, big icons, other documents on a slide; or a zine, booklet, brochure, comic, poster or name badges to print and fold. A document is a link: https://hilltopfamilia.org/deck/#doc=<percent-encoded TLO>
 
 A slide between each `---`. The headline is `## :icon-name: Headline`, its layout an attribute: `{.title}` (a title slide), `{.two}` (two columns, a paragraph `|` between them) or `{.icon}` (bullets beside one big icon). The words are `- ` bullets nested by two spaces; `> ` lines are speaker notes; a `^[footnote]` is shown at the foot of its slide; `` `code` `` between backticks is set in a monospace face (a command, a file's name). A fence named by any app's id (```` ```anim ````, `diagram`, `draw`, `trip`, `cal`, `sheet`, the lot) puts that document on the slide, drawn by its app: an animation moves, a sheet with `chart: bar` in its head is a chart. The head may hold `theme:` (`boardroom`, `ivory`, `midnight`, `graphite`; for fun `confetti`, `sunset`, `ocean`, `bubblegum`, `arcade`, `chalkboard`; plain otherwise) and `transition:` (`cut`, `slide`, `zoom`; a fade otherwise).
 
@@ -38,6 +38,6 @@ Templates: A talk, Status update, A proposal, A pitch, A lesson, Conference talk
 - Pumpkins: $8 each, any size
 ```
 
-As a link: <https://tinylittleoffice.com/deck/#doc=%23%23+Prices%0A%0A-+Apples+and+pears%3A+%242.25+a+pound%0A-+Pumpkins%3A+%248+each%2C+any+size>
+As a link: <https://hilltopfamilia.org/deck/#doc=%23%23+Prices%0A%0A-+Apples+and+pears%3A+%242.25+a+pound%0A-+Pumpkins%3A+%248+each%2C+any+size>
 
-Every shape as a document, a link and JSON: https://tinylittleoffice.com/examples/deck.json. The whole description: https://tinylittleoffice.com/llms-full.txt
+Every shape as a document, a link and JSON: https://hilltopfamilia.org/examples/deck.json. The whole description: https://hilltopfamilia.org/llms-full.txt

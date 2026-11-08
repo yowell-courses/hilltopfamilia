@@ -12,10 +12,13 @@
 //
 // The link is the plain form, "<base><app>/#title=…&doc=…": after "#", so the document is never sent to a server,
 // and turned into the packed form when it opens. /api.js does more (packed links, reading them, comparing).
-const enc = (s) => encodeURIComponent(s).replace(/%20/g, '+').replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+const enc = (s) =>
+  encodeURIComponent(s)
+    .replace(/%20/g, '+')
+    .replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
 
-export function link({ app, doc = '', title = '', by = '', view = '', base = new URL('.', import.meta.url).href }) {
-  const q = [title && `title=${enc(title)}`, by && `by=${enc(by)}`, view && `view=${enc(view)}`, `doc=${enc(doc.replace(/\n+$/, ''))}`].filter(Boolean);
+export function link({ app, doc = '', title = '', by = '', view = '', lang = '', base = new URL('.', import.meta.url).href }) {
+  const q = [title && `title=${enc(title)}`, by && `by=${enc(by)}`, view && `view=${enc(view)}`, lang && `lang=${enc(lang)}`, `doc=${enc(doc.replace(/\n+$/, ''))}`].filter(Boolean);
   return `${base.replace(/\/?$/, '/')}${app}/#${q.join('&')}`;
 }
 

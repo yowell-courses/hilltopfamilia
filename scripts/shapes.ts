@@ -34,7 +34,7 @@ export interface Example {
   json: Doc;
 }
 
-const SITE = 'https://tinylittleoffice.com/';
+const SITE = 'https://hilltopfamilia.org/';
 
 // What a document holds, asked of its blocks.
 const any = (d: Doc, f: (b: Block) => boolean) => d.blocks.some(f);

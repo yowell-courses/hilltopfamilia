@@ -7,6 +7,14 @@ import { applyAll, parse, plainText, write } from '../../../doc/index.ts';
 import deck from '../def.ts';
 // The registry, so a sheet on a slide is drawn by its own app.
 import '../../../kit/core/apps.ts';
+import { lookup } from '../../../kit/core/app.ts';
+import anim from '../../anim/def.ts';
+import trip from '../../trip/def.ts';
+import draw from '../../draw/def.ts';
+
+// Motion, Draw and the Trip Planner are out of the registry (Hilltop Familia's five apps), their source kept: put back here, for the slides that hold them.
+const registered = lookup.appOf;
+lookup.appOf = (id) => (id === 'anim' ? anim : id === 'trip' ? trip : id === 'draw' ? draw : registered(id));
 import {
   addSlide,
   duplicateSlides,

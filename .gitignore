@@ -9,6 +9,7 @@ playwright-report/
 .wrangler/
 .vite/
 *.local
+.DS_Store
 tinier/worker-configuration.d.ts
 site/worker-configuration.d.ts
 /data/

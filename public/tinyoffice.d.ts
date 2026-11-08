@@ -8,6 +8,8 @@ export interface LinkOptions {
   by?: string;
   /** 'pdf', 'png', 'md', 'tlo' or an app's own format to download as it opens; 'show' for a deck presenting. */
   view?: string;
+  /** The language the link opens in ('en', 'es', …); the site's default when absent. */
+  lang?: string;
   /** The site; this one by default. */
   base?: string;
 }
