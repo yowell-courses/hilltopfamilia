@@ -88,8 +88,14 @@ const say = (text, error = false) => {
 
 for (const button of document.querySelectorAll('[data-draft]')) {
   button.addEventListener('click', async () => {
+    const urlInput = document.getElementById('url')?.value.trim() ?? '';
     const article = document.getElementById('article').value.trim();
-    if (article.length < 80) return say('Please paste your full article or reporting notes first (at least a few sentences).', true);
+    if (urlInput && !/^https?:\/\/\S+$/i.test(urlInput)) {
+      return say('Please enter a valid Story URL starting with https:// (or clear the URL field and paste your text below).', true);
+    }
+    if (!urlInput && article.length < 80) {
+      return say('Please enter a Story URL or paste your full article or reporting notes first (at least a few sentences).', true);
+    }
     const buttons = document.querySelectorAll('[data-draft]');
     buttons.forEach((b) => (b.disabled = true));
     document.getElementById('result').hidden = true;
@@ -101,6 +107,7 @@ for (const button of document.querySelectorAll('[data-draft]')) {
         body: JSON.stringify({
           kind: button.dataset.draft,
           format: document.getElementById('format').value,
+          ...(urlInput ? { url: urlInput } : {}),
           article,
         }),
       });

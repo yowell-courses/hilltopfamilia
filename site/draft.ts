@@ -19,6 +19,7 @@ export interface DraftRequest {
   kind: Kind;
   format: Format | 'auto';
   article: string;
+  url?: string;
 }
 
 export interface Draft {
@@ -178,6 +179,69 @@ async function gemini(key: string, system: string, user: string, call: typeof fe
   return out.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
 }
 
+const ENTITIES: Record<string, string> = {
+  '&nbsp;': ' ',
+  '&amp;': '&',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&apos;': "'",
+  '&lt;': '<',
+  '&gt;': '>',
+  '&ndash;': '–',
+  '&mdash;': '—',
+  '&rsquo;': '’',
+  '&lsquo;': '‘',
+  '&ldquo;': '“',
+  '&rdquo;': '”',
+};
+
+/** Extract readable article text from an HTML page or plain-text response. */
+export function extractArticle(raw: string): string {
+  if (!raw.includes('<')) return raw.trim();
+  const titleMatch = /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i.exec(raw) ?? /<title[^>]*>([\s\S]*?)<\/title>/i.exec(raw);
+  const pageTitle = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+  const stripped = raw
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<(?:script|style|noscript|svg|nav|header|footer|aside|form)\b[^>]*>[\s\S]*?<\/(?:script|style|noscript|svg|nav|header|footer|aside|form)>/gi, ' ');
+  const mainMatch = /<article\b[^>]*>([\s\S]*?)<\/article>/i.exec(stripped) ?? /<main\b[^>]*>([\s\S]*?)<\/main>/i.exec(stripped);
+  const toWords = (html: string) =>
+    html
+      .replace(/<\/(?:p|div|h[1-6]|li|blockquote|section|article|tr)>/gi, '\n')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+      .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+      .replace(/&(?:nbsp|amp|quot|#39|apos|lt|gt|ndash|mdash|rsquo|lsquo|ldquo|rdquo);/gi, (m) => ENTITIES[m.toLowerCase()] ?? m)
+      .replace(/[ \t]+/g, ' ')
+      .replace(/\n\s*\n+/g, '\n\n')
+      .trim();
+  const focused = mainMatch ? toWords(mainMatch[1]) : '';
+  const body = focused.length >= 80 ? focused : toWords(stripped);
+  return pageTitle && !body.startsWith(pageTitle) ? `${pageTitle}\n\n${body}` : body;
+}
+
+/** Validate that a story URL is a public http(s) address and not a local/private network target. */
+export function validStoryUrl(raw: string): URL | null {
+  try {
+    const u = new URL(raw.trim());
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+    const h = u.hostname.toLowerCase();
+    if (
+      h === 'localhost' ||
+      h === '0.0.0.0' ||
+      h === '[::1]' ||
+      h.endsWith('.local') ||
+      h.endsWith('.internal') ||
+      !h.includes('.') ||
+      /^(?:127\.|10\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.)/.test(h)
+    )
+      return null;
+    return u;
+  } catch {
+    return null;
+  }
+}
+
 export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, fetch: call = fetch }: Models): Promise<Response> {
   const url = new URL(req.url);
   if (req.method !== 'POST') return json({ error: 'POST only' }, 405);
@@ -190,11 +254,39 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
   } catch {
     return json({ error: 'bad request' }, 400);
   }
-  const article = typeof body.article === 'string' ? body.article.trim() : '';
   const kind = body.kind === 'script' || body.kind === 'resources' ? body.kind : null;
+  if (!kind) return json({ error: 'Please paste the full article (at least a few sentences).' }, 400);
   const format = body.format === 'faq' || body.format === 'evento' || body.format === 'problema' ? body.format : 'auto';
-  if (!kind || article.length < 80) return json({ error: 'Please paste the full article (at least a few sentences).' }, 400);
-  if (article.length > MAX_ARTICLE) return json({ error: `The article is too long (maximum ${MAX_ARTICLE} characters).` }, 413);
+  const rawUrl = typeof body.url === 'string' ? body.url.trim() : '';
+  const notes = typeof body.article === 'string' ? body.article.trim() : '';
+  if (notes.length > MAX_ARTICLE) return json({ error: `The article is too long (maximum ${MAX_ARTICLE} characters).` }, 413);
+  let fetched = '';
+  if (rawUrl) {
+    const target = validStoryUrl(rawUrl);
+    if (!target) return json({ error: 'Please enter a valid public Story URL (https://…).' }, 400);
+    try {
+      const res = await call(target.href, {
+        headers: {
+          accept: 'text/html,text/plain;q=0.9',
+          'user-agent': 'HilltopFamilia-Studio/1.0',
+        },
+        redirect: 'follow',
+      });
+      if (!res.ok) return json({ error: 'Could not fetch that Story URL. Please paste the article text directly below.' }, 422);
+      fetched = extractArticle(await res.text());
+    } catch {
+      return json({ error: 'Could not fetch that Story URL. Please paste the article text directly below.' }, 422);
+    }
+  }
+  const article = [fetched, notes].filter(Boolean).join('\n\n').slice(0, MAX_ARTICLE);
+  if (article.length < 80) {
+    return json(
+      {
+        error: rawUrl ? 'Could not read enough article text from that URL. Please paste the article text directly below.' : 'Please paste the full article (at least a few sentences).',
+      },
+      rawUrl ? 422 : 400,
+    );
+  }
   const request: DraftRequest = { kind, format, article };
   const { system, user } = prompt(request);
   for (let attempt = 0; attempt < 2; attempt++) {

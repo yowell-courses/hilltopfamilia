@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { build, handleDraft, prompt } from '../site/draft.ts';
+import { build, extractArticle, handleDraft, prompt, validStoryUrl } from '../site/draft.ts';
 import { link, read } from '../src/api.ts';
 
 const SCRIPT = `FORMATO: faq
@@ -80,4 +80,34 @@ test('with a Gemini key the draft comes from Gemini, the key in a header and nev
   expect(res.status).toBe(200);
   expect(seen!.key).toBe('k');
   expect(seen!.url).not.toContain('key=');
+});
+
+test('a story URL is validated, extracted from HTML, and combined with any reporting notes', async () => {
+  expect(validStoryUrl('https://www.hilltopviewsonline.com/2026/03/story/')?.hostname).toBe('www.hilltopviewsonline.com');
+  expect(validStoryUrl('http://localhost:8789/secret')).toBeNull();
+  expect(validStoryUrl('http://127.0.0.1/secret')).toBeNull();
+  expect(validStoryUrl('ftp://example.com/story')).toBeNull();
+
+  const html = `<html><head><title>Campus Grant Update</title><script>bad()</script></head><body><nav>Menu</nav><article><p>${'Students can apply for emergency grants at the main office before Friday. '.repeat(3)}</p></article></body></html>`;
+  expect(extractArticle(html)).toContain('Campus Grant Update');
+  expect(extractArticle(html)).not.toContain('bad()');
+
+  let prompted = '';
+  const captureAi = {
+    run: async (_m: string, input: { messages: { role: string; content: string }[] }) => {
+      prompted = input.messages[1].content;
+      return { response: SCRIPT };
+    },
+  };
+  const fakeFetch = (async () => new Response(html, { status: 200 })) as unknown as typeof fetch;
+  const ok = await handleDraft(post({ kind: 'script', format: 'faq', url: 'https://www.hilltopviewsonline.com/story', article: 'Extra reporter note: Spanish staff at extension 4.' }), {
+    ai: captureAi,
+    fetch: fakeFetch,
+  });
+  expect(ok.status).toBe(200);
+  expect(prompted).toContain('Campus Grant Update');
+  expect(prompted).toContain('Extra reporter note: Spanish staff at extension 4.');
+
+  const badUrl = await handleDraft(post({ kind: 'script', format: 'faq', url: 'http://localhost/internal', article: '' }), { ai: captureAi, fetch: fakeFetch });
+  expect(badUrl.status).toBe(400);
 });
