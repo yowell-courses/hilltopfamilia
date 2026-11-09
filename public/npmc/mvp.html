@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MVP &amp; Prototype — Hilltop Familia</title>
+<meta name="description" content="The minimum viable product and prototype for Hilltop Familia, a Spanish-language video and civic information channel.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="author" content="Curt Yowell">
+<meta name="theme-color" content="#2a4479">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="npmc.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/hilltop-views.jpg" alt="Hilltop Views"><span>Hilltop Familia</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Overview</a>
+      <a href="mvp.html" aria-current="page">MVP &amp; Prototype</a>
+      <a href="resources.html">Resource Requirements</a>
+    </nav>
+  </div>
+</header>
+<div class="exercise-tag"><div class="wrap">News Product Alliance · Certificate in News Product Management · Exercise: MVP and prototype</div></div>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">MVP and prototype</p>
+    <h1>The minimum viable product</h1>
+    <p class="lead">Hilltop Familia launches as a low-overhead Spanish-language video and civic information channel produced by student journalists and delivered to families on WhatsApp.</p>
+  </div>
+</section>
+
+<section aria-labelledby="hypothesis">
+  <div class="wrap">
+    <p class="eyebrow">Purpose</p>
+    <h2 id="hypothesis">What the MVP tests</h2>
+    <div class="grid three">
+      <div class="card accent"><p class="tag">Demand</p><p>Will Spanish-speaking families join and stay in a WhatsApp Community for campus and Austin news? Target: 200 active members by month six.</p></div>
+      <div class="card accent"><p class="tag">Value</p><p>Do families open and watch the videos? Target: a 25% average open/read rate on the pilot content.</p></div>
+      <div class="card accent"><p class="tag">Feasibility</p><p>Can student reporters produce a verified Spanish video in under 35 minutes? The pilot is 6 pieces of content.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="pillars">
+  <div class="wrap">
+    <p class="eyebrow">Strategic pillars</p>
+    <h2 id="pillars">How the MVP is built</h2>
+    <div class="grid three">
+      <div class="card"><h3>Lightweight, serverless technology</h3><p>Runs on a branded fork of the open-source TinyLittleOffice framework, where the link is the document. Scripts and family guides are encoded in the URL, so no content management system or database is required.</p></div>
+      <div class="card"><h3>Near-zero operating costs</h3><p>No database hosting, user subscriptions or enterprise licenses. Videos are delivered through WhatsApp, where families already communicate.</p></div>
+      <div class="card"><h3>English for reporters, Spanish for families</h3><p>Student reporters work in an English-language studio while writing Spanish scripts. Families always see a fully Spanish interface.</p></div>
+      <div class="card"><h3>Video paired with civic guides</h3><p>Each 60-second vertical video, filmed by the student who reported it, can include a companion family resource link with a bilingual glossary, deadlines, contacts and a checklist.</p></div>
+      <div class="card"><h3>Privacy by design</h3><p>Families never log in or register. There are no cookies, no tracking and no server-side logging of reading habits.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="guardrails">
+  <div class="wrap">
+    <p class="eyebrow">Guardrails</p>
+    <h2 id="guardrails">MVP standards at a glance</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th scope="row">Editorial voice</th><td>100% student-reported and student-presented on camera. No AI voiceovers or synthetic video.</td></tr>
+          <tr><th scope="row">Language</th><td>English interface for reporters; Spanish content and interface for families.</td></tr>
+          <tr><th scope="row">AI role</th><td>Strictly optional. Used only to draft a first Spanish script or resource sheet from a reporter’s own reporting. Every fact is verified by the reporter.</td></tr>
+          <tr><th scope="row">Distribution</th><td>Native vertical video plus an optional encrypted short link, delivered through a WhatsApp Community.</td></tr>
+          <tr><th scope="row">Infrastructure</th><td>TinyLittleOffice fork hosted on Cloudflare Workers at hilltopfamilia.org, with no database maintenance.</td></tr>
+          <tr><th scope="row">Audience privacy</th><td>No accounts, cookies, share buttons or server-side tracking.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="prototype">
+  <div class="wrap">
+    <p class="eyebrow">Prototype</p>
+    <h2 id="prototype">The reporter studio and 4-block video format</h2>
+    <p>Reporters use a phone-friendly studio to write a four-block, 60-second Spanish script, then film from the same script used as a teleprompter.</p>
+    <div class="shots">
+      <figure><img src="img/studio-home.jpg" loading="lazy" width="640" height="1334" alt="Reporter Studio home screen with the Hilltop Views logo and buttons for three script templates."><figcaption>Reporter Studio: choose a template.</figcaption></figure>
+      <figure><img src="img/studio-ai.jpg" loading="lazy" width="640" height="1327" alt="Optional AI first-draft assistant form with name, story URL and article fields."><figcaption>Optional AI first draft, always verified by the reporter.</figcaption></figure>
+      <figure><img src="img/studio-draft.jpg" loading="lazy" width="640" height="1318" alt="Draft ready screen with next steps and VERIFICAR fact-check tags."><figcaption>Draft ready: [VERIFICAR] tags must be replaced with confirmed facts.</figcaption></figure>
+      <figure><img src="img/deck-teleprompter.jpg" loading="lazy" width="640" height="1330" alt="Deck teleprompter view of the first script block in Spanish."><figcaption>Deck teleprompter used for filming.</figcaption></figure>
+    </div>
+    <h3 style="margin-top:2rem">Block structure by story format</h3>
+    <p>Block titles appear in Spanish, as families see them.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Block</th><th>A · Problema/Solución</th><th>B · Explicador/FAQ</th><th>C · Evento/Comunidad</th></tr></thead>
+        <tbody>
+          <tr><td>1 · 0:00–0:15</td><td>El problema</td><td>La pregunta</td><td>Qué es</td></tr>
+          <tr><td>2 · 0:15–0:30</td><td>Por qué importa</td><td>La respuesta corta</td><td>Cuándo y dónde</td></tr>
+          <tr><td>3 · 0:30–0:50</td><td>La solución y sus límites</td><td>Lo que hay que saber</td><td>Por qué ir y cuánto cuesta</td></tr>
+          <tr><td>4 · 0:50–1:05</td><td>Siguiente paso</td><td>Dónde pedir ayuda</td><td>Cómo participar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="workflow">
+  <div class="wrap">
+    <p class="eyebrow">Workflow</p>
+    <h2 id="workflow">From finished story to WhatsApp in under 35 minutes</h2>
+    <ol class="steps">
+      <li><span class="time">5–10 min</span><div><strong>Start script.</strong> The reporter opens the studio, picks a template and writes four Spanish blocks.</div></li>
+      <li><span class="time">5 min</span><div><strong>Family resource sheet (optional).</strong> The reporter creates a takeaway guide if the story needs one.</div></li>
+      <li><span class="time">5–10 min</span><div><strong>Self-edit and fact-check.</strong> The reporter reads aloud for a 60-second pace and verifies all dates, amounts and terms. Any AI draft must be fully verified.</div></li>
+      <li><span class="time">5 min</span><div><strong>Peer edit.</strong> A bilingual editor reviews the script and guide.</div></li>
+      <li><span class="time">12 min</span><div><strong>Film and caption.</strong> The reporter uses the script as a mobile teleprompter, records and adds Spanish captions.</div></li>
+      <li><span class="time">3 min</span><div><strong>WhatsApp delivery.</strong> The editor posts the video with headline, byline and optional guide link.</div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="roadmap">
+  <div class="wrap">
+    <p class="eyebrow">Roadmap</p>
+    <h2 id="roadmap">Four-week launch schedule</h2>
+    <div class="timeline">
+      <div class="card"><p class="tag">Week 1</p><h3>Fork, brand and studio setup</h3><p>Fork the framework, configure the language split and brand, build the reporter studio and deploy hilltopfamilia.org.</p></div>
+      <div class="card"><p class="tag">Week 2</p><h3>WhatsApp channel and pilot cohort</h3><p>Set up the WhatsApp Community, recruit 3–4 bilingual student journalists and run a 45-minute training.</p></div>
+      <div class="card"><p class="tag">Week 3</p><h3>Pilot production</h3><p>Produce 3 pilot videos, one per format, and test companion links on iOS and Android.</p></div>
+      <div class="card"><p class="tag">Week 4</p><h3>Soft launch to families</h3><p>Distribute the join code through HSA, First-Gen groups, Financial Aid and community partners. Publish 2 videos per week, reaching the pilot total of 6 pieces by the end of week 5.</p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="measure">
+  <div class="wrap">
+    <p class="eyebrow">Measurement</p>
+    <h2 id="measure">Measuring impact without invading privacy</h2>
+    <div class="grid three">
+      <div class="card"><h3>WhatsApp engagement</h3><p>Member growth, emoji reactions on videos and questions submitted in the community thread.</p></div>
+      <div class="card"><h3>Zero-log short links</h3><p>Short links store only encrypted text, never the decryption key, and expire automatically.</p></div>
+      <div class="card"><h3>Reporter turnaround</h3><p>Time from finished story to recorded video, with a target under 35 minutes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="risks">
+  <div class="wrap">
+    <p class="eyebrow">Risks</p>
+    <h2 id="risks">Risks and mitigations</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Factual or translation errors in Spanish content</td><td>Mandatory [VERIFICAR] tags, reporter fact-check and a bilingual peer edit before publishing.</td></tr>
+          <tr><td>Families do not join the WhatsApp Community</td><td>Distribute the join code through HSA, First-Gen groups, Financial Aid and orientation events; track member growth weekly.</td></tr>
+          <tr><td>Reporter capacity and turnover</td><td>Templates, a 45-minute training and a turnaround target under 35 minutes per video.</td></tr>
+          <tr><td>Limited analytics because of the privacy-first design</td><td>Use WhatsApp reactions, member growth, community questions and the 50-family baseline survey.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <img src="img/hilltop-views.jpg" alt="Hilltop Views">
+    <div>
+      <p>Hilltop Familia is a product of Hilltop Views, the student newsroom of St. Edward’s University, Austin, Texas.</p>
+      <p>Developed by Curt Yowell for the News Product Alliance certificate program in news product management.</p>
+      <p>© 2026 Hilltop Views</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
