@@ -18,7 +18,7 @@ Student reporters use the internal [Reporter Studio](public/studio/index.html) (
 - Your browser might save the link in history, of course. Use incognito mode if you want.
 - If you decide to save, it keeps your documents on your own device, never on a server.
 - If you save a short link (`tinier.hilltopfamilia.org`), it's encrypted with a key the server never sees.
-- If you decide to use the social sharing functionality it will make a preview card and save that on a server.
+- Social media share buttons and server-saved preview cards are removed—only direct links and encrypted short links are used to share video scripts and Family Resource Sheets without tracking.
 
 ## Five Active Apps
 - **Word Processor (`Write`)** — Spanish Family Resource Sheets and printable guides

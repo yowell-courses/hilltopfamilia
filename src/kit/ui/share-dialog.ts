@@ -227,13 +227,6 @@ export class ToShare extends LitElement {
 
   /** The one Share dialog: where the link fits, the two copies, the short link, the QR code, the short links kept here. */
   private renderShare() {
-    const def = appOf(this.app)!;
-    const share = async () => {
-      await ensureIcons(iconNames(this.doc));
-      if (this.locked) return shareNative(this.named, this.link);
-      const link = await this.networkLink();
-      return shareNative(this.heading, link, await picture(def.view(this.doc, { still: true })));
-    };
     const made = this.madeLine();
     // A link is a copy, never a shared document (Paul, 2026-10-11: "docs are not collaborative like Google Docs: that's
     // fine. Communicate it in all the languages"): said under the link, before the ways of sending it.
@@ -242,17 +235,25 @@ export class ToShare extends LitElement {
       <div class="to-share-links">
         <button type="button" class="to-btn to-share-copy to-copy-link" @click=${() => void this.copyLink(this.link)}><span>${icon(UI.link, 18)}${t('share-edit-link')}</span><small>${t('share-opens-in-editor')}</small></button>
         <button type="button" class="to-btn to-share-copy to-copy-display" @click=${() => void this.copyLink(this.displayLink)}><span>${icon(UI.view, 18)}${t('share-present-link')}</span><small>${t('share-opens-as-pages-to-read')}</small></button>
-        ${canShareNative() ? html`<button type="button" class="to-btn to-share-native" @click=${() => void share()}>${icon(UI.share, 18)}<span>${t('common-share')}</span></button>` : nothing}
       </div>
+      ${this.app === 'deck' ? html`<button type="button" class="to-btn to-copy-show" @click=${() => void copyText(this.showLink)}>${icon(UI.play, 16)}<span>${t('share-copy-show-link')}</span></button><p class="to-hint">${t('share-opens-deck-already-presenting')}</p>` : nothing}
       ${this.protect}
       <section class="to-share-section to-share-short" aria-labelledby="to-share-short-h">
         <h3 id="to-share-short-h">${t('share-short-link-that-expires')}</h3>
         ${this.short ? this.renderMade(this.short) : this.renderMaker()}
       </section>
-      ${this.renderPost()}
       ${this.renderQr()}
       ${this.renderEmbedCode()}
       ${this.renderKept()}`;
+  }
+
+  protected async shareNativeLink() {
+    if (!canShareNative()) return false;
+    const def = appOf(this.app)!;
+    await ensureIcons(iconNames(this.doc));
+    if (this.locked) return shareNative(this.named, this.link);
+    const link = await this.networkLink();
+    return shareNative(this.heading, link, await picture(def.view(this.doc, { still: true })));
   }
 
   /** A deck's show link: the same deck, opening already presenting. */
@@ -316,7 +317,7 @@ export class ToShare extends LitElement {
     this.askMastodon = false;
     void this.post('mastodon');
   }
-  private renderPost() {
+  protected renderPost() {
     const server = mastodonHost(store.get(MASTODON_KEY) ?? '');
     return html`<section class="to-share-section to-share-post" aria-labelledby="to-share-post-h">
       <h3 id="to-share-post-h">${t('share-post-link')}</h3>

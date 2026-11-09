@@ -25,7 +25,7 @@ import { store } from '../core/store.ts';
  * static host has not. The mirror on GitHub Pages is built with VITE_CARDS=0 (docs/mirror.md): no switch, and a link
  * goes to a network as itself.
  */
-export const CARDS = import.meta.env?.VITE_CARDS !== '0';
+export const CARDS = import.meta.env?.VITE_CARDS === '1';
 
 /** Where the switch's choice is kept (under Saved; for the visit under Private): '0' off, on by default. */
 const PREVIEW_KEY = 'tinyoffice.preview';
