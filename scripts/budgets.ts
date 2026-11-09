@@ -81,8 +81,8 @@ export function fetchedAtOnce(html: string): string[] {
   return [...new Set(out)];
 }
 
-/** The pages of a build: the home page, each app's and the embed page (every index.html), but not public/studio, a hand-made page the build copies and Vite does not build. */
-export const pagesOf = (dist: string): string[] => filesIn(dist).filter((f) => /(^|\/)index\.html$/.test(f) && !f.startsWith('studio/'));
+/** The pages of a build: the home page, each app's and the embed page (every index.html), but not public/studio or public/npmc, hand-made pages the build copies and Vite does not build. */
+export const pagesOf = (dist: string): string[] => filesIn(dist).filter((f) => /(^|\/)index\.html$/.test(f) && !f.startsWith('studio/') && !f.startsWith('npmc/'));
 
 /**
  * The lazy imports in a chunk: the file each `import("./…")` names, and "?" for any other `import(` (a method of that
