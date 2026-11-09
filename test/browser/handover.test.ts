@@ -93,10 +93,10 @@ test('Password… from Share: Share closes, the password dialog alone is open; c
   await until(() => !!shell.querySelector('to-write-editor to-text .tx p'));
   await openShare(shell);
   const share = await only('to-share dialog');
-  // State to keep: the QR code's Display Link chosen, the body scrolled.
-  await until(() => !!share.querySelector('.to-share-qr .to-which'));
-  share.querySelectorAll<HTMLElement>('.to-share-qr .to-which button')[1].click();
-  await until(() => share.querySelectorAll('.to-share-qr .to-which button')[1].getAttribute('aria-pressed') === 'true');
+  // State to keep: the short link's Display Link chosen, the body scrolled.
+  await until(() => !!share.querySelector('.to-share-short .to-which'));
+  share.querySelectorAll<HTMLElement>('.to-share-short .to-which button')[1].click();
+  await until(() => share.querySelectorAll('.to-share-short .to-which button')[1].getAttribute('aria-pressed') === 'true');
   // The body made shorter than what it holds, and scrolled part way down: kept across the step (the browser keeps a
   // closed dialog's scroll, Chromium and WebKit alike, since nothing is drawn again).
   const body = share.querySelector<HTMLElement>('.to-dialog-body')!;
@@ -115,7 +115,7 @@ test('Password… from Share: Share closes, the password dialog alone is open; c
   pw.querySelector<HTMLElement>('.to-dialog-head button')!.click();
   await only('to-share dialog');
   await until(() => document.activeElement === share.querySelector('.to-password-open'));
-  expect(share.querySelectorAll('.to-share-qr .to-which button')[1].getAttribute('aria-pressed')).toBe('true');
+  expect(share.querySelectorAll('.to-share-short .to-which button')[1].getAttribute('aria-pressed')).toBe('true');
   expect(body.scrollTop).toBe(top);
   // Escape, the commonest way out: Share is back the same.
   share.querySelector<HTMLButtonElement>('.to-password-open')!.click();
@@ -135,14 +135,14 @@ test('Password… from Share: Share closes, the password dialog alone is open; c
   expect(stacked).toEqual([]);
   // Share closed for good: it says so (to-close, which a step left behind would swallow), and the next Share begins
   // afresh as before, its body drawn anew, not the one kept across the steps.
-  const kept = share.querySelector('.to-share-qr')!;
+  const kept = share.querySelector('.to-share-short')!;
   share.close();
   await until(() => modals().length === 0);
   await until(() => !kept.isConnected);
   await openShare(shell);
   await only('to-share dialog');
-  await until(() => !!share.querySelector('.to-share-qr'));
-  expect(share.querySelector('.to-share-qr')).not.toBe(kept);
+  await until(() => !!share.querySelector('.to-share-short'));
+  expect(share.querySelector('.to-share-short')).not.toBe(kept);
   share.close();
   await until(() => modals().length === 0);
 });

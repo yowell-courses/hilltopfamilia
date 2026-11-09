@@ -5,16 +5,13 @@
  * (whoever opens it gets their own; their changes stay in their link); Edit link and Present link (each copies its link; Paul, 2026-10-12), and
  * the device's share sheet; Password (drawn by <to-privacy>, renderProtect, handed in as `protect`);
  * a short link that expires (the lifetimes as one row, Make, then the link with Copy; it cannot be changed or recalled
- * once made, so there is nothing more to do with it); posting the link to a service's compose box (through the link guard), under the
- * switch that sends a preview of the first page with it (kit/share/card.ts: the link then carries "/c/<id>"), a deck's show link; the QR code;
- * the embed code; the short links kept here.
+ * once made, so there is nothing more to do with it); a deck's show link; the embed code; the short links kept here.
  *
  * It gets the document through properties (`app`, `doc`, `heading`, `locked`, `payloadLength`, and
  * `linkTo`, the link the shell projects, made current first) and says back `to-link-copied` when the link (or the Display Link) is on the clipboard, so the document lives somewhere now. It is
  * drawn only while open.
  */
 import { LitElement, html, nothing, type TemplateResult } from 'lit';
-import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import { appOf, siteRoot } from '../core/apps.ts';
 import { budgetFor, encodeDoc } from '../core/codec.ts';
 import type { AppDef } from '../core/app.ts';
@@ -24,7 +21,7 @@ import { readEnvelope } from '../core/envelope.ts';
 import { ensureIcons, icon, iconNames, UI } from '../draw/icons.ts';
 import { chosenLanguage, t } from '../core/i18n.ts';
 import { dateWords } from '../core/dates.ts';
-import { picture, raster, saveFile, slug, utf8 } from '../file/exports.ts';
+import { picture, utf8 } from '../file/exports.ts';
 import { parseHash, routeHash } from '../core/route.ts';
 import { fitLine, fitWords, limitWords, roomFor, shown } from '../share/limits.ts';
 import { DEFAULT_TTL, EXPIRIES, expiresLine, SHORT_LINK_MAX, shorten, type Shortened } from '../share/short.ts';
@@ -32,7 +29,6 @@ import { dropKept, keepLink, keptLinks } from '../share/kept-links.ts';
 import { CARDS, cardFor, previewOn, setPreview, withCardId } from '../share/card.ts';
 import { pack } from '../share/privacy.ts';
 import { store } from '../core/store.ts';
-import { QR_MAX_BYTES, qrSvg } from '../draw/qr.ts';
 import { canShareNative, copyText, embedCode, mastodonHost, SERVICE_NAMES, SERVICES, shareNative, shareUrl, type Service } from '../share/share.ts';
 import { openLink } from './link-guard.ts';
 import { toast } from '../core/say.ts';
@@ -79,7 +75,6 @@ export class ToShare extends LitElement {
     shortTtl: { state: true },
     busy: { state: true },
     posting: { state: true },
-    qrDisplay: { state: true },
     shortDisplay: { state: true },
     sharing: { state: true },
     askMastodon: { state: true },
@@ -105,10 +100,8 @@ export class ToShare extends LitElement {
    * Apart from `busy`: each is one button's work, and Make and the networks never wait for each other.
    */
   declare posting: Service | null;
-  /** Which link the QR code holds, and which a short link opens: the Display Link, or the editing one. */
-  declare qrDisplay: boolean;
   declare shortDisplay: boolean;
-  /** Open: what it shows (the QR code above all) is drawn only then. */
+  /** Open: what it shows is drawn only then. */
   declare sharing: boolean;
   /** Mastodon asked for with no server known: the field for one shows. */
   declare askMastodon: boolean;
@@ -130,7 +123,6 @@ export class ToShare extends LitElement {
     this.shortTtl = savedTtl();
     this.busy = false;
     this.posting = null;
-    this.qrDisplay = false;
     this.shortDisplay = false;
     this.sharing = false;
     this.askMastodon = false;
@@ -207,13 +199,6 @@ export class ToShare extends LitElement {
       this.short = await shorten(this.shortTarget, this.shortTtl);
       keepLink({ link: this.short.short, title: this.locked ? '' : this.heading, made: Date.now(), expires: this.short.expires });
     });
-  private async saveQr(svg: string, ext: 'png' | 'svg') {
-    const file = `${(!this.locked && slug(this.heading)) || 'document'}-qr.${ext}`;
-    if (ext === 'svg') return saveFile(file, 'image/svg+xml', utf8(svg));
-    const side = 1024;
-    const png = await raster(svg.replace(/width="\d+" height="\d+"/, `width="${side}" height="${side}"`), side, side);
-    if (png) await saveFile(file, 'image/png', png);
-  }
 
   /** When the document was first written, and by whom: "Created 9 Oct 2026, 14:03 · by Paul". */
   private madeLine(): string {
@@ -225,7 +210,7 @@ export class ToShare extends LitElement {
     return [when, by].filter(Boolean).join(' · ');
   }
 
-  /** The one Share dialog: where the link fits, the two copies, the short link, the QR code, the short links kept here. */
+  /** The one Share dialog: where the link fits, the two copies, the short link, the short links kept here. */
   private renderShare() {
     const made = this.madeLine();
     // A link is a copy, never a shared document (Paul, 2026-10-11: "docs are not collaborative like Google Docs: that's
@@ -242,7 +227,6 @@ export class ToShare extends LitElement {
         <h3 id="to-share-short-h">${t('share-short-link-that-expires')}</h3>
         ${this.short ? this.renderMade(this.short) : this.renderMaker()}
       </section>
-      ${this.renderQr()}
       ${this.renderEmbedCode()}
       ${this.renderKept()}`;
   }
@@ -412,25 +396,6 @@ export class ToShare extends LitElement {
   private renderMade(short: Shortened) {
     return html`${this.renderField(short.short, 'to-short-field', t('common-short-link'))}
       <p class="to-hint to-short-expires">${expiresLine(short.expires, Date.now(), document.documentElement.lang)}</p>`;
-  }
-  /** The QR code, drawn here when the link fits in one; else why not, in a sentence. */
-  private renderQr() {
-    const bytes = new TextEncoder().encode(this.qrDisplay ? this.displayLink : this.link);
-    const fits = bytes.length <= QR_MAX_BYTES;
-    const qr = fits ? qrSvg(bytes, 4) : '';
-    return html`<section class="to-share-section to-share-qr" aria-labelledby="to-share-qr-h">
-      <h3 id="to-share-qr-h">${t('common-qr-code')}</h3>
-      ${
-        fits
-          ? html`${this.renderWhich(this.qrDisplay, (d) => (this.qrDisplay = d))}
-            <div class="to-qr-code" role="img" aria-label=${t('common-qr-code-of-this-document')}>${unsafeSVG(qr)}</div>
-            <div class="to-row">
-              <button type="button" class="to-btn" @click=${() => void this.saveQr(qr, 'png')}>${icon(UI.download, 16)}<span>PNG</span></button>
-              <button type="button" class="to-btn" @click=${() => void this.saveQr(qr, 'svg')}>${icon(UI.download, 16)}<span>SVG</span></button>
-            </div>`
-          : html`<p class="to-hint to-qr-why">${t('share-this-document-is-n-bytes', { n: bytes.length, max: QR_MAX_BYTES, over: bytes.length - QR_MAX_BYTES })}</p>`
-      }
-    </section>`;
   }
   /** The short links made on this device, folded: "2 short links kept here". */
   private renderKept() {

@@ -29,8 +29,7 @@ import { toast } from '../core/say.ts';
 import { textLayer } from '../text/text-layer.ts';
 import { textHtml } from '../text/text-view.ts';
 
-export { slug, utf8 } from '../draw/draw.ts';
-export { raster } from '../draw/raster.ts';
+export { utf8 } from '../draw/draw.ts';
 import { drawn, jpeg, raster } from '../draw/raster.ts';
 
 /* ---------- handing a file over ---------- */
@@ -43,7 +42,7 @@ type Picker = (o: { suggestedName: string; types: { accept: Record<string, strin
  * the share sheet on a phone (which has Save to Files) unless `share` is false (the Download menu has a Share of
  * its own beside it), and a download everywhere else or when refused.
  */
-export async function saveFile(name: string, mime: string, data: Uint8Array | string, share = true) {
+async function saveFile(name: string, mime: string, data: Uint8Array | string, share = true) {
   const file = new File([typeof data === 'string' ? data : (data as BlobPart)], name, { type: mime });
   const picker = (window as Window & { showSaveFilePicker?: Picker }).showSaveFilePicker;
   if (!phone() && picker && window.isSecureContext) {

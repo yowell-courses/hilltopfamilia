@@ -118,8 +118,8 @@ export function templatesOf(source: string): Template[] {
 /** The attributes a person reads (or hears read): every other attribute's value is the code's. */
 export const READ_ATTRS = new Set(['title', 'alt', 'placeholder', 'label', 'heading', 'aria-label', 'aria-description', 'aria-roledescription', 'aria-placeholder', 'aria-valuetext']);
 
-/** Words that are a word in no language: a file format's name, written so in every language (the Share dialog's QR code's PNG and SVG). Kept short. */
-export const NOT_WORDS = new Set<string>(['PNG', 'SVG']);
+/** Words that are a word in no language. Kept short. */
+export const NOT_WORDS = new Set<string>();
 
 /** Exact phrases allowed as they are, each with its reason. Kept short. */
 export const ALLOWED: Record<string, string> = {
