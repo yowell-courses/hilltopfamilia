@@ -145,4 +145,4 @@ tfoot td { font-weight: 700; background: var(--sand-soft); }
 .site-footer a { color: var(--sand); }
 .site-footer p { margin: 0 0 .4rem; }
 .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
-.site-footer img { height: 3.25rem; width: auto; border-radius: 4px; }
+.site-footer img { height: 4.75rem; width: auto; border-radius: 6px; }
