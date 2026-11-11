@@ -86,10 +86,68 @@ const say = (text, error = false) => {
   status.classList.toggle('error', error);
 };
 
+const urlEl = document.getElementById('url');
+const articleEl = document.getElementById('article');
+
+/** Fetch public story content directly in the browser (avoids datacenter IP blocks on campus sites). */
+async function fetchStoryFromUrl(rawUrl) {
+  try {
+    const u = new URL(rawUrl.trim());
+    const segments = u.pathname.split('/').filter(Boolean);
+    const slug = segments.at(-1);
+    const idMatch = segments.find((s) => /^\d{4,8}$/.test(s));
+    const endpoints = [
+      idMatch ? `${u.origin}/wp-json/wp/v2/posts/${idMatch}?_fields=title,content` : null,
+      slug ? `${u.origin}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=title,content` : null,
+    ].filter(Boolean);
+
+    for (const ep of endpoints) {
+      try {
+        const res = await fetch(ep, { headers: { accept: 'application/json' } });
+        if (res.ok) {
+          const data = await res.json();
+          const post = Array.isArray(data) ? data[0] : data;
+          if (post?.content?.rendered) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(post.content.rendered, 'text/html');
+            const title = post.title?.rendered ? parser.parseFromString(post.title.rendered, 'text/html').body.textContent : '';
+            doc.querySelectorAll('script, style, noscript, figure').forEach((el) => el.remove());
+            const text = (doc.body.textContent || '').replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n\n').trim();
+            const combined = [title, text].filter(Boolean).join('\n\n').trim();
+            if (combined.length >= 80) return combined;
+          }
+        }
+      } catch {}
+    }
+  } catch {}
+  return null;
+}
+
+let fetchingUrl = false;
+async function tryAutoFetchUrl() {
+  const url = urlEl?.value.trim();
+  if (!url || !/^https?:\/\/\S+$/i.test(url) || fetchingUrl) return;
+  if (articleEl && !articleEl.value.trim()) {
+    fetchingUrl = true;
+    say('Reading story from URL…');
+    const text = await fetchStoryFromUrl(url);
+    fetchingUrl = false;
+    if (text) {
+      articleEl.value = text;
+      say('Story loaded from URL! Review notes below or click Generate.');
+    } else {
+      say('');
+    }
+  }
+}
+
+urlEl?.addEventListener('change', tryAutoFetchUrl);
+urlEl?.addEventListener('paste', () => setTimeout(tryAutoFetchUrl, 60));
+
 for (const button of document.querySelectorAll('[data-draft]')) {
   button.addEventListener('click', async () => {
-    const urlInput = document.getElementById('url')?.value.trim() ?? '';
-    const article = document.getElementById('article').value.trim();
+    const urlInput = urlEl?.value.trim() ?? '';
+    let article = articleEl?.value.trim() ?? '';
     if (urlInput && !/^https?:\/\/\S+$/i.test(urlInput)) {
       return say('Please enter a valid Story URL starting with https:// (or clear the URL field and paste your text below).', true);
     }
@@ -99,6 +157,17 @@ for (const button of document.querySelectorAll('[data-draft]')) {
     const buttons = document.querySelectorAll('[data-draft]');
     buttons.forEach((b) => (b.disabled = true));
     document.getElementById('result').hidden = true;
+
+    // If only a URL was given, try reading it directly in the browser first
+    if (!article && urlInput) {
+      say('Reading story from URL…');
+      const loaded = await fetchStoryFromUrl(urlInput);
+      if (loaded) {
+        article = loaded;
+        if (articleEl) articleEl.value = loaded;
+      }
+    }
+
     say('Generating Spanish draft with [VERIFICAR] tags… (up to 30 seconds)');
     try {
       const res = await fetch('/api/draft', {
@@ -107,7 +176,7 @@ for (const button of document.querySelectorAll('[data-draft]')) {
         body: JSON.stringify({
           kind: button.dataset.draft,
           format: document.getElementById('format').value,
-          ...(urlInput ? { url: urlInput } : {}),
+          ...(urlInput && !article ? { url: urlInput } : {}),
           article,
         }),
       });

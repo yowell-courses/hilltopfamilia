@@ -266,20 +266,73 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
   if (rawUrl) {
     const target = validStoryUrl(rawUrl);
     if (!target) return json({ error: 'Please enter a valid public Story URL (https://…).' }, 400);
+    const headers: Record<string, string> = {
+      accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+      'accept-language': 'en-US,en;q=0.9',
+      'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"macOS"',
+      'sec-fetch-dest': 'document',
+      'sec-fetch-mode': 'navigate',
+      'sec-fetch-site': 'none',
+      'sec-fetch-user': '?1',
+      'upgrade-insecure-requests': '1',
+    };
+    let why = '';
     try {
-      const res = await call(target.href, {
-        headers: {
-          accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,*/*;q=0.5',
-          'accept-language': 'en-US,en;q=0.9,es;q=0.8',
-          'user-agent': 'Mozilla/5.0 (compatible; HilltopFamilia-Studio/1.0; +https://hilltopfamilia.org/studio/)',
-        },
-        redirect: 'follow',
-      });
-      if (!res.ok) return json({ error: 'Could not fetch that Story URL. Please paste the article text directly below.' }, 422);
-      fetched = extractArticle(await res.text());
-    } catch {
-      return json({ error: 'Could not fetch that Story URL. Please paste the article text directly below.' }, 422);
+      const res = await call(target.href, { headers, redirect: 'follow' });
+      if (res.ok) fetched = extractArticle(await res.text());
+      else why = `the site answered ${res.status}`;
+    } catch (e) {
+      why = String(e).slice(0, 80);
     }
+    // A site that turns away a page fetch from a server often serves the same story through WordPress's public REST API.
+    if (fetched.length < 80) {
+      const segments = target.pathname.split('/').filter(Boolean);
+      const slug = segments.at(-1);
+      const idMatch = segments.find((s) => /^\d{4,8}$/.test(s));
+      const candidates = [
+        idMatch ? `${target.origin}/wp-json/wp/v2/posts/${idMatch}?_fields=title,content` : null,
+        slug ? `${target.origin}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=title,content` : null,
+      ].filter(Boolean) as string[];
+      for (const ep of candidates) {
+        try {
+          const api = await call(ep, {
+            headers: {
+              accept: 'application/json',
+              'accept-language': 'en-US,en;q=0.9',
+              'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            },
+            redirect: 'follow',
+          });
+          if (api.ok) {
+            const data = (await api.json()) as any;
+            const post = Array.isArray(data) ? data[0] : data;
+            if (post?.content?.rendered) {
+              fetched = extractArticle(`<article><h1>${post.title?.rendered ?? ''}</h1>${post.content.rendered}</article>`);
+              why = '';
+              break;
+            } else {
+              why = `wp-json no post content (status ${api.status})`;
+            }
+          } else {
+            why = `wp-json answered ${api.status}`;
+          }
+        } catch (err) {
+          why = `wp-json error: ${String(err).slice(0, 60)}`;
+        }
+      }
+    }
+    if (fetched.length < 80 && notes.length < 80 && why)
+      return json(
+        {
+          error: /\b(401|403|429)\b/.test(why)
+            ? 'That website blocks automatic readers (it answered "access denied"), so the link cannot be read for you. Open the story, copy its text, and paste it into the article box below instead.'
+            : `Could not fetch that Story URL (${why}). Please paste the article text directly below.`,
+        },
+        422,
+      );
   }
   const article = [fetched, notes].filter(Boolean).join('\n\n').slice(0, MAX_ARTICLE);
   if (article.length < 80) {
