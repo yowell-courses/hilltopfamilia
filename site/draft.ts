@@ -327,9 +327,7 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
     if (fetched.length < 80 && notes.length < 80 && why)
       return json(
         {
-          error: /\b(401|403|429)\b/.test(why)
-            ? 'That website blocks automatic readers (it answered "access denied"), so the link cannot be read for you. Open the story, copy its text, and paste it into the article box below instead.'
-            : `Could not fetch that Story URL (${why}). Please paste the article text directly below.`,
+          error: `Could not fetch that Story URL: ${why}. Please paste the article text directly below.`,
         },
         422,
       );

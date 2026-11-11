@@ -93,6 +93,7 @@ const articleEl = document.getElementById('article');
 async function fetchStoryFromUrl(rawUrl) {
   try {
     const u = new URL(rawUrl.trim());
+    if (u.hostname === 'hilltopviewsonline.com') u.hostname = 'www.hilltopviewsonline.com';
     const segments = u.pathname.split('/').filter(Boolean);
     const slug = segments.at(-1);
     const idMatch = segments.find((s) => /^\d{4,8}$/.test(s));
@@ -117,9 +118,13 @@ async function fetchStoryFromUrl(rawUrl) {
             if (combined.length >= 80) return combined;
           }
         }
-      } catch {}
+      } catch (err) {
+        console.warn('WP fetch error on', ep, err);
+      }
     }
-  } catch {}
+  } catch (err) {
+    console.warn('URL parse error', err);
+  }
   return null;
 }
 
