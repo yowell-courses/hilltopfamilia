@@ -749,6 +749,8 @@ export class ToDeckEditor extends DocElement<Slide[]> {
     if (!this.isConnected || this.showing < 0) return;
     // Enter or Space on the live card's button loads the thing; the arrows still turn the slide.
     if ((e.key === 'Enter' || e.key === ' ') && (e.target as Element).closest?.('.deck-live')) return;
+    // Enter or Space on a focused control button (Next, Previous…, left focused by a click) is that button's own click: the show's key as well would turn two slides at once.
+    if ((e.key === 'Enter' || e.key === ' ') && (e.target as Element).closest?.('.ctl button')) return;
     if (runKey(e, SHOW, this)) return;
     if (e.key.length === 1 && !(e.metaKey || e.ctrlKey)) e.preventDefault();
   };
