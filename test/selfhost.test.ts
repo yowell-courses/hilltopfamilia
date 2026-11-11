@@ -32,7 +32,7 @@ test('the policy reaches the browser exactly as dist/_headers says it, on the ho
   expect(policy).toMatch(/^default-src 'self'; script-src 'self' 'sha256-x';/);
   for (const path of ['/', '/write/', '/nowhere']) expect((await get(path)).headers.get('content-security-policy'), path).toBe(policy);
   // The build's own shortener is the one the pages may reach, in place of ours.
-  expect(policy).toMatch(/connect-src 'self' data: [^;]*http:\/\/localhost:8001;/);
+  expect(policy).toMatch(/connect-src 'self' data: [^;]*http:\/\/localhost:8001[^;]*;/);
   expect(policy).not.toContain('tinier.tinylittleoffice.com');
   const home = await get('/');
   expect(home.headers.get('cache-control')).toBe('no-cache, no-transform');

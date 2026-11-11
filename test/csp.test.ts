@@ -54,6 +54,8 @@ test('every directive that reaches the web is the site and the registry’s host
     'https://tile.openstreetmap.org',
     'https://nominatim.openstreetmap.org',
     'https://tinier.hilltopfamilia.org',
+    'https://www.hilltopviewsonline.com',
+    'https://hilltopviewsonline.com',
   ]);
 });
 

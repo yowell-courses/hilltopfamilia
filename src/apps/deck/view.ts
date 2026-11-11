@@ -430,6 +430,7 @@ export function slidePage(doc: Doc, s: Slide, look: Look, shown = Infinity, o: S
   const H = o.h ?? SH;
   const L = layoutSlide(s, o);
   const cover = s.layout === 't' && s.sub < 0;
+  const prose = s.layout !== 't' && [...s.items, ...(s.layout === '2' ? s.right : [])].every((it) => it.para);
   const T = look.theme;
   const link = T.link ?? T.accent;
   // The plain theme is the page's own white; any other brings its paper and what is drawn on it.
@@ -446,7 +447,7 @@ export function slidePage(doc: Doc, s: Slide, look: Look, shown = Infinity, o: S
       const d = item.depth;
       const dot = !cover && !item.para;
       const x = col.x + (dot ? L.bodyPx * d * IN : 0);
-      if (cover || n < shown) {
+      if (cover || prose || n < shown) {
         // A deeper bullet steps in, with a smaller, hollow dot; a numbered item carries its number.
         if (dot && item.n !== undefined) svg += line(x + L.bodyPx * 0.8, y + L.bodyPx, `${item.n}.`, { px: L.bodyPx, fill: T.accent, anchor: 'end' });
         else if (dot)

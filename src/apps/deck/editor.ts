@@ -90,8 +90,6 @@ interface Mark {
   /** The footnote whose words were typed: an undo puts the caret back in it. */
   note?: number;
 }
-/** Two clicks closer together than this are a double click: show the whole slide. */
-const FAST = 350;
 
 /** Ops from an editor over a span, moved to where the span sits in the document. */
 export function offset(ops: Op[], by: number): Op[] {
@@ -133,7 +131,7 @@ export class ToDeckEditor extends DocElement<Slide[]> {
   private field: Field = 'title';
   private forwards = true;
   private settle = 0;
-  private lastClick = 0;
+  private lastTurn = 0;
   /** The slide's width in the show over its whole-screen width, 1 to 4: what two fingers set (--deck-zoom). */
   private showZoom = 1;
   /** When two fingers last lifted from the show: the tap a pinch may leave behind turns no slide. */
@@ -676,7 +674,7 @@ export class ToDeckEditor extends DocElement<Slide[]> {
   steps(i = this.showing): number {
     return i < this.slides.length ? slideSteps(this.slides[i], this.doc) : 0;
   }
-  show(i: number, shown = 0) {
+  show(i: number, shown = i >= 0 ? this.steps(i) : 0) {
     clearTimeout(this.settle);
     this.leaving = i >= 0 && this.showing >= 0 && i !== this.showing ? this.showing : -1;
     this.forwards = i >= this.showing;
@@ -708,22 +706,34 @@ export class ToDeckEditor extends DocElement<Slide[]> {
     if (this.slides.length) this.show(0);
   }
   forward() {
+    const now = performance.now();
+    if (now - this.lastTurn < 250) return;
+    this.lastTurn = now;
+    if (this.leaving >= 0) {
+      clearTimeout(this.settle);
+      this.leaving = -1;
+    }
     if (this.shown < this.steps()) this.shown++;
     else if (this.showing + 1 < this.total()) this.show(this.showing + 1);
     else this.show(-1);
   }
   back() {
+    const now = performance.now();
+    if (now - this.lastTurn < 250) return;
+    this.lastTurn = now;
+    if (this.leaving >= 0) {
+      clearTimeout(this.settle);
+      this.leaving = -1;
+    }
     if (this.shown > 0) this.shown--;
     else if (this.showing > 0) this.show(this.showing - 1, this.steps(this.showing - 1));
   }
-  private onShowClick = () => {
+  private onShowClick = (e: MouseEvent) => {
+    if ((e.target as Element)?.closest?.('.ctl, .notes, .deck-live')) return;
     const now = performance.now();
     // Two fingers zoom; they never turn a slide, nor does a tap they leave as they lift, nor one a swipe leaves.
     if (now - this.pinched < 300 || now - this.swiped < 300) return;
-    // A fast second click means "just show me the slide".
-    if (now - this.lastClick < FAST) this.shown = this.steps();
-    else this.forward();
-    this.lastClick = now;
+    this.forward();
   };
   /**
    * A finger drawn sideways across the whole slide turns it, as a book's page: to the left the next, to the right the
@@ -1036,8 +1046,23 @@ export class ToDeckEditor extends DocElement<Slide[]> {
       ${keyed(this.showing, html`<div class="frame ${motion}"><svg viewBox="0 0 ${SW} ${SH}" role="img" aria-label=${p.alt || ''}>${unsafeSVG(p.svg)}</svg></div>`)}
       <p class="sr-only" aria-live="polite">${t('deck-slide-n-of-total', { n: this.showing + 1, total })}: ${p.alt ?? ''}</p>
       <div class="ctl" role="group" aria-label=${t('deck-presentation')} @click=${(e: Event) => e.stopPropagation()}>
-        ${tool({ label: t('common-previous'), icon: ChevronUp, disabled: this.showing === 0 && this.shown === 0, does: () => this.back() })}
-        ${tool({ label: t('common-next'), icon: ChevronDown, does: () => this.forward() })}
+        ${tool({
+          label: t('common-previous'),
+          icon: ChevronUp,
+          disabled: this.showing === 0 && this.shown === 0,
+          does: (e: Event) => {
+            e?.stopPropagation?.();
+            this.back();
+          },
+        })}
+        ${tool({
+          label: t('common-next'),
+          icon: ChevronDown,
+          does: (e: Event) => {
+            e?.stopPropagation?.();
+            this.forward();
+          },
+        })}
         ${s?.noteLines.length ? tool({ label: t('common-notes'), icon: StickyNote, keys: 'N', pressed: this.noting, does: () => (this.noting = !this.noting) }) : nothing}
         ${tool({ label: this.fromLink ? t('deck-edit-this-deck') : t('common-stop-presenting'), icon: UI.close, keys: 'Esc', does: () => this.show(-1) })}
       </div>
