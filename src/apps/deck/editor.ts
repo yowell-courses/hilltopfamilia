@@ -676,7 +676,7 @@ export class ToDeckEditor extends DocElement<Slide[]> {
   steps(i = this.showing): number {
     return i < this.slides.length ? slideSteps(this.slides[i], this.doc) : 0;
   }
-  show(i: number, shown = i >= 0 ? this.steps(i) : 0) {
+  show(i: number, shown = 0) {
     clearTimeout(this.settle);
     this.leaving = i >= 0 && this.showing >= 0 && i !== this.showing ? this.showing : -1;
     this.forwards = i >= this.showing;
@@ -713,7 +713,8 @@ export class ToDeckEditor extends DocElement<Slide[]> {
     else this.show(-1);
   }
   back() {
-    if (this.showing > 0) this.show(this.showing - 1);
+    if (this.shown > 0) this.shown--;
+    else if (this.showing > 0) this.show(this.showing - 1, this.steps(this.showing - 1));
   }
   private onShowClick = () => {
     const now = performance.now();

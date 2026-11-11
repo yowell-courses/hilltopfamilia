@@ -112,6 +112,8 @@ export function build(req: DraftRequest, raw: string): Draft | null {
     .split(/^\s*={3,}\s*$/m)
     .map((p) => p.trim())
     .filter(Boolean);
+  // A stray extra divider is the model's slip: the surplus joins the last block rather than failing the draft.
+  if (parts.length > 4) parts.splice(3, parts.length - 3, parts.slice(3).join('\n\n'));
   if (parts.length !== 4) return null;
   if (req.kind === 'script') {
     const { blocks } = FORMATS[format as Format];
@@ -267,8 +269,9 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
     try {
       const res = await call(target.href, {
         headers: {
-          accept: 'text/html,text/plain;q=0.9',
-          'user-agent': 'HilltopFamilia-Studio/1.0',
+          accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,*/*;q=0.5',
+          'accept-language': 'en-US,en;q=0.9,es;q=0.8',
+          'user-agent': 'Mozilla/5.0 (compatible; HilltopFamilia-Studio/1.0; +https://hilltopfamilia.org/studio/)',
         },
         redirect: 'follow',
       });
@@ -289,7 +292,7 @@ export async function handleDraft(req: Request, { ai, geminiKey, model = MODEL, 
   }
   const request: DraftRequest = { kind, format, article };
   const { system, user } = prompt(request);
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     let text = '';
     try {
       text = geminiKey
