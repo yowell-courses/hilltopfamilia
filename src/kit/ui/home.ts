@@ -40,8 +40,7 @@ import { go, parseHash, routeHash } from '../core/route.ts';
 import { ago, forget, library, type Kept } from '../share/library.ts';
 import { keeping, onPrivacy } from '../share/privacy.ts';
 import { focusBack } from './dialog.ts';
-import { MAKER } from '../core/network.ts';
-import { repoUrl, running, type Version } from '../core/version.ts';
+import { running, type Version } from '../core/version.ts';
 
 /** Where a note to the makers goes. */
 /** Where to write: the foot's Email and About's "email us" (kit/ui/drawer.ts). */
@@ -320,11 +319,10 @@ export class ToHome extends LitElement {
         })}
       </ul>`;
   }
-  /** Whose project it is and where it was made, the beta, where its source is, and how to write: one line. "Aboard Foundry" and "GitHub" are names, said as they are in every language. */
+  /** Tiny Little Office suite [MIT License](https://github.com/aboard-io/tinylittleoffice/blob/main/LICENSE) · Copyright (c) 2026 Paul Ford · [GitHub](https://github.com/aboard-io/tinylittleoffice) */
   private foot() {
-    const [before, after = ''] = t('home-aboard-project-made-with-respect').split('{aboard}');
     return html`<footer class="to-home-foot">
-      <p>${before}<a href=${MAKER} target="_blank" rel="noopener" data-to-chrome>Aboard Foundry</a>${after} · ${t('home-beta-version')} · <a href=${repoUrl()} target="_blank" rel="noopener" data-to-chrome>GitHub</a> · <a href=${MAIL} data-to-chrome>${t('home-email')}</a>${this.version ? html` · ${this.version.tag || this.version.commit.slice(0, 7)}` : nothing}</p>
+      <p>Tiny Little Office suite <a href="https://github.com/aboard-io/tinylittleoffice/blob/main/LICENSE" target="_blank" rel="noopener" data-to-chrome>MIT License</a> · Copyright (c) 2026 Paul Ford · <a href="https://github.com/aboard-io/tinylittleoffice" target="_blank" rel="noopener" data-to-chrome>GitHub</a></p>
     </footer>`;
   }
   render() {
